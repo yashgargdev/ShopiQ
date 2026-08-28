@@ -63,6 +63,8 @@ export interface AgentTurn {
   products?: any[];
   comparison?: any;
   cart?: any;
+  /** Offers the turn made — account links, mostly — for the screen to render. */
+  actions?: Array<{ type: string; [key: string]: unknown }>;
   type?: string;
 }
 
@@ -301,6 +303,9 @@ export function useAgentSession() {
             products: payload.products,
             comparison: payload.comparison,
             cart: payload.cart,
+            // Carried so the screen can render the links a turn offers — without
+            // this an "add a delivery address" answer had no way to be acted on.
+            actions: payload.actions,
             type: payload.type,
           },
         ]);

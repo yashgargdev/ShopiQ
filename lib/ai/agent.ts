@@ -51,6 +51,7 @@ import {
   handleProfileView,
   readOrderSelection,
 } from './account-actions';
+import { handleSignInAnswer, readSignInState, startSignIn } from './signin-flow';
 import { shouldCrossSell } from './crosssell';
 import { detectLanguage, localise } from './language';
 import { coloursFor, readVariantSelection } from './variant-flow';
@@ -149,6 +150,48 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
   // yes runs it; a clear no cancels; anything else drops the action and the
   // message is handled as a fresh request.
   const pending = await loadPendingAction(context.conversationId);
+
+  // --------------------------------------------------------- sign-in answer
+  // A sign-in in progress owns the next message: an email address, a name, or
+  // a six-digit code are answers, not new shopping requests. Read first,
+  // because a bare code would otherwise be classified as a budget.
+  const signInState = readSignInState(pending);
+  if (signInState) {
+    const step = await handleSignInAnswer(message, signInState);
+
+    if (step) {
+      await savePendingAction(context.conversationId, step.result.pendingAction ?? null);
+
+      // Signed in mid-turn — carry straight on to what they were doing rather
+      // than making them ask for checkout a second time.
+      if (step.signedIn && step.resume === 'checkout') {
+        const cartContext = await buildCartContext(context, budget, toolsUsed, null);
+        const quote = await handlePurchaseQuote(cartContext, message);
+        return finishTurn(
+          context,
+          { ...quote, message: `${step.result.message} ${quote.message}` },
+          {
+            intent: 'checkout',
+            requirements: context.state,
+            toolsUsed,
+            provider: provider.name,
+            degraded: !provider.available,
+          },
+        );
+      }
+
+      return finishTurn(context, step.result, {
+        intent: 'checkout',
+        requirements: context.state,
+        toolsUsed,
+        provider: provider.name,
+        degraded: !provider.available,
+      });
+    }
+
+    // Not an answer — drop the sign-in rather than trapping them in it.
+    await savePendingAction(context.conversationId, null);
+  }
 
   // ------------------------------------------------------ which order answer
   // "SQ-2026-1062" is an answer to a question we asked, not a fresh enquiry.
@@ -440,9 +483,16 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
         // A signed-in shopper saying "I'm ready to buy" gets an exact,
         // itemised total to approve. A guest gets the Phase 3 summary and a
         // link to the checkout page, because there is nobody to charge yet.
+        // Signed out? Sign them in first.
+        //
+        // Guest checkout took the payment and created the account afterwards,
+        // but never established a session — so the customer paid and was then
+        // told they needed to sign in to see the order they had just bought.
+        // Doing it first means the order has an owner from the moment it
+        // exists, and their saved addresses are available to choose from.
         result = shopper
           ? await handlePurchaseQuote(cartContext, message)
-          : await handleCheckout(cartContext);
+          : startSignIn('checkout');
         break;
       default:
         result = await handleCrossSell(cartContext, await pickCrossSellAnchor(cartContext, context));

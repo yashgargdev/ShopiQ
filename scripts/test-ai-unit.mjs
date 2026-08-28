@@ -496,6 +496,36 @@ const parked = readOrderSelection({
   action: SELECT_ORDER,
   arguments: { kind: 'cancel', offered: ['SQ-2026-1', 'SQ-2026-2'], reason: 'cancel my order' },
 });
+
+// ============================================================ sign-in state
+section('Conversational sign-in state');
+
+const { readSignInState, SIGN_IN } = await import('../lib/ai/signin-flow.ts');
+
+check('a null pending action is safe', readSignInState(null) === null);
+check(
+  'another kind of pending action is not read as a sign-in',
+  readSignInState({ action: 'select_variant', arguments: { stage: 'colour' } }) === null,
+);
+
+const waiting = readSignInState({
+  action: SIGN_IN,
+  arguments: { stage: 'code', email: 'a@b.com', firstName: 'Yash', resume: 'checkout' },
+});
+check('a parked sign-in is read back', waiting !== null && waiting.stage === 'code');
+check('the email survives', waiting?.email === 'a@b.com');
+check('what to resume survives', waiting?.resume === 'checkout');
+
+// The stage decides which branch runs and therefore what is done with the
+// message. An unrecognised one must not be honoured.
+check(
+  'an unknown stage is refused',
+  readSignInState({ action: SIGN_IN, arguments: { stage: 'grant_admin', email: 'a@b.com' } }) === null,
+);
+check(
+  'a resume target we do not support is dropped',
+  readSignInState({ action: SIGN_IN, arguments: { stage: 'email', resume: 'refund' } })?.resume === null,
+);
 check('a parked cancellation is read back', parked !== null && parked.kind === 'cancel');
 check('the offered orders survive', parked?.offered.length === 2, JSON.stringify(parked?.offered));
 check('the original wording survives', parked?.reason === 'cancel my order');

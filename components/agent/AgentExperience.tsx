@@ -299,6 +299,7 @@ export function AgentExperience() {
             <AgentDetailPrompt agent={agent} missing={checkout.missing} />
           ) : null}
           {quote ? <AgentQuoteCard agent={agent} quote={quote} busy={state === 'payment'} /> : null}
+          <AgentAccountLinks actions={latest?.actions ?? []} />
         </div>
       </div>
 
@@ -504,6 +505,52 @@ function AgentCartStrip({ cart }: { cart: any }) {
 }
 
 /** Asks for whatever is still missing — one thing at a time, conversationally. */
+/**
+ * Links into the account pages, when a turn asks for something that lives
+ * there.
+ *
+ * The agent screen is full-bleed with no navigation of its own, so an answer
+ * like "add a delivery address and I'll pick straight back up" was a dead end:
+ * the assistant emitted an `add_address` action and nothing rendered it. These
+ * carry no id — the page resolves the customer from the session — so a link
+ * can never be pointed at somebody else's data.
+ */
+const ACCOUNT_LINKS: Record<string, { href: string; label: string }> = {
+  add_address: { href: '/account/addresses', label: 'Add a delivery address' },
+  view_addresses: { href: '/account/addresses', label: 'My addresses' },
+  view_profile: { href: '/account', label: 'My profile' },
+  view_orders: { href: '/account/orders', label: 'My orders' },
+};
+
+function AgentAccountLinks({ actions }: { actions?: Array<{ type: string }> }) {
+  const links = (actions ?? [])
+    .map((action) => ACCOUNT_LINKS[action.type])
+    .filter((link): link is { href: string; label: string } => Boolean(link));
+
+  if (links.length === 0) return null;
+
+  // De-duplicate: a turn may offer both "my addresses" and "add one".
+  const seen = new Set<string>();
+  const unique = links.filter((link) => !seen.has(link.href) && seen.add(link.href));
+
+  return (
+    <div className="flex flex-wrap justify-center gap-2">
+      {unique.map((link) => (
+        <a
+          key={link.href}
+          href={link.href}
+          className="inline-flex h-10 items-center gap-2 rounded-full border border-[rgba(247,147,30,.45)] bg-[rgba(247,147,30,.08)] px-4 text-[13.5px] font-medium text-[#F7931E] transition-colors hover:border-[rgba(247,147,30,.85)]"
+        >
+          {link.label}
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      ))}
+    </div>
+  );
+}
+
 function AgentDetailPrompt({ agent, missing }: { agent: any; missing: string[] }) {
   const next = missing[0];
   const [value, setValue] = useState('');

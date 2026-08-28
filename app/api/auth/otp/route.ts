@@ -4,8 +4,8 @@ import { jsonOk, withErrorHandling, badRequest } from '@/lib/api/response';
 import { supabaseServer } from '@/lib/supabase/server';
 import { adminClient } from '@/lib/supabase/admin';
 import { checkRateLimit } from '@/lib/ai/rate-limit';
-import { looksLikeEmail, normalisePhone } from '@/lib/checkout/guest';
-import { recordMoneyEvent } from '@/lib/payments/audit';
+import { looksLikeEmail } from '@/lib/checkout/guest';
+import { OTP_LIMITS, accountExists, sendCode, verifyCode } from '@/lib/auth/otp';
 
 /**
  * Passwordless sign-in by emailed code.
@@ -41,23 +41,6 @@ const bodySchema = z
     phone: z.string().trim().max(24).nullish(),
   })
   .strict();
-
-/**
- * Deliberately tight. Sending a code costs an email and lets an attacker
- * pester a mailbox; verifying is a guessing oracle against a six-digit space.
- */
-const OTP_LIMITS = {
-  send: { limit: 4, windowMs: 10 * 60_000 },
-  verify: { limit: 8, windowMs: 10 * 60_000 },
-  /**
-   * `check` answers whether an address already has an account, which is an
-   * account-enumeration oracle — someone can ask it repeatedly to learn who
-   * shops here. The two-step sign-in this product wants cannot be built
-   * without it, so it is instead throttled hard per IP: enough for a person
-   * mistyping their address, useless for harvesting a list.
-   */
-  check: { limit: 12, windowMs: 10 * 60_000 },
-} as const;
 
 function clientIp(request: Request): string {
   return (
@@ -109,17 +92,11 @@ export const POST = withErrorHandling(async (request: Request) => {
       );
     }
 
-    const { data: existing } = await adminClient()
-      .from('customers')
-      .select('id')
-      .ilike('email', normalised)
-      .maybeSingle();
-
     return jsonOk(
       {
         // Nothing but the boolean. No name, no phone, no order history —
         // knowing an account exists must not reveal anything about it.
-        exists: Boolean(existing),
+        exists: await accountExists(normalised),
         email: normalised,
       },
       { headers: { 'Cache-Control': 'no-store' } },
@@ -128,81 +105,30 @@ export const POST = withErrorHandling(async (request: Request) => {
 
   // ---------------------------------------------------------------- send
   if (action === 'send') {
-    for (const key of [`otp:send:${normalised}`, `otp:send:ip:${ip}`]) {
-      const verdict = checkRateLimit(key, OTP_LIMITS.send);
-      if (!verdict.allowed) {
-        return NextResponse.json(
-          {
-            error: {
-              code: 'RATE_LIMITED',
-              message: `Too many codes requested. Try again in ${verdict.retryAfter} seconds.`,
-            },
-          },
-          { status: 429, headers: { 'Retry-After': String(verdict.retryAfter) } },
-        );
-      }
-    }
-
-    // Whether an account already exists is looked up so the SERVER can decide
-    // what to do next — but it is never told to the caller. "This email has no
-    // account" is an account-enumeration oracle, and the flow is identical
-    // either way, so there is nothing to gain by disclosing it.
-    const { data: existing } = await adminClient()
-      .from('customers')
-      .select('id')
-      .ilike('email', normalised)
-      .maybeSingle();
-
-    // Details supplied for a NEW account ride along in user_metadata and are
-    // written to `customers` only after the code is verified. Until the
-    // mailbox is proven, an unverified name and phone are just a claim.
-    const firstName = parsed.data.firstName?.trim() ?? '';
-    const lastName = parsed.data.lastName?.trim() ?? '';
-    const fullName = [firstName, lastName].filter(Boolean).join(' ').slice(0, 120);
-    const phone = parsed.data.phone ? normalisePhone(parsed.data.phone) : null;
-
-    if (!existing && parsed.data.phone && !phone) {
-      throw badRequest("That phone number doesn't look right. Use 10 digits, like +91 98765 43210.");
-    }
-
-    const { error } = await supabase.auth.signInWithOtp({
+    const sent = await sendCode({
       email: normalised,
-      options: {
-        shouldCreateUser: true,
-        data: fullName || phone ? { full_name: fullName || null, phone } : undefined,
-      },
+      scope: `ip:${ip}`,
+      firstName: parsed.data.firstName,
+      lastName: parsed.data.lastName,
+      phone: parsed.data.phone,
     });
 
-    if (error) {
-      // Rate limits from the auth provider are surfaced as such; anything else
-      // is reported generically rather than echoing provider internals.
-      const rateLimited = /rate|limit|too many/i.test(error.message);
+    if (!sent.ok) {
+      const status =
+        sent.code === 'RATE_LIMITED' ? 429 : sent.code === 'INVALID_PHONE' ? 400 : 502;
       return NextResponse.json(
+        { error: { code: sent.code, message: sent.message } },
         {
-          error: {
-            code: rateLimited ? 'RATE_LIMITED' : 'INTERNAL_ERROR',
-            message: rateLimited
-              ? 'Too many codes requested. Please wait a minute and try again.'
-              : "I couldn't send the code just now. Please try again.",
-          },
+          status,
+          ...(sent.code === 'RATE_LIMITED'
+            ? { headers: { 'Retry-After': String(sent.retryAfter) } }
+            : {}),
         },
-        { status: rateLimited ? 429 : 502 },
       );
     }
 
-    await recordMoneyEvent({
-      event: 'confirmation_requested',
-      customerId: existing?.id ?? null,
-      // The address is not written to the audit trail; only that a code went out.
-      detail: { step: 'otp_sent', returning: Boolean(existing) },
-    });
-
     return jsonOk(
-      {
-        sent: true,
-        // Same shape and same wording regardless of whether the account exists.
-        message: `I've emailed a 6-digit code to ${normalised}. Enter it to continue.`,
-      },
+      { sent: true, message: sent.message },
       { headers: { 'Cache-Control': 'no-store' } },
     );
   }
@@ -210,78 +136,27 @@ export const POST = withErrorHandling(async (request: Request) => {
   // -------------------------------------------------------------- verify
   if (!token) throw badRequest('Enter the code from your email.');
 
-  for (const key of [`otp:verify:${normalised}`, `otp:verify:ip:${ip}`]) {
-    const verdict = checkRateLimit(key, OTP_LIMITS.verify);
-    if (!verdict.allowed) {
-      return NextResponse.json(
-        {
-          error: {
-            code: 'RATE_LIMITED',
-            message: `Too many attempts. Try again in ${verdict.retryAfter} seconds.`,
-          },
-        },
-        { status: 429, headers: { 'Retry-After': String(verdict.retryAfter) } },
-      );
-    }
-  }
+  const verified = await verifyCode({ email: normalised, token, scope: `ip:${ip}` });
 
-  const { data, error } = await supabase.auth.verifyOtp({
-    email: normalised,
-    token,
-    type: 'email',
-  });
-
-  if (error || !data.user) {
+  if (!verified.ok) {
     return NextResponse.json(
       {
         error: {
-          code: 'UNAUTHORIZED',
-          message: 'That code is wrong or has expired. Ask for a new one.',
+          code: verified.code === 'RATE_LIMITED' ? 'RATE_LIMITED' : 'UNAUTHORIZED',
+          message: verified.message,
         },
       },
-      { status: 401 },
+      {
+        status: verified.code === 'RATE_LIMITED' ? 429 : 401,
+        ...(verified.code === 'RATE_LIMITED'
+          ? { headers: { 'Retry-After': String(verified.retryAfter) } }
+          : {}),
+      },
     );
   }
 
-  // Mirror the auth user into `customers`, which everything else keys off.
-  // Upsert rather than insert: a returning customer already has a row, and
-  // their existing name and phone must not be wiped by a sign-in.
-  const db = adminClient();
-  const { data: existingCustomer } = await db
-    .from('customers')
-    .select('id, full_name, phone')
-    .eq('id', data.user.id)
-    .maybeSingle();
-
-  if (!existingCustomer) {
-    // The mailbox is now proven, so the details captured at sign-up become
-    // real rather than a claim.
-    await db.from('customers').insert({
-      id: data.user.id,
-      email: normalised,
-      full_name: (data.user.user_metadata?.full_name as string | undefined) ?? null,
-      phone: (data.user.user_metadata?.phone as string | undefined) ?? null,
-    });
-  }
-
-  // A guest cart in this browser becomes theirs on sign-in, so a conversation
-  // that started anonymously does not lose its basket.
-  const { claimGuestConversations } = await import('@/lib/ai/conversation/store');
-  await claimGuestConversations(data.user.id).catch(() => {});
-
   return jsonOk(
-    {
-      signedIn: true,
-      customer: {
-        id: data.user.id,
-        email: normalised,
-        fullName: existingCustomer?.full_name ?? null,
-        isNew: !existingCustomer,
-      },
-      message: existingCustomer
-        ? 'Signed in. What can I help you with?'
-        : "You're all set. What can I help you with?",
-    },
+    { signedIn: true, customer: verified.customer, message: verified.message },
     { headers: { 'Cache-Control': 'no-store' } },
   );
 });
