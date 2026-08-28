@@ -40,6 +40,15 @@ import {
   savePendingAction,
   type PendingAction,
 } from './confirm';
+import {
+  handleAddressAdd,
+  handleAddressList,
+  handleOrderCancel,
+  handleOrderList,
+  handleOrderSupport,
+  handleProfileUpdate,
+  handleProfileView,
+} from './account-actions';
 import { shouldCrossSell } from './crosssell';
 import { detectLanguage, localise } from './language';
 import { coloursFor, readVariantSelection } from './variant-flow';
@@ -57,6 +66,7 @@ import type { ToolCart } from './tools/cart';
 import type {
   AgentAction,
   AgentCartPayload,
+  AgentIntent,
   AgentReply,
   ComparisonPayload,
   ConversationMessage,
@@ -82,6 +92,15 @@ import type {
 
 const MAX_CANDIDATES = 20;
 const TOP_N = 3;
+
+/**
+ * Changing where an open quote ships to.
+ *
+ * Deliberately requires a delivery verb: a bare mention of a city while a
+ * quote is open should not silently redirect the order.
+ */
+const CHANGE_ADDRESS =
+  /\b(?:deliver|ship|send|bhej)\w*\s+(?:it\s+)?to\b|\b(?:different|another|other|new)\s+address\b|\bchange\s+(?:the\s+)?(?:delivery\s+)?address\b|\buse\s+(?:my\s+)?(?:home|office|work)\b/i;
 
 export interface AgentContext {
   conversationId: string;
@@ -228,6 +247,22 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
             degraded: !provider.available,
           });
         }
+        // "deliver to Office" is not a yes and not a no — it is a change to
+        // one term of the quote. Re-quoting invalidates the open confirmation
+        // and issues a new one bound to the new address, so what gets approved
+        // is always what was last shown.
+        if (CHANGE_ADDRESS.test(message)) {
+          const cartContext = await buildCartContext(context, budget, toolsUsed, null);
+          const requote = await handlePurchaseQuote(cartContext, message);
+          return finishTurn(context, requote, {
+            intent: 'checkout',
+            requirements: context.state,
+            toolsUsed,
+            provider: provider.name,
+            degraded: !provider.available,
+          });
+        }
+
         // Anything else: leave the quote open. It expires on its own, and the
         // cart hash catches any change made in the meantime.
       }
@@ -301,8 +336,37 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
     });
   }
 
+  // ------------------------------------------------------------- account
+  // The customer's own data. Routed before anything that searches the
+  // catalogue, because these messages are full of words the product patterns
+  // want — "change my PHONE number" is not a request for a phone.
+  //
+  // Identity comes from the session inside each handler. Nothing here accepts
+  // a customer id, so there is no phrasing that reaches another account.
+  const ACCOUNT_HANDLERS: Partial<Record<AgentIntent, () => Promise<CartTurnResult>>> = {
+    profile_view: () => handleProfileView(),
+    profile_update: () => handleProfileUpdate(message),
+    address_list: () => handleAddressList(),
+    address_add: () => handleAddressAdd(),
+    order_list: () => handleOrderList(),
+    order_cancel: () => handleOrderCancel(message),
+    order_support: () => handleOrderSupport(message),
+  };
+
+  const accountHandler = ACCOUNT_HANDLERS[extraction.intent];
+  if (accountHandler) {
+    const result = await accountHandler();
+    return finishTurn(context, result, {
+      intent: extraction.intent,
+      requirements,
+      toolsUsed,
+      provider: provider.name,
+      degraded: !provider.available,
+    });
+  }
+
   if (extraction.intent === 'order_status') {
-    const result = await handleOrderStatusQuestion();
+    const result = await handleOrderStatusQuestion(message);
     return finishTurn(context, result, {
       intent: 'order_status',
       requirements,
@@ -344,7 +408,7 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
         // itemised total to approve. A guest gets the Phase 3 summary and a
         // link to the checkout page, because there is nobody to charge yet.
         result = shopper
-          ? await handlePurchaseQuote(cartContext)
+          ? await handlePurchaseQuote(cartContext, message)
           : await handleCheckout(cartContext);
         break;
       default:

@@ -481,6 +481,77 @@ for (const [message, previous, expected] of LANGUAGE_CASES) {
 const devanagari = detectLanguage('मुझे एक अच्छा फोन चाहिए', null);
 check('Devanagari input is detected as Hindi', devanagari === 'hi', 'got ' + devanagari);
 
+// ================================================================== account
+section('Account intent routing');
+
+// The bug this guards: none of these intents existed, so every account request
+// fell through to the product classifier. "change my phone number" searched the
+// smartphone category and "add a new address" offered to add a Galaxy S26. The
+// tools were registered the whole time — nothing routed to them.
+const ACCOUNT_VOCAB = [
+  { slug: 'smartphones', name: 'Smartphones' },
+  { slug: 'laptops', name: 'Laptops' },
+  { slug: 'gaming-laptops', name: 'Gaming Laptops' },
+];
+const ACCOUNT_BRANDS = ['Apple', 'Samsung', 'ASUS', 'Sony'];
+const NO_PROVIDER = { name: 'none', available: false };
+
+const { extractRequirements } = await import('../lib/ai/requirements/extract.ts');
+
+async function intentOf(message) {
+  const result = await extractRequirements(
+    message,
+    { vocabulary: ACCOUNT_VOCAB, knownBrands: ACCOUNT_BRANDS, previous: null, lastShownProductIds: [] },
+    NO_PROVIDER,
+  );
+  return result.intent;
+}
+
+const ACCOUNT_CASES = [
+  ['what is my profile', 'profile_view'],
+  ['show me my account details', 'profile_view'],
+  ['who am I', 'profile_view'],
+  ['change my phone number to +91 98765 43210', 'profile_update'],
+  ['update my name to Yash Garg', 'profile_update'],
+  ['what are my saved addresses', 'address_list'],
+  ['show my addresses', 'address_list'],
+  ['add a new address', 'address_add'],
+  ['show me my orders', 'order_list'],
+  ['list all my orders', 'order_list'],
+  ['order history', 'order_list'],
+  ['cancel my order', 'order_cancel'],
+  ['I want to return this order', 'order_support'],
+  ['replacement for my order', 'order_support'],
+  // A stated order number is enough on its own.
+  ['what is the status of order SQ-2026-1055', 'order_status'],
+];
+
+for (const [message, expected] of ACCOUNT_CASES) {
+  const got = await intentOf(message);
+  check('"' + message.slice(0, 42) + '" -> ' + expected, got === expected, 'got ' + got);
+}
+
+// The other half of the guard: shopping must NOT be swallowed by the account
+// patterns. Every one of these contains a word an account pattern looks for.
+const NOT_ACCOUNT = [
+  'show me phones under 90000',
+  'I want to buy a new phone',
+  'add iPhone 17 to my cart',
+  'add the first one',
+  'what is in my cart',
+  'gaming laptop dikhao',
+  'compare the first and second',
+];
+
+for (const message of NOT_ACCOUNT) {
+  const got = await intentOf(message);
+  check(
+    '"' + message.slice(0, 42) + '" stays a shopping intent',
+    !/^(profile_|address_|order_list|order_cancel|order_support)/.test(got),
+    'got ' + got,
+  );
+}
+
 // ================================================================== summary
 console.log(`\n${'='.repeat(56)}`);
 console.log(`${passed} passed, ${failed} failed`);

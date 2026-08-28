@@ -549,7 +549,25 @@ export async function finalize(
     contactEmail = customer?.email ?? null;
     contactPhone = customer?.phone ?? null;
     contactName = customer?.full_name ?? null;
-    address = (await getDefaultAddress(customerId!)) as Record<string, unknown> | null;
+
+    // Ship to the address the customer actually approved, snapshotted onto
+    // the confirmation at quote time. The default address is only a fallback
+    // for confirmations created before this was recorded: reading it here
+    // would let a default changed between approval and capture silently
+    // redirect a paid order.
+    const { data: approved } = await db
+      .from('payments')
+      .select('confirmation:purchase_confirmations ( shipping_address )')
+      .eq('id', paymentId)
+      .maybeSingle();
+
+    const snapshot = (approved as { confirmation?: { shipping_address?: unknown } } | null)
+      ?.confirmation?.shipping_address;
+
+    address =
+      snapshot && typeof snapshot === 'object'
+        ? (snapshot as Record<string, unknown>)
+        : ((await getDefaultAddress(customerId!)) as Record<string, unknown> | null);
   }
 
   const { data, error } = await db.rpc('finalize_paid_payment', {

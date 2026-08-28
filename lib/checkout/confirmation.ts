@@ -140,6 +140,14 @@ export async function createConfirmation(params: {
   conversationId?: string | null;
   cartId: string;
   cart: Cart;
+  /**
+   * Where this order ships, as shown to the customer at the moment they were
+   * quoted. Snapshotted rather than looked up later: a confirmation binds the
+   * exact cart and the exact amount, and the destination is the third term of
+   * the same agreement.
+   */
+  shippingAddressId?: string | null;
+  shippingAddress?: Record<string, unknown> | null;
 }): Promise<PurchaseConfirmation> {
   const db = adminClient();
   const { snapshot, hash } = cartFingerprint(params.cart);
@@ -168,6 +176,8 @@ export async function createConfirmation(params: {
       currency: 'INR',
       status: 'pending',
       expires_at: expiresAt,
+      shipping_address_id: params.shippingAddressId ?? null,
+      shipping_address: params.shippingAddress ?? null,
     })
     .select('*')
     .single();

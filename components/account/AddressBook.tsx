@@ -36,6 +36,47 @@ const EMPTY = {
   postalCode: '',
 };
 
+/** Where the pin landed, once the browser has given us a position. */
+interface Pin {
+  latitude: number;
+  longitude: number;
+}
+
+/**
+ * An OpenStreetMap preview centred on the pin.
+ *
+ * A static embed rather than an interactive map library: this is here to let
+ * someone confirm the position looks right before saving, which a picture does
+ * as well as a pannable canvas would, without shipping a mapping bundle to
+ * every visitor of the page.
+ */
+function MapPreview({ pin }: { pin: Pin }) {
+  const delta = 0.004;
+  const bbox = [
+    pin.longitude - delta,
+    pin.latitude - delta,
+    pin.longitude + delta,
+    pin.latitude + delta,
+  ].join('%2C');
+
+  return (
+    <div className="overflow-hidden rounded-[12px] border border-white/10">
+      <iframe
+        title="Map showing the detected location"
+        aria-label="Map showing the detected location"
+        loading="lazy"
+        referrerPolicy="no-referrer"
+        className="block h-[180px] w-full border-0 bg-[#0D0D10]"
+        src={`https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${pin.latitude}%2C${pin.longitude}`}
+      />
+      <p className="m-0 border-t border-white/10 bg-[#08080A] px-3 py-2 text-[11.5px] text-[#7E7E88]">
+        Detected position — {pin.latitude.toFixed(5)}, {pin.longitude.toFixed(5)}. Check the fields
+        below and correct anything the map got wrong.
+      </p>
+    </div>
+  );
+}
+
 function formatPhone(raw: string): string {
   const digits = raw.replace(/\D/g, '').replace(/^91/, '').slice(0, 10);
   if (!digits) return '';
@@ -52,6 +93,83 @@ export function AddressBook() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [busy, setBusy] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState<string | null>(null);
+  const [pin, setPin] = useState<Pin | null>(null);
+  const [locating, setLocating] = useState(false);
+  const [locateNote, setLocateNote] = useState<string | null>(null);
+
+  /**
+   * Fill the form from the device's GPS position.
+   *
+   * Prefills rather than submits: reverse geocoding gets the street and PIN
+   * roughly right and the flat number never, so the customer still has to look
+   * at it. Every failure — permission refused, no fix, geocoder unreachable —
+   * lands on the same outcome: say what happened and leave them typing, which
+   * is the path that always works.
+   */
+  const useMyLocation = useCallback(() => {
+    setLocateNote(null);
+
+    if (typeof navigator === 'undefined' || !navigator.geolocation) {
+      setLocateNote('This browser cannot share a location. Please type the address in.');
+      return;
+    }
+
+    setLocating(true);
+    navigator.geolocation.getCurrentPosition(
+      async (position) => {
+        const { latitude, longitude } = position.coords;
+        setPin({ latitude, longitude });
+
+        try {
+          const response = await fetch('/api/account/locate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ latitude, longitude }),
+          });
+          const payload = await response.json().catch(() => null);
+
+          if (response.status === 401) {
+            setSignedOut(true);
+            return;
+          }
+          if (!payload?.ok || !payload.address) {
+            setLocateNote(payload?.message ?? "I couldn't turn that position into an address.");
+            return;
+          }
+
+          const found = payload.address as {
+            line1?: string; line2?: string | null; city?: string;
+            state?: string; postalCode?: string;
+          };
+
+          // Never overwrite something already typed — the customer's own words
+          // beat a guess from a map every time.
+          setForm((previous) => ({
+            ...previous,
+            line1: previous.line1 || (found.line1 ?? ''),
+            line2: previous.line2 || (found.line2 ?? ''),
+            city: previous.city || (found.city ?? ''),
+            state: previous.state || (found.state ?? ''),
+            postalCode: previous.postalCode || (found.postalCode ?? ''),
+          }));
+          setLocateNote('Filled in from your location — check the flat or house number.');
+        } catch {
+          setLocateNote("I couldn't reach the map service. Please type the address in.");
+        } finally {
+          setLocating(false);
+        }
+      },
+      (error) => {
+        setLocating(false);
+        setLocateNote(
+          error.code === error.PERMISSION_DENIED
+            ? 'Location permission was declined — no problem, type the address in below.'
+            : "I couldn't get a position from your device. Please type the address in.",
+        );
+      },
+      { enableHighAccuracy: true, timeout: 15_000, maximumAge: 60_000 },
+    );
+  }, []);
 
   const load = useCallback(async () => {
     const response = await fetch('/api/account/addresses', { cache: 'no-store' });
@@ -181,6 +299,39 @@ export function AddressBook() {
           <h2 className="m-0 mb-4 text-[15px] font-semibold text-white">
             {editing === 'new' ? 'New address' : 'Edit address'}
           </h2>
+
+          {/* Location first: it is the fast path, and offering it after the
+              form would be offering it after the work is already done. */}
+          <div className="mb-4 flex flex-col gap-3">
+            <div className="flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                onClick={useMyLocation}
+                disabled={locating}
+                className="inline-flex h-10 items-center gap-2 rounded-full border border-[rgba(247,147,30,.45)] bg-[rgba(247,147,30,.08)] px-4 text-[13.5px] font-medium text-[#F7931E] transition-colors hover:border-[rgba(247,147,30,.8)] disabled:opacity-55"
+              >
+                {locating ? (
+                  <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-[rgba(247,147,30,.35)] border-t-[#F7931E]" />
+                ) : (
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                    <circle cx="12" cy="10" r="3" />
+                  </svg>
+                )}
+                {locating ? 'Finding you…' : 'Use my location'}
+              </button>
+              <span className="text-[12.5px] text-[#7E7E88]">
+                Fills the street, city, state and PIN from your GPS.
+              </span>
+            </div>
+
+            {locateNote ? (
+              <p className="m-0 text-[12.5px] text-[#9A9AA2]">{locateNote}</p>
+            ) : null}
+
+            {pin ? <MapPreview pin={pin} /> : null}
+          </div>
+
           <form onSubmit={save} className="flex flex-col gap-4">
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Recipient name" error={errors.fullName}>

@@ -390,6 +390,49 @@ function looksLikeRefinement(message: string): boolean {
  * and most destructive patterns are tested first.
  */
 const INTENT_OVERRIDES: Array<[AgentIntent, RegExp]> = [
+  // ------------------------------------------------------------- account
+  // These come first, and it matters. Account requests are full of words the
+  // product patterns want: "change my PHONE number" matched the smartphone
+  // category and returned a catalogue search; "ADD a new address" matched
+  // cart_add and offered to put a Galaxy S26 in the cart. Both are real
+  // behaviours that shipped. Deciding account intent before any of that runs
+  // is what stops a question about the customer from being read as a question
+  // about the catalogue.
+  //
+  // Each pattern is anchored on a first-person possessive ("my", "mera") or an
+  // explicit account noun, so "show me phones" and "delivery address for this
+  // order" are not swept up.
+  [
+    'profile_update',
+    /\b(?:change|update|edit|set|correct|fix)\b[^.?!]{0,20}\bmy\b[^.?!]{0,20}\b(?:name|phone|mobile|number|contact|profile|details?)\b|\bmy\b\s+(?:name|phone|mobile|number)\b[^.?!]{0,20}\b(?:is|should be|badal|change)\b|\b(?:naam|number)\s+(?:badal|change kar)/i,
+  ],
+  [
+    'address_add',
+    /\b(?:add|save|create|new|register)\b[^.?!]{0,20}\b(?:address|pata|delivery location)\b|\baddress\b[^.?!]{0,15}\b(?:add kar|save kar|daal)\b/i,
+  ],
+  [
+    'address_list',
+    /\b(?:my|mere|meri|saved|all)\b[^.?!]{0,15}\baddress(?:es)?\b|\baddress(?:es)?\b[^.?!]{0,15}\b(?:dikhao|list|batao|kya hai)\b|\bwhere do i live\b/i,
+  ],
+  [
+    'order_cancel',
+    /\b(?:cancel|cancell?ing|rad|radd)\b[^.?!]{0,20}\b(?:order|purchase|booking)\b|\border\b[^.?!]{0,15}\bcancel\b/i,
+  ],
+  [
+    'order_support',
+    /\b(?:return|refund|replace|replacement|exchange|wapas|badal)\b[^.?!]{0,25}\b(?:order|item|product|it|this|delivery)\b|\b(?:order|item|product)\b[^.?!]{0,20}\b(?:return|replace|refund|wapas)\b|\bi want to (?:return|replace|exchange)\b/i,
+  ],
+  [
+    // The plural list, distinct from order_status below which answers about
+    // one specific order.
+    'order_list',
+    /\b(?:my|mere|meri|all my|show my|list my)\b[^.?!]{0,15}\borders?\b(?!\s*(?:number|status|id))|\border history\b|\bpast orders?\b|\bprevious orders?\b|\bpurchases?\b[^.?!]{0,10}\b(?:list|history|dikhao)\b/i,
+  ],
+  [
+    'profile_view',
+    /\bmy\b[^.?!]{0,15}\b(?:profile|account details?|account info\w*)\b|\b(?:show|view|what(?:'s| is))\b[^.?!]{0,15}\bmy (?:profile|account|details?)\b|\bwho am i\b|\bmera profile\b/i,
+  ],
+
   // Phase 4 first: "did my payment go through" and "what did I buy" both
   // contain words the checkout and cart patterns below would otherwise claim.
   [
@@ -398,7 +441,11 @@ const INTENT_OVERRIDES: Array<[AgentIntent, RegExp]> = [
   ],
   [
     'order_status',
-    /\b(what did i (just )?(buy|order)|my order (number|status|id)|what'?s my order|order (number|status) (kya|hai)|is my order confirmed|how much did i pay|kitna pay kiya|order confirm hua|track my order|where is my order)\b/i,
+    // The last two alternatives matter: "what is the status of order
+    // SQ-2026-1055" matched none of the original phrasings and fell through to
+    // smalltalk, so a question about one specific order was answered with a
+    // generic greeting. A stated order number is now sufficient on its own.
+    /\b(what did i (just )?(buy|order)|my order (number|status|id)|what'?s my order|order (number|status) (kya|hai)|is my order confirmed|how much did i pay|kitna pay kiya|order confirm hua|track my order|where is my order)\b|\b(?:status|track|where is|kahan)\b[^.?!]{0,20}\border\b|\bSQ-\d{4}-\d+\b/i,
   ],
   [
     'cart_clear',

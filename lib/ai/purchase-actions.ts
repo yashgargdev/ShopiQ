@@ -15,6 +15,8 @@ import {
 } from '@/lib/checkout/confirmation';
 import { createPayment } from '@/lib/payments/service';
 import { getOrderStatus, getPaymentStatus } from '@/lib/payments/status';
+import { getOrderByNumber } from './tools/account';
+import { listAddresses, type Address } from '@/lib/account/addresses';
 import { formatMinorUnits, toMinorUnits } from '@/lib/payments/money';
 import { recordMoneyEvent } from '@/lib/payments/audit';
 import { paymentStatus } from '@/lib/payments';
@@ -89,8 +91,38 @@ export function looksLikePurchaseRequest(message: string): boolean {
  * Everything shown here is server-computed from the live cart. The assistant
  * is handed the figures; it never assembles them.
  */
+/**
+ * Which saved address did the customer name?
+ *
+ * Matched on label, city, or the house/street line — the three things people
+ * actually say ("send it to Office", "the Bengaluru one", "42 MG Road").
+ * Returns null when nothing matches, so the caller falls back to the default
+ * rather than guessing at a destination.
+ */
+function pickAddress(message: string, addresses: Address[]): Address | null {
+  const lower = message.toLowerCase();
+
+  // Longest candidate first, so "Office Bengaluru" does not match a "Bengaluru"
+  // label when a more specific one is present.
+  const scored = addresses
+    .map((address) => ({
+      address,
+      terms: [address.label, address.city, address.line1]
+        .filter((term): term is string => Boolean(term && term.length >= 3))
+        .map((term) => term.toLowerCase()),
+    }))
+    .flatMap(({ address, terms }) => terms.map((term) => ({ address, term })))
+    .sort((a, b) => b.term.length - a.term.length);
+
+  for (const { address, term } of scored) {
+    if (lower.includes(term)) return address;
+  }
+  return null;
+}
+
 export async function handlePurchaseQuote(
   context: CartTurnContext,
+  message = '',
 ): Promise<CartTurnResult & { purchase?: AgentPurchasePayload | null }> {
   const user = await getSessionUser();
   if (!user) {
@@ -136,24 +168,66 @@ export async function handlePurchaseQuote(
     };
   }
 
+  // ------------------------------------------------------ delivery address
+  // Nothing is quoted until we know where it ships. Previously the address was
+  // read at finalization from whichever one happened to be the default, and
+  // with none saved the order was created against the literal string "Not
+  // provided" — paid for, and going nowhere.
+  const addresses = await listAddresses();
+
+  if (addresses.length === 0) {
+    return {
+      ...EMPTY,
+      message:
+        "Before I can take payment I need somewhere to send this. Add a delivery address and I'll pick straight back up — open the address form and use **Use my location** to fill it in from your GPS, or type it in.",
+      outcome: 'payment_blocked',
+      actions: [{ type: 'add_address' }],
+    };
+  }
+
+  // A stated choice wins; otherwise the default, which is what the customer
+  // already nominated for exactly this purpose.
+  const chosen = pickAddress(message, addresses) ?? addresses.find((a) => a.isDefault) ?? addresses[0];
+
   const cart = await loadCart(cartContext);
   const confirmation = await createConfirmation({
     customerId: user.id,
     conversationId: context.conversationId,
     cartId: cartContext.cartId,
     cart,
+    shippingAddressId: chosen.id,
+    shippingAddress: {
+      fullName: chosen.fullName,
+      phone: chosen.phone,
+      line1: chosen.line1,
+      line2: chosen.line2,
+      city: chosen.city,
+      state: chosen.state,
+      postalCode: chosen.postalCode,
+      country: chosen.country,
+    },
   });
 
   const purchase = toPurchasePayload(confirmation);
   const changeNote = preview.changes.length > 0 ? `${preview.changes[0].message} ` : '';
   const minutes = Math.round(CONFIRMATION_TTL_MS / 60000);
 
+  const destination = `${chosen.label ? `${chosen.label} — ` : ''}${[chosen.line1, chosen.city, chosen.postalCode].filter(Boolean).join(', ')}`;
+
+  // Offer the alternatives by name, so changing the destination is one short
+  // sentence rather than a trip to another page.
+  const others = addresses.filter((address) => address.id !== chosen.id);
+  const alternatives =
+    others.length > 0
+      ? ` I can send it to ${others.map((a) => a.label ?? a.city).join(' or ')} instead — just say which.`
+      : ' Say "deliver to a new address" if you need a different one.';
+
   return {
     ...EMPTY,
     purchase,
     message: `${changeNote}Your total is ${purchase.amountDisplay} for ${purchase.items.length} ${
       purchase.items.length === 1 ? 'item' : 'items'
-    }. Would you like to proceed to payment? This quote holds for ${minutes} minutes.`,
+    }, delivering to ${destination}.${alternatives} Shall I take you to payment? This quote holds for ${minutes} minutes.`,
     outcome: 'awaiting_purchase_confirmation',
     actions: [
       {
@@ -299,10 +373,35 @@ export async function handlePaymentStatusQuestion(): Promise<CartTurnResult> {
 }
 
 /** "What did I buy?" / "What was my order number?" — straight from the order row. */
-export async function handleOrderStatusQuestion(): Promise<CartTurnResult> {
+/** A ShopiQ order number, as printed on the invoice: SQ-2026-1055. */
+const ORDER_NUMBER = /(SQ-d{4}-d+)/i;
+
+export async function handleOrderStatusQuestion(message = ''): Promise<CartTurnResult> {
   const user = await getSessionUser();
   if (!user) {
     return { ...EMPTY, message: 'Sign in and I can look up your orders.', outcome: 'answer' };
+  }
+
+  // A stated order number is answered about THAT order. Falling back to the
+  // most recent one would answer a precise question with the wrong order and
+  // sound completely confident doing it.
+  const stated = ORDER_NUMBER.exec(message);
+  if (stated) {
+    const named = await getOrderByNumber(stated[1].toUpperCase());
+    if (!named) {
+      return {
+        ...EMPTY,
+        message: `I couldn't find an order numbered ${stated[1].toUpperCase()} on your account.`,
+        outcome: 'answer',
+      };
+    }
+    const items = named.items.map((item) => `${item.name} × ${item.quantity}`).join(', ');
+    return {
+      ...EMPTY,
+      message: `${named.order_number} is ${named.status} and the payment is ${named.payment_status}. It covers ${items}, ${named.total_display}.`,
+      outcome: 'answer',
+      actions: [{ type: 'view_orders' }],
+    };
   }
 
   const order = await getOrderStatus(user.id);

@@ -338,7 +338,16 @@ export type AgentAction =
   | { type: 'approve_purchase'; confirmationId: string; label: string; amountDisplay: string }
   | { type: 'decline_purchase'; confirmationId: string }
   | { type: 'open_payment' }
-  | { type: 'view_order'; orderId: string };
+  | { type: 'view_order'; orderId: string }
+  // Phase 8 — links into the customer's own account pages. These carry no id:
+  // the page resolves the customer from the session, so a link can never be
+  // pointed at somebody else's data.
+  | { type: 'view_profile' }
+  | { type: 'view_orders' }
+  | { type: 'view_addresses' }
+  | { type: 'add_address' }
+  /** Choosing which saved address an order ships to. */
+  | { type: 'select_address'; addressId: string; label: string };
 
 export type AgentIntent =
   | 'recommend'
@@ -359,7 +368,20 @@ export type AgentIntent =
   | 'confirm'
   // Phase 4
   | 'payment_status'
-  | 'order_status';
+  | 'order_status'
+  // Phase 8 — the customer's own account.
+  //
+  // These exist because without them every account request fell through to the
+  // product classifier, where "change my phone number" searched the smartphone
+  // category and "add a new address" offered to add a Galaxy S26. The tools
+  // were registered the whole time; nothing routed to them.
+  | 'profile_view'
+  | 'profile_update'
+  | 'address_list'
+  | 'address_add'
+  | 'order_list'
+  | 'order_cancel'
+  | 'order_support';
 
 export interface AgentReply {
   message: string;
