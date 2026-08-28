@@ -42,7 +42,24 @@ const ALLOWED_TRANSITIONS: Record<PaymentStatus, PaymentStatus[]> = {
   authorized: ['captured', 'failed', 'refunded', 'verification_pending'],
   verification_pending: ['captured', 'authorized', 'failed', 'cancelled'],
   captured: ['refunded'],
-  failed: [],
+  // A failed ATTEMPT is not a failed order.
+  //
+  // Razorpay Checkout lets the customer retry inside the same modal, against
+  // the same provider order. The first attempt raises payment.failed, this row
+  // goes to `failed`, and then the retry succeeds and reports captured for the
+  // same order id. Treating `failed` as terminal refused that capture — so the
+  // customer was charged and no order was ever created, which is the worst
+  // outcome this system can produce.
+  //
+  // Reviving is safe because of WHAT does the reviving: both paths that can
+  // reach `captured` require cryptographic proof from Razorpay — a verified
+  // HMAC on the callback, or a signed webhook. That proof is independent of
+  // whatever this row currently says, so honouring it cannot be forged by a
+  // late or replayed message.
+  failed: ['authorized', 'captured'],
+  // These two stay terminal. `refunded` means the money went back, so a later
+  // "captured" is a replay of something already undone; `cancelled` means our
+  // own side voided the attempt deliberately.
   cancelled: [],
   refunded: [],
 };
@@ -312,13 +329,15 @@ export async function verifyAndFinalize(input: {
     detail: { provider_order_id: input.providerOrderId },
   });
 
-  // A terminal payment stays terminal. Razorpay can legitimately report a
-  // failure and then a success against the same order when a customer retries,
-  // but this row represents ONE attempt — reviving it would turn a declined
-  // payment into a fulfilled order. A retry gets a fresh confirmation and a
-  // fresh provider order, which createPayment() already arranges because it
-  // never reuses a payment in a terminal state.
-  if (payment.status === 'failed' || payment.status === 'cancelled' || payment.status === 'refunded') {
+  // A terminal payment stays terminal — but `failed` is NOT terminal, because
+  // Razorpay Checkout retries inside the same modal against the same provider
+  // order. The first attempt fails, this row goes to `failed`, and the retry
+  // then succeeds and calls back with the same order id and a new payment id.
+  //
+  // Refusing that callback is how a customer ends up charged with no order.
+  // The signature is verified below before anything is created, so the proof
+  // that money moved does not depend on what this row happened to say first.
+  if (payment.status === 'cancelled' || payment.status === 'refunded') {
     await recordMoneyEvent({
       event: 'payment_verification_failed',
       customerId: payment.customer_id,

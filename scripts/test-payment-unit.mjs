@@ -145,8 +145,16 @@ check('pending → verification_pending', canTransition('pending', 'verification
 check('verification_pending → captured', canTransition('verification_pending', 'captured'));
 check('captured → refunded', canTransition('captured', 'refunded'));
 
+// A failed ATTEMPT is not a failed order. Razorpay Checkout retries inside the
+// same modal against the same provider order: the first attempt raises
+// payment.failed, and the retry then reports captured for that same order id.
+// This used to be refused, which meant the customer was charged and no order
+// was created. Both routes to `captured` verify a Razorpay signature first, so
+// the revival is driven by proof rather than by a message we merely received.
+check('a failed attempt can still be captured on retry', canTransition('failed', 'captured'));
+check('a failed attempt can still be authorized on retry', canTransition('failed', 'authorized'));
+
 // The ones that must never happen.
-check('failed cannot become captured', !canTransition('failed', 'captured'));
 check('cancelled cannot become captured', !canTransition('cancelled', 'captured'));
 check('captured cannot go back to pending', !canTransition('captured', 'pending'));
 check('captured cannot become failed', !canTransition('captured', 'failed'));

@@ -123,6 +123,30 @@ export function useAgentSession() {
   const stateRef = useRef<AgentState>('idle');
 
   /**
+   * Which utterance is currently the live one.
+   *
+   * Speech synthesis is a network round trip, so `speak()` spends most of its
+   * life awaiting. Two calls overlapping in that window both got past the
+   * "stop whatever is playing" guard — nothing was playing yet — and then both
+   * played, the second overwriting `audioRef` without ever pausing the first.
+   * The customer heard two voices at once.
+   *
+   * Every call takes a ticket. When the audio is ready it plays only if its
+   * ticket is still the current one, so the newest utterance always wins and
+   * the older one is discarded before it makes a sound.
+   */
+  const speechTicketRef = useRef(0);
+
+  /**
+   * Guards against two quote requests in flight at once.
+   *
+   * Two separate effects legitimately want to quote — one when the turn says
+   * checkout, one when the last missing detail arrives — and they can fire
+   * together. Each ends by speaking the total, so the duplicate was audible.
+   */
+  const quotingRef = useRef<Promise<Record<string, unknown> | null> | null>(null);
+
+  /**
    * Microphone support is detected AFTER mount, never during render.
    *
    * Branching on `typeof window` inside render makes the server and the first
@@ -150,6 +174,12 @@ export function useAgentSession() {
   }, []);
 
   const stopPlayback = useCallback(() => {
+    // Invalidate any synthesis still in flight as well as the audio already
+    // playing. Stopping only what is audible would let a request that has not
+    // come back yet start speaking a moment later — which is exactly what an
+    // interruption is meant to prevent.
+    speechTicketRef.current += 1;
+
     const audio = audioRef.current;
     if (audio) {
       audio.pause();
@@ -180,7 +210,15 @@ export function useAgentSession() {
   const speak = useCallback(
     async (text: string, lang?: string | null) => {
       if (!text.trim()) return;
+
+      // stopPlayback() bumps the ticket, so taking ours AFTER it means this
+      // call holds the newest one and any earlier in-flight speech is now
+      // stale.
       stopPlayback();
+      const ticket = speechTicketRef.current;
+
+      /** Has something newer started speaking while we were awaiting? */
+      const superseded = () => speechTicketRef.current !== ticket;
 
       let response: Response;
       try {
@@ -192,10 +230,21 @@ export function useAgentSession() {
       } catch {
         return; // TTS is a convenience; the text is already on screen.
       }
-      if (!response.ok) return;
+      if (!response.ok || superseded()) return;
 
       const blob = await response.blob();
+      if (superseded()) return;
+
       const url = URL.createObjectURL(blob);
+
+      // Last chance to bail: reading the blob is another await. Releasing the
+      // object URL here matters — an abandoned utterance must not leak the
+      // memory its audio was decoded into.
+      if (superseded()) {
+        URL.revokeObjectURL(url);
+        return;
+      }
+
       urlRef.current = url;
       const audio = new Audio(url);
       audioRef.current = audio;
@@ -451,8 +500,31 @@ export function useAgentSession() {
     };
   }, [callCheckout]);
 
-  /** Ask the server for the authoritative total. Never computed here. */
+  /**
+   * Ask the server for the authoritative total. Never computed here.
+   *
+   * Concurrent calls share one request. Two effects legitimately reach this at
+   * the same moment — one on the checkout turn, one when the last delivery
+   * detail lands — and each ends by speaking the total, so the duplicate was
+   * something the customer could hear.
+   */
   const requestQuote = useCallback(async () => {
+    if (quotingRef.current) return quotingRef.current;
+
+    const run = (async () => {
+      try {
+        return await quoteOnce();
+      } finally {
+        quotingRef.current = null;
+      }
+    })();
+
+    quotingRef.current = run;
+    return run;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [callCheckout, language, setState, speak]);
+
+  const quoteOnce = useCallback(async () => {
     setState('checkout');
     const result = await callCheckout({ action: 'quote' });
     if (!result?.ok) {
