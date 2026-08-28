@@ -1,0 +1,267 @@
+@import 'tailwindcss';
+
+/* ==========================================================================
+   ShopiQ design tokens
+   --------------------------------------------------------------------------
+   Lifted verbatim from the Claude Design source (ShopiQ.dc.html). The palette,
+   type scale, radii and motion are the design's, not a generic template's.
+   Pitch-black ground, one orange gradient, Geist throughout.
+   ========================================================================== */
+
+@theme {
+  --font-sans: 'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+
+  /* Ground and raised surfaces */
+  --color-ink: #000000;
+  --color-surface-0: #07070a;
+  --color-surface-1: #08080a;
+  --color-surface-2: #0a0a0c;
+  --color-surface-3: #0c0c0e;
+  --color-surface-4: #0d0d10;
+  --color-surface-5: #101014;
+  --color-surface-6: #121216;
+  --color-surface-7: #141418;
+  --color-surface-8: #17171b;
+
+  /* Text ramp */
+  --color-fg: #ffffff;
+  --color-fg-strong: #ededf0;
+  --color-fg-muted: #e6e6ea;
+  --color-fg-soft: #c6c6cc;
+  --color-fg-dim: #b9b9c0;
+  --color-fg-subtle: #9a9aa2;
+  --color-fg-faint: #8b8b92;
+  --color-fg-quiet: #7e7e88;
+  --color-fg-ghost: #6e6e76;
+  --color-fg-whisper: #4e4e56;
+  --color-fg-trace: #3a3a42;
+
+  /* Brand */
+  --color-brand: #f7931e;
+  --color-brand-light: #ffb65c;
+  --color-brand-lighter: #ffc07a;
+  --color-brand-pale: #ffc97a;
+  --color-brand-deep: #de6a0c;
+  --color-brand-darker: #c2540a;
+  --color-brand-on: #1a0d02;
+
+  /* Status */
+  --color-ok: #4ed17e;
+  --color-warn: #ffb65c;
+  --color-danger: #ff6b6b;
+  --color-danger-soft: #ff8b8b;
+
+  /* Hairlines */
+  --color-line: rgba(255, 255, 255, 0.07);
+  --color-line-2: rgba(255, 255, 255, 0.09);
+  --color-line-3: rgba(255, 255, 255, 0.12);
+  --color-line-4: rgba(255, 255, 255, 0.16);
+  --color-line-brand: rgba(247, 147, 30, 0.42);
+
+  --radius-card: 16px;
+  --radius-panel: 20px;
+  --radius-control: 10px;
+  --radius-field: 12px;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+    color-scheme: dark;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-ink);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  ::selection {
+    background: rgba(247, 147, 30, 0.3);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+  }
+
+  button {
+    font-family: inherit;
+    cursor: pointer;
+  }
+
+  input,
+  select,
+  textarea {
+    font-family: inherit;
+  }
+
+  /* The design uses a hairline-thin scrollbar so it disappears into the black. */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.14);
+    border-radius: 99px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+}
+
+/* ==========================================================================
+   Motion — the two keyframes the design defines, plus a reveal for streamed
+   server content.
+   ========================================================================== */
+
+@keyframes glowdrift {
+  0% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(-50%, -14px) scale(1.06);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate(-50%, 0) scale(1);
+    opacity: 0.55;
+  }
+}
+
+@keyframes pulsering {
+  0% {
+    box-shadow: 0 0 0 0 rgba(247, 147, 30, 0.35);
+  }
+  70% {
+    box-shadow: 0 0 0 14px rgba(247, 147, 30, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(247, 147, 30, 0);
+  }
+}
+
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@utility animate-glowdrift {
+  animation: glowdrift 11s ease-in-out infinite;
+}
+@utility animate-pulsering {
+  animation: pulsering 3.2s ease-out infinite;
+}
+@utility animate-rise {
+  animation: rise 0.32s var(--ease-out-soft) both;
+}
+@utility animate-slide-in-right {
+  animation: slide-in-right 0.26s var(--ease-out-soft) both;
+}
+@utility animate-sheet-up {
+  animation: sheet-up 0.28s var(--ease-out-soft) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ==========================================================================
+   Composed classes for the marks that repeat across every screen.
+   ========================================================================== */
+
+@utility brand-gradient {
+  background-image: linear-gradient(120deg, #ffb65c, #f7931e 50%, #de6a0c);
+}
+
+@utility brand-text {
+  background-image: linear-gradient(120deg, #ffc97a, #f7931e 55%, #de6a0c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@utility card-hairline {
+  border: 1px solid var(--color-line);
+  background: var(--color-surface-2);
+}
+
+@utility skeleton {
+  position: relative;
+  overflow: hidden;
+  background: var(--color-surface-6);
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+  animation: shimmer 1.6s infinite;
+}
+
+/* Hides the number-input spinners on quantity fields. */
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  appearance: textfield;
+  -moz-appearance: textfield;
+}

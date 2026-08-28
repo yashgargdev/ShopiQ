@@ -1,0 +1,33 @@
+node_modules/
+.next/
+out/
+build/
+dist/
+
+# Environment — real credentials live here and must never be committed.
+.env
+.env.local
+.env*.local
+.env.production
+
+# Stray credential file found in the project root before Phase 1 scaffolding.
+SMTP
+
+*.tsbuildinfo
+next-env.d.ts
+.vercel
+.DS_Store
+Thumbs.db
+npm-debug.log*
+yarn-error.log*
+.idea/
+.vscode/
+coverage/
+
+certificates
+# Saved-webpage scrapes that ended up inside the product source folders.
+# 10 MB of a vendor site's CSS and JS, none of it a product image.
+Products/**/*_files/
+
+# Evaluation output — regenerate with `npm run eval`, do not version results.
+eval/results.json
