@@ -111,8 +111,17 @@ export const config = {
     /*
      * Everything except static assets and image optimisation, both of which
      * would only pay the auth round trip for nothing.
+     *
+     * `.well-known` is excluded for the same reason and one more: nothing
+     * under it can ever require a session. It is fetched by agents that have
+     * no session to present — Google's association service checking for an
+     * Android app, Apple's equivalent, and ACME certificate challenges — so
+     * running auth there is a billable invocation that can only ever say yes.
+     *
+     * The web manifest is public by definition; a manifest that needed a
+     * login would defeat its own purpose.
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|txt|xml)$).*)',
+    '/((?!_next/static|_next/image|\\.well-known|favicon\\.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|avif|ico|txt|xml|webmanifest)$).*)',
   ],
 };
 
