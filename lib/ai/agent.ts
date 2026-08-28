@@ -600,9 +600,15 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
       ? (result.output as { categories: Array<{ name: string; product_count: number }> }).categories
       : [];
 
-    const top = list
-      .slice()
-      .sort((a, b) => b.product_count - a.product_count)
+    // Only categories that actually contain something. An empty category is
+    // not an option — offering "Shoes (0)" invites the shopper to ask for
+    // shoes and be told there are none, and counting them makes the catalogue
+    // sound three times larger than it is.
+    const stocked = list
+      .filter((category) => category.product_count > 0)
+      .sort((a, b) => b.product_count - a.product_count);
+
+    const top = stocked
       .slice(0, 8)
       .map((category) => `${category.name} (${category.product_count})`)
       .join(', ');
@@ -612,7 +618,7 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
       intent: 'browse_categories',
       outcome: 'answer',
       message: top
-        ? `ShopiQ currently stocks ${list.length} categories. The biggest are: ${top}. Tell me what you're shopping for and roughly what you want to spend, and I'll narrow it down.`
+        ? `ShopiQ currently stocks ${stocked.length} ${pluralise(stocked.length, 'category', 'categories')}: ${top}. Tell me what you're shopping for and roughly what you want to spend, and I'll narrow it down.`
         : "I couldn't load the catalogue just now. Please try again in a moment.",
       products: [],
       comparison: null,

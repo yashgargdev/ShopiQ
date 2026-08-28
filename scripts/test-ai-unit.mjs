@@ -585,6 +585,27 @@ for (const message of NOT_ACCOUNT) {
   );
 }
 
+// ================================================== browsing vs a category
+section('Browsing categories vs naming one');
+
+// Naming a category means "show me those", not "list your categories". Both
+// directions used to be wrong: "show me all smartphones" was answered with the
+// category list and returned no phones, and "kya kya hai" was read as smalltalk.
+const BROWSE_CASES = [
+  ['what do you sell', 'browse_categories'],
+  ['what categories do you have', 'browse_categories'],
+  ['kya kya hai', 'browse_categories'],
+  ['what all do you have', 'browse_categories'],
+  ['show me all smartphones', 'recommend'],
+  ['show me laptops', 'recommend'],
+  ['show all phones', 'recommend'],
+];
+
+for (const [message, expected] of BROWSE_CASES) {
+  const got = await intentOf(message);
+  check('"' + message + '" -> ' + expected, got === expected, 'got ' + got);
+}
+
 // ================================================================== summary
 console.log(`\n${'='.repeat(56)}`);
 console.log(`${passed} passed, ${failed} failed`);

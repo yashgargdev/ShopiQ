@@ -510,11 +510,33 @@ function decideIntent(
   if (/\b(in stock|available|stock hai|kitne bache|do you have)\b/i.test(lower) && referencedProductIds.length > 0) {
     return 'availability';
   }
-  if (model?.intent) return model.intent;
+  // Browsing is asking what exists at all, and it hinges on ONE fact we have
+  // already computed: whether the shopper named a category.
+  //
+  //   "what do you sell"          -> no category resolved -> browse
+  //   "show me all smartphones"   -> smartphones resolved -> show me those
+  //
+  // Both directions were wrong before. The model read "show me all
+  // smartphones" as browsing and answered with the category list, so asking
+  // for every phone returned no phones; and it read "kya kya hai" as
+  // smalltalk, so the Hinglish way of asking what is in stock got a greeting.
+  // Checked before the model's own guess, because this rule is exact and the
+  // model's reading of these is demonstrably not.
+  const asksWhatExists =
+    /\b(what categories|what do you sell|what all do you (have|sell)|what can i buy|show me everything|kya kya (hai|hain|milta|milega)|categories)\b/i.test(
+      lower,
+    );
 
-  if (/\b(what categories|what do you sell|categories|kya kya hai)\b/i.test(lower)) {
-    return 'browse_categories';
+  if (asksWhatExists && !requirements.categorySlug) return 'browse_categories';
+
+  if (model?.intent) {
+    if (model.intent === 'browse_categories' && requirements.categorySlug) {
+      return 'recommend';
+    }
+    return model.intent;
   }
+
+  if (asksWhatExists) return 'browse_categories';
   if (/\b(why|kyun|kyu|explain|batao)\b/i.test(lower) && referencedProductIds.length > 0) {
     return 'product_question';
   }
