@@ -429,8 +429,15 @@ const INTENT_OVERRIDES: Array<[AgentIntent, RegExp]> = [
     /\b(?:my|mere|meri|all my|show my|list my)\b[^.?!]{0,15}\borders?\b(?!\s*(?:number|status|id))|\border history\b|\bpast orders?\b|\bprevious orders?\b|\bpurchases?\b[^.?!]{0,10}\b(?:list|history|dikhao)\b/i,
   ],
   [
+    // Asking about any single field counts, not just the word "profile".
+    // "what is my name" used to fall through to a catalogue search, because
+    // nothing in the account patterns matched and the product classifier is
+    // happy to take anything.
+    //
+    // Ordered after profile_update, so "change my name to X" is still an edit
+    // rather than a question about the current value.
     'profile_view',
-    /\bmy\b[^.?!]{0,15}\b(?:profile|account details?|account info\w*)\b|\b(?:show|view|what(?:'s| is))\b[^.?!]{0,15}\bmy (?:profile|account|details?)\b|\bwho am i\b|\bmera profile\b/i,
+    /\bmy\b[^.?!]{0,15}\b(?:profile|account details?|account info\w*)\b|\b(?:show|view|what(?:'?s| is)|tell me|do you know)\b[^.?!]{0,15}\bmy (?:profile|account|details?|full name|name|phone|mobile|number|email|contact)\b|\bwho am i\b|\bmera (?:profile|naam)\b|\bmy name kya\b/i,
   ],
 
   // Phase 4 first: "did my payment go through" and "what did I buy" both

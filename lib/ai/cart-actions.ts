@@ -7,6 +7,9 @@ import type { ProductSummary } from '@/types';
 import { buildPendingAction, type PendingAction } from './confirm';
 import { accessoryCategoriesFor, rankCrossSell, type CrossSellCandidate } from './crosssell';
 import { describeOptions } from './variants';
+import { getSessionUser } from '@/lib/auth';
+import { loadLiveConfirmation } from '@/lib/checkout/confirmation';
+import { cancelActiveConfirmation } from '@/lib/payments/service';
 import { resolveReference, extractQuantity, type ReferenceScope } from './references';
 import {
   askColour,
@@ -648,6 +651,17 @@ export async function executeCartClear(context: CartTurnContext): Promise<CartTu
 
   if (!result.ok) {
     return { ...EMPTY, message: `I couldn't clear your cart: ${result.error}`, outcome: 'error' };
+  }
+
+  // An emptied cart cannot be paid for, so any quote still open for it is
+  // void. The cart hash would refuse the payment anyway, but leaving the
+  // confirmation `pending` means the customer meets that refusal at the moment
+  // they press pay, rather than the quote simply going away when they emptied
+  // the basket.
+  const shopper = await getSessionUser();
+  if (shopper) {
+    const live = await loadLiveConfirmation(shopper.id);
+    if (live) await cancelActiveConfirmation(shopper.id, live.id);
   }
 
   const output = result.output as { cart: ToolCart; note: string | null };

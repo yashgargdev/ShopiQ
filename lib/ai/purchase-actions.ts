@@ -374,7 +374,7 @@ export async function handlePaymentStatusQuestion(): Promise<CartTurnResult> {
 
 /** "What did I buy?" / "What was my order number?" — straight from the order row. */
 /** A ShopiQ order number, as printed on the invoice: SQ-2026-1055. */
-const ORDER_NUMBER = /(SQ-d{4}-d+)/i;
+const ORDER_NUMBER = /\b(SQ-\d{4}-\d+)\b/i;
 
 export async function handleOrderStatusQuestion(message = ''): Promise<CartTurnResult> {
   const user = await getSessionUser();

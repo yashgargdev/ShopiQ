@@ -481,6 +481,32 @@ for (const [message, previous, expected] of LANGUAGE_CASES) {
 const devanagari = detectLanguage('मुझे एक अच्छा फोन चाहिए', null);
 check('Devanagari input is detected as Hindi', devanagari === 'hi', 'got ' + devanagari);
 
+// ============================================================ order selection
+section('Answering "which order?"');
+
+const { readOrderSelection, SELECT_ORDER } = await import('../lib/ai/account-actions.ts');
+
+check(
+  'a non-order pending action is not read as an order choice',
+  readOrderSelection({ action: 'select_variant', arguments: { stage: 'colour' } }) === null,
+);
+check('a null pending action is safe', readOrderSelection(null) === null);
+
+const parked = readOrderSelection({
+  action: SELECT_ORDER,
+  arguments: { kind: 'cancel', offered: ['SQ-2026-1', 'SQ-2026-2'], reason: 'cancel my order' },
+});
+check('a parked cancellation is read back', parked !== null && parked.kind === 'cancel');
+check('the offered orders survive', parked?.offered.length === 2, JSON.stringify(parked?.offered));
+check('the original wording survives', parked?.reason === 'cancel my order');
+
+// An unrecognised kind must not be honoured: it would decide what happens to
+// a real order from whatever was written into the pending slot.
+check(
+  'an unknown action kind is refused',
+  readOrderSelection({ action: SELECT_ORDER, arguments: { kind: 'delete_everything', offered: [] } }) === null,
+);
+
 // ================================================================== account
 section('Account intent routing');
 
@@ -509,6 +535,13 @@ async function intentOf(message) {
 
 const ACCOUNT_CASES = [
   ['what is my profile', 'profile_view'],
+  // Asking about one field is still asking about the profile. These used to
+  // fall through to a catalogue search — "what is my name" went looking for a
+  // product called "name".
+  ['what is my name', 'profile_view'],
+  ['whats my name', 'profile_view'],
+  ['tell me my phone number', 'profile_view'],
+  ['do you know my email', 'profile_view'],
   ['show me my account details', 'profile_view'],
   ['who am I', 'profile_view'],
   ['change my phone number to +91 98765 43210', 'profile_update'],

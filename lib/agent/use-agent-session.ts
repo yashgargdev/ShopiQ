@@ -305,6 +305,20 @@ export function useAgentSession() {
           },
         ]);
 
+        // A quote describes one exact cart. The moment the cart stops matching
+        // it — an item removed, a quantity changed, the whole thing cleared —
+        // the card on screen is describing something that no longer exists,
+        // and it carries a "proceed to payment" button. Compared on the total
+        // rather than inferred from the outcome, because reading the cart and
+        // mutating it report the same outcome, and only one of them should
+        // invalidate a quote.
+        if (payload.cart) {
+          const cartMinor = Math.round(Number(payload.cart.total) * 100);
+          setQuote((current) =>
+            current && current.amountMinor !== cartMinor ? null : current,
+          );
+        }
+
         if (payload.speech) await speak(payload.speech, lang ?? language);
         else setState('waiting_for_user');
 

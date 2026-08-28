@@ -12,6 +12,7 @@ import {
   updateProfile,
   type OrderSummary,
 } from './tools/account';
+import { buildPendingAction, type PendingAction } from './confirm';
 import type { CartTurnResult } from './cart-actions';
 
 /**
@@ -250,6 +251,126 @@ export async function handleOrderList(): Promise<CartTurnResult> {
 /** "SQ-2026-14" anywhere in the message. */
 const ORDER_NUMBER = /\b(SQ-\d{4}-\d+)\b/i;
 
+export const SELECT_ORDER = 'select_order';
+
+export interface OrderSelection {
+  /** What we are about to do once we know which order. */
+  kind: 'cancel' | 'return' | 'replacement';
+  /** The order numbers offered, in the order they were listed. */
+  offered: string[];
+  /** The customer's original words, so a stated reason survives the question. */
+  reason: string;
+}
+
+/**
+ * Read a parked "which order?" question.
+ *
+ * Without this the question was rhetorical: asking "cancel my order" listed the
+ * candidates, and the answer arrived on the next turn with no memory that a
+ * cancellation was ever in progress. It was classified from scratch — an order
+ * number reads as a status enquiry — so the assistant cheerfully reported the
+ * status of an order it had just been asked to cancel.
+ */
+export function readOrderSelection(action: PendingAction | null): OrderSelection | null {
+  if (!action || action.action !== SELECT_ORDER) return null;
+  const args = action.arguments;
+  const kind = args.kind;
+  if (kind !== 'cancel' && kind !== 'return' && kind !== 'replacement') return null;
+  return {
+    kind,
+    offered: Array.isArray(args.offered) ? (args.offered as string[]) : [],
+    reason: typeof args.reason === 'string' ? args.reason : '',
+  };
+}
+
+/** Ask which order, and remember that we asked. */
+function askWhichOrder(
+  candidates: OrderSummary[],
+  kind: OrderSelection['kind'],
+  reason: string,
+): CartTurnResult {
+  const list = candidates
+    .map((order, index) => `${index + 1}. ${describeOrder(order)}`)
+    .join('\n');
+
+  const verb = kind === 'cancel' ? 'cancel' : `start a ${kind} for`;
+
+  return {
+    ...EMPTY,
+    message: `Which order should I ${verb}?\n${list}`,
+    outcome: 'clarify',
+    pendingAction: buildPendingAction(
+      SELECT_ORDER,
+      { kind, offered: candidates.map((order) => order.order_number), reason },
+      `Choosing which order to ${verb}`,
+    ),
+  };
+}
+
+/**
+ * Interpret an answer to a parked "which order?" question.
+ *
+ * Accepts the three ways people answer: the order number, a position in the
+ * list just shown, or the name of something in the order. Returns null when
+ * the message is none of those, so the caller can drop the question rather
+ * than insisting on an answer to something the customer has moved on from.
+ */
+export async function handleOrderSelectionAnswer(
+  message: string,
+  selection: OrderSelection,
+): Promise<CartTurnResult | null> {
+  const blocked = await requireSignIn('do that');
+  if (blocked) return blocked;
+
+  let chosen: string | null = null;
+
+  const stated = ORDER_NUMBER.exec(message);
+  if (stated && selection.offered.includes(stated[1].toUpperCase())) {
+    chosen = stated[1].toUpperCase();
+  }
+
+  // "the first one", "2", "second"
+  if (!chosen) {
+    const ordinals: Record<string, number> = {
+      first: 1, '1st': 1, one: 1, second: 2, '2nd': 2, two: 2,
+      third: 3, '3rd': 3, three: 3, fourth: 4, '4th': 4, four: 4,
+    };
+    const lower = message.toLowerCase();
+    const bare = /^\s*(\d)\s*$/.exec(message);
+    const position = bare
+      ? Number(bare[1])
+      : Object.entries(ordinals).find(([word]) => new RegExp(`\\b${word}\\b`).test(lower))?.[1];
+    if (position && position >= 1 && position <= selection.offered.length) {
+      chosen = selection.offered[position - 1];
+    }
+  }
+
+  // "the iPhone one"
+  if (!chosen) {
+    const orders = await listMyOrders(10);
+    const lower = message.toLowerCase();
+    const byItem = orders.find(
+      (order) =>
+        selection.offered.includes(order.order_number) &&
+        order.items.some((item) => {
+          const words = item.name.toLowerCase().split(/\s+/).filter((w) => w.length >= 3);
+          return words.length > 0 && words.every((word) => lower.includes(word));
+        }),
+    );
+    if (byItem) chosen = byItem.order_number;
+  }
+
+  if (!chosen) return null;
+
+  if (selection.kind === 'cancel') {
+    const result = await cancelOrder(chosen);
+    return reply(result.message, result.ok ? 'answer' : 'clarify');
+  }
+
+  const result = await requestSupport(chosen, selection.kind, selection.reason.slice(0, 500));
+  return reply(result.message, result.ok ? 'answer' : 'clarify');
+}
+
 /**
  * Work out which order the customer means.
  *
@@ -260,12 +381,18 @@ const ORDER_NUMBER = /\b(SQ-\d{4}-\d+)\b/i;
 async function resolveOrder(
   message: string,
   eligible: (order: OrderSummary) => boolean,
-): Promise<{ order: OrderSummary | null; ask: string | null }> {
+): Promise<{ order: OrderSummary | null; candidates: OrderSummary[]; ask: string | null }> {
   const stated = ORDER_NUMBER.exec(message);
   if (stated) {
     const order = await getOrderByNumber(stated[1].toUpperCase());
-    if (!order) return { order: null, ask: `I couldn't find an order numbered ${stated[1]} on your account.` };
-    return { order, ask: null };
+    if (!order) {
+      return {
+        order: null,
+        candidates: [],
+        ask: `I couldn't find an order numbered ${stated[1].toUpperCase()} on your account.`,
+      };
+    }
+    return { order, candidates: [], ask: null };
   }
 
   const orders = await listMyOrders(10);
@@ -274,24 +401,30 @@ async function resolveOrder(
   if (candidates.length === 0) {
     return {
       order: null,
+      candidates: [],
       ask:
         orders.length === 0
           ? "You haven't placed any orders yet."
           : 'None of your orders can be changed that way right now.',
     };
   }
-  if (candidates.length === 1) return { order: candidates[0], ask: null };
+  if (candidates.length === 1) return { order: candidates[0], candidates, ask: null };
 
-  const list = candidates.map((order) => `· ${describeOrder(order)}`).join('\n');
-  return { order: null, ask: `Which order did you mean?\n${list}` };
+  // More than one is a real question, and it has to be remembered — see
+  // askWhichOrder.
+  return { order: null, candidates, ask: null };
 }
 
 export async function handleOrderCancel(message: string): Promise<CartTurnResult> {
   const blocked = await requireSignIn('cancel an order');
   if (blocked) return blocked;
 
-  const { order, ask } = await resolveOrder(message, (candidate) => candidate.can_cancel);
-  if (!order) return reply(ask ?? 'Which order did you mean?', 'clarify');
+  const { order, candidates, ask } = await resolveOrder(message, (c) => c.can_cancel);
+
+  if (!order) {
+    if (candidates.length > 1) return askWhichOrder(candidates, 'cancel', message);
+    return reply(ask ?? 'Which order did you mean?', 'clarify');
+  }
 
   if (!order.can_cancel) {
     return reply(
@@ -310,8 +443,12 @@ export async function handleOrderSupport(message: string): Promise<CartTurnResul
 
   const kind = /\b(replace|replacement|exchange|badal)\b/i.test(message) ? 'replacement' : 'return';
 
-  const { order, ask } = await resolveOrder(message, (candidate) => candidate.can_return);
-  if (!order) return reply(ask ?? 'Which order did you mean?', 'clarify');
+  const { order, candidates, ask } = await resolveOrder(message, (c) => c.can_return);
+
+  if (!order) {
+    if (candidates.length > 1) return askWhichOrder(candidates, kind, message);
+    return reply(ask ?? 'Which order did you mean?', 'clarify');
+  }
 
   const result = await requestSupport(order.order_number, kind, message.slice(0, 500));
   return reply(result.message, result.ok ? 'answer' : 'clarify');

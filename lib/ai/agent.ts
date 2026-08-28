@@ -45,9 +45,11 @@ import {
   handleAddressList,
   handleOrderCancel,
   handleOrderList,
+  handleOrderSelectionAnswer,
   handleOrderSupport,
   handleProfileUpdate,
   handleProfileView,
+  readOrderSelection,
 } from './account-actions';
 import { shouldCrossSell } from './crosssell';
 import { detectLanguage, localise } from './language';
@@ -148,11 +150,35 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
   // message is handled as a fresh request.
   const pending = await loadPendingAction(context.conversationId);
 
+  // ------------------------------------------------------ which order answer
+  // "SQ-2026-1062" is an answer to a question we asked, not a fresh enquiry.
+  // Without this the cancellation was forgotten between turns and the order
+  // number was reclassified as a status question — so the assistant reported
+  // on an order it had just been asked to cancel, and cancelled nothing.
+  const orderSelection = readOrderSelection(pending);
+  if (orderSelection) {
+    const answered = await handleOrderSelectionAnswer(message, orderSelection);
+
+    // Cleared either way: answered, or abandoned because they moved on.
+    await savePendingAction(context.conversationId, answered?.pendingAction ?? null);
+
+    if (answered) {
+      return finishTurn(context, answered, {
+        intent: orderSelection.kind === 'cancel' ? 'order_cancel' : 'order_support',
+        requirements: context.state,
+        toolsUsed,
+        provider: provider.name,
+        degraded: !provider.available,
+      });
+    }
+    // Not an answer — fall through and handle the message on its own terms.
+  }
+
   // ---------------------------------------------------------- variant answer
-  // A parked variant question is not a yes/no, so it has to be read before the
-  // confirmation logic gets hold of it — "512 GB" is an answer, and putting it
-  // through readConfirmation() would score it as neither yes nor no and throw
-  // the half-finished add away.
+  // A parked variant question is not a yes/no either, so it has to be read
+  // before the confirmation logic gets hold of it — "512 GB" is an answer, and
+  // putting it through readConfirmation() would score it as neither yes nor no
+  // and throw the half-finished add away.
   const variantSelection = readVariantSelection(pending);
   if (variantSelection) {
     const cartContext = await buildCartContext(context, budget, toolsUsed, null);
@@ -356,6 +382,13 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
   const accountHandler = ACCOUNT_HANDLERS[extraction.intent];
   if (accountHandler) {
     const result = await accountHandler();
+
+    // Persist any question the handler parked — "which order should I cancel?"
+    // is only a real question if the answer can find its way back to it.
+    if (result.pendingAction) {
+      await savePendingAction(context.conversationId, result.pendingAction);
+    }
+
     return finishTurn(context, result, {
       intent: extraction.intent,
       requirements,
@@ -428,9 +461,19 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
       shouldCrossSell(message, { justAddedToCart: true }) &&
       budget.remaining >= 3
     ) {
-      const anchor = await pickCrossSellAnchor(cartContext, context);
+      // Cross-sell against the cart as it is NOW, not as it was when this turn
+      // began. `cartContext.scope.cart` was read before the add, so the item
+      // just added is missing from it — and handleCrossSell's "never recommend
+      // something already in the basket" rule was therefore checking a stale
+      // list. The visible symptom: adding the suggested controller made the
+      // very same response suggest that controller again.
+      const afterAdd: CartTurnContext = result.cart
+        ? { ...cartContext, scope: { ...cartContext.scope, cart: cartScopeLines(result.cart) } }
+        : cartContext;
+
+      const anchor = await pickCrossSellAnchor(afterAdd, context);
       if (anchor) {
-        const suggestion = await handleCrossSell(cartContext, anchor);
+        const suggestion = await handleCrossSell(afterAdd, anchor);
         if (suggestion.products.length > 0) {
           result = {
             ...result,
@@ -453,7 +496,16 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
 
   // ---------------------------------------------------------------- compare
   if (extraction.intent === 'compare') {
-    const ids = pickComparisonTargets(extraction.referencedProductIds, context.lastShownProductIds);
+    let ids = pickComparisonTargets(extraction.referencedProductIds, context.lastShownProductIds);
+
+    // Nothing on screen to point at — but the shopper may have named the two
+    // products outright, which is the most natural way to ask and used to be
+    // answered with "tell me which ones".
+    if (ids.length < 2) {
+      const named = await resolveNamedComparison(message);
+      if (named.length >= 2) ids = named;
+    }
+
     if (ids.length < 2) {
       return {
         ...base,
@@ -840,10 +892,20 @@ async function pickCrossSellAnchor(
   cartContext: CartTurnContext,
   context: AgentContext,
 ): Promise<ProductSummary | null> {
+  // Anchor on the most expensive thing in the basket, not the most recent.
+  //
+  // Accessories hang off the main purchase. Using the last line meant that as
+  // soon as someone accepted a suggested ₹7,999 controller, the controller
+  // became the anchor and the answer turned into "nothing pairs with the
+  // DualSense" — the laptop that prompted the suggestion was forgotten the
+  // moment the suggestion was taken.
+  const dearest = cartContext.scope.cart.reduce<{ productId: string; price: number } | null>(
+    (best, line) => (best === null || line.price > best.price ? line : best),
+    null,
+  );
+
   const candidateId =
-    cartContext.scope.cart[cartContext.scope.cart.length - 1]?.productId ??
-    context.lastShownProducts[0]?.productId ??
-    null;
+    dearest?.productId ?? context.lastShownProducts[0]?.productId ?? null;
 
   if (!candidateId) return null;
 
@@ -1072,6 +1134,85 @@ function pickComparisonTargets(referenced: string[], lastShown: string[]): strin
     return other ? [referenced[0], other] : [];
   }
   return lastShown.slice(0, 2);
+}
+
+/**
+ * Resolve products the shopper named outright, for a comparison.
+ *
+ * "compare MacBook Pro M5 and M5 Pro" used to fail: comparison only understood
+ * ordinals against a list already on screen, so naming two products directly —
+ * the most obvious way to ask — was answered with "tell me which ones".
+ *
+ * The hard part is that the two names overlap. "MacBook Pro M5" is a prefix of
+ * "MacBook Pro M5 Pro", so a naive search resolves both halves to the same
+ * product and there is nothing to compare. Each fragment therefore keeps a
+ * ranked list of candidates, and a fragment that would collide with one already
+ * taken falls through to its next-best match.
+ */
+async function resolveNamedComparison(message: string): Promise<string[]> {
+  const stripped = message
+    .replace(/\b(compare|comparison|difference between|diff between|vs\.?|versus|between)\b/gi, ' ')
+    .replace(/\b(the|and|or|both|these|those|two|please|for me|which|is better|better)\b/gi, ' ')
+    .trim();
+
+  // Split on the separators people use between two product names. The original
+  // "and"/"vs" have been stripped above, so the remaining structure is spacing
+  // and punctuation — which is why the split happens on the ORIGINAL message.
+  const fragments = message
+    .replace(/\b(compare|comparison|difference between|diff between|between|which is better)\b/gi, ' ')
+    .split(/\s+(?:and|vs\.?|versus|or)\s+|,\s*/i)
+    .map((part) => part.replace(/[^\p{L}\p{N}\s.+-]/gu, ' ').replace(/\s+/g, ' ').trim())
+    .filter((part) => part.length >= 2);
+
+  if (fragments.length < 2) return [];
+
+  const tokensOf = (text: string) =>
+    text.toLowerCase().split(/\s+/).filter((token) => token.length >= 1);
+
+  /** Candidates for one fragment, best match first. */
+  const rankFragment = async (fragment: string) => {
+    let found: ProductSummary[] = [];
+    try {
+      const result = await searchProductSummaries({
+        query: fragment,
+        category: null,
+        brand: null,
+        min_price: null,
+        max_price: null,
+        min_rating: null,
+        filters: null,
+        in_stock_only: false,
+        sort: 'relevance',
+        limit: 20,
+      });
+      found = result.products;
+    } catch {
+      return [];
+    }
+
+    const wanted = tokensOf(fragment);
+    return found
+      .map((product) => {
+        const name = `${product.brand} ${product.name}`.toLowerCase();
+        const matched = wanted.filter((token) => name.includes(token)).length;
+        return { product, matched, length: product.name.length };
+      })
+      // Most of the named tokens present wins; among equals the shortest name,
+      // so "MacBook Pro M5" beats "MacBook Pro M5 Pro Max" for the plain M5.
+      .filter((entry) => entry.matched > 0)
+      .sort((a, b) => b.matched - a.matched || a.length - b.length)
+      .map((entry) => entry.product);
+  };
+
+  const ranked = await Promise.all(fragments.slice(0, 4).map(rankFragment));
+
+  const chosen: string[] = [];
+  for (const candidates of ranked) {
+    const pick = candidates.find((product) => !chosen.includes(product.id));
+    if (pick) chosen.push(pick.id);
+  }
+
+  return chosen.length >= 2 ? chosen.slice(0, 4) : [];
 }
 
 // ------------------------------------------------------------------ payloads
