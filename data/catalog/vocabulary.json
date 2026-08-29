@@ -1,0 +1,528 @@
+{
+  "$comment": "The closed vocabularies a catalogue import must draw from. Everything here is a value the retrieval and ranking layers match on, which is why the lists are closed: a product tagged `gaming_laptop` when the vocabulary says `gaming` is simply invisible to the matcher, and nothing would report it. validateCatalogData() rejects unknown values rather than letting them fail silently.",
+  "version": "1.0.0",
+  "segments": {
+    "laptops": [
+      "gaming",
+      "performance",
+      "student",
+      "programming",
+      "business",
+      "ultraportable",
+      "creator",
+      "budget"
+    ],
+    "gaming-laptops": [
+      "gaming",
+      "performance",
+      "creator",
+      "budget"
+    ],
+    "phones": [
+      "budget",
+      "mid_range",
+      "upper_mid_range",
+      "flagship",
+      "camera",
+      "gaming",
+      "compact"
+    ],
+    "monitors": [
+      "gaming",
+      "office",
+      "creator",
+      "professional",
+      "budget"
+    ],
+    "televisions": [
+      "gaming",
+      "home_entertainment",
+      "budget",
+      "premium"
+    ],
+    "audio": [
+      "audiophile",
+      "commute",
+      "sports",
+      "gaming",
+      "calls",
+      "budget"
+    ],
+    "earbuds": [
+      "audiophile",
+      "commute",
+      "sports",
+      "calls",
+      "budget"
+    ],
+    "headphones": [
+      "audiophile",
+      "commute",
+      "studio",
+      "gaming",
+      "budget"
+    ],
+    "pc-components": [
+      "gaming",
+      "performance",
+      "budget",
+      "workstation"
+    ],
+    "gpu": [
+      "gaming",
+      "performance",
+      "creator",
+      "budget"
+    ],
+    "cpu": [
+      "gaming",
+      "performance",
+      "workstation",
+      "budget"
+    ],
+    "ram": [
+      "gaming",
+      "performance",
+      "budget"
+    ],
+    "ssd": [
+      "gaming",
+      "performance",
+      "budget"
+    ],
+    "playstation": [
+      "gaming"
+    ],
+    "accessories": [
+      "budget",
+      "premium"
+    ],
+    "chargers": [
+      "fast_charging",
+      "travel",
+      "budget"
+    ]
+  },
+  "use_cases": {
+    "$comment": "The standardized use-case vocabulary. Requirement extraction maps free text onto these, and products declare which they suit. Both sides must use the same strings or matching silently scores zero.",
+    "values": [
+      "gaming",
+      "programming",
+      "college",
+      "office",
+      "content_creation",
+      "photography",
+      "video_editing",
+      "travel",
+      "music",
+      "calls",
+      "productivity",
+      "daily_use",
+      "professional",
+      "home_entertainment"
+    ]
+  },
+  "performance": {
+    "$comment": "A RECOMMENDATION SIGNAL, NOT A BENCHMARK. These are 1-10 editorial judgements of how well a product serves a purpose, comparable only within a category. A 9 for gaming on a laptop and a 9 for gaming on a TV say 'good for gaming in its class' — they are not a claim that the two perform alike, and nothing derived from them may be presented to a customer as a measurement.",
+    "scale": {
+      "min": 1,
+      "max": 10,
+      "integer": true
+    },
+    "dimensions": [
+      "gaming",
+      "programming",
+      "office",
+      "content_creation",
+      "photography",
+      "video_editing",
+      "portability",
+      "battery",
+      "display_quality",
+      "audio_quality",
+      "build_quality",
+      "value"
+    ]
+  },
+  "specifications": {
+    "$comment": "Normalized spec keys. `numeric` keys are stored in product_specs.spec_value_num and are what range filters push into Postgres; `text` keys are matched with equals/contains. `unit` is the ONE unit a value may be expressed in — an importer converting 1 TB to 1024 here and 1000 there makes '1TB SSD under 10k' return different things on different days.",
+    "numeric": {
+      "ram_gb": {
+        "unit": "GB"
+      },
+      "storage_gb": {
+        "unit": "GB",
+        "note": "Binary convention: 1 TB = 1024."
+      },
+      "capacity_gb": {
+        "unit": "GB",
+        "note": "Storage products. Same convention as storage_gb."
+      },
+      "vram_gb": {
+        "unit": "GB"
+      },
+      "display_size_in": {
+        "unit": "inch"
+      },
+      "refresh_rate_hz": {
+        "unit": "Hz"
+      },
+      "resolution_width": {
+        "unit": "px"
+      },
+      "resolution_height": {
+        "unit": "px"
+      },
+      "battery_mah": {
+        "unit": "mAh"
+      },
+      "battery_wh": {
+        "unit": "Wh"
+      },
+      "battery_hours": {
+        "unit": "hours"
+      },
+      "camera_mp": {
+        "unit": "MP"
+      },
+      "charging_w": {
+        "unit": "W"
+      },
+      "power_w": {
+        "unit": "W"
+      },
+      "weight_kg": {
+        "unit": "kg"
+      },
+      "speed_mhz": {
+        "unit": "MHz"
+      },
+      "read_speed_mbps": {
+        "unit": "MB/s"
+      },
+      "write_speed_mbps": {
+        "unit": "MB/s"
+      },
+      "cores": {
+        "unit": "count"
+      },
+      "threads": {
+        "unit": "count"
+      },
+      "hdmi_version": {
+        "unit": "version",
+        "note": "2.1 stored as 2.1, so >= 2.1 filters work."
+      },
+      "audio_output_w": {
+        "unit": "W"
+      }
+    },
+    "text": {
+      "processor": {},
+      "gpu": {},
+      "memory_type": {
+        "enum": [
+          "DDR4",
+          "DDR5",
+          "LPDDR4X",
+          "LPDDR5",
+          "LPDDR5X",
+          "GDDR6",
+          "GDDR6X"
+        ]
+      },
+      "form_factor": {
+        "enum": [
+          "DIMM",
+          "SO-DIMM",
+          "M.2 2280",
+          "M.2 2230",
+          "2.5 inch",
+          "3.5 inch",
+          "ATX",
+          "ITX"
+        ]
+      },
+      "socket": {
+        "enum": [
+          "AM4",
+          "AM5",
+          "LGA1700",
+          "LGA1851"
+        ]
+      },
+      "interface": {
+        "enum": [
+          "PCIe 3.0",
+          "PCIe 4.0",
+          "PCIe 5.0",
+          "SATA III",
+          "USB-C",
+          "USB-A"
+        ]
+      },
+      "connector": {
+        "enum": [
+          "USB-C",
+          "USB-A",
+          "Lightning",
+          "MagSafe",
+          "HDMI",
+          "DisplayPort",
+          "3.5 mm"
+        ]
+      },
+      "panel_type": {
+        "enum": [
+          "IPS",
+          "VA",
+          "TN",
+          "OLED",
+          "QD-OLED",
+          "Mini-LED"
+        ]
+      },
+      "resolution": {
+        "enum": [
+          "HD",
+          "FHD",
+          "QHD",
+          "4K",
+          "8K"
+        ]
+      },
+      "storage_type": {
+        "enum": [
+          "SSD",
+          "HDD",
+          "eMMC"
+        ]
+      },
+      "platform": {
+        "enum": [
+          "desktop",
+          "laptop",
+          "console",
+          "mobile",
+          "universal"
+        ]
+      },
+      "water_resistance": {},
+      "connectivity": {},
+      "display_size": {
+        "note": "Human-readable form. Prefer display_size_in for filtering."
+      },
+      "operating_system": {},
+      "latency": {
+        "note": "CAS latency as written, e.g. CL36."
+      }
+    }
+  },
+  "specification_groups": {
+    "laptops": {
+      "processor": [
+        "processor",
+        "cores",
+        "threads"
+      ],
+      "memory": [
+        "ram_gb",
+        "memory_type"
+      ],
+      "storage": [
+        "storage_gb",
+        "storage_type"
+      ],
+      "display": [
+        "display_size_in",
+        "resolution",
+        "refresh_rate_hz",
+        "panel_type"
+      ],
+      "graphics": [
+        "gpu",
+        "vram_gb"
+      ],
+      "battery": [
+        "battery_wh",
+        "battery_hours",
+        "charging_w"
+      ],
+      "physical": [
+        "weight_kg",
+        "form_factor"
+      ],
+      "software": [
+        "operating_system"
+      ]
+    },
+    "phones": {
+      "processor": [
+        "processor",
+        "cores"
+      ],
+      "memory": [
+        "ram_gb"
+      ],
+      "storage": [
+        "storage_gb"
+      ],
+      "display": [
+        "display_size_in",
+        "resolution",
+        "refresh_rate_hz",
+        "panel_type"
+      ],
+      "camera": [
+        "camera_mp"
+      ],
+      "battery": [
+        "battery_mah"
+      ],
+      "charging": [
+        "charging_w",
+        "connector"
+      ],
+      "connectivity": [
+        "connectivity"
+      ],
+      "durability": [
+        "water_resistance"
+      ]
+    },
+    "gpu": {
+      "graphics": [
+        "gpu",
+        "cores"
+      ],
+      "memory": [
+        "vram_gb",
+        "memory_type"
+      ],
+      "power": [
+        "power_w"
+      ],
+      "interface": [
+        "interface",
+        "form_factor"
+      ],
+      "features": [
+        "connectivity"
+      ]
+    },
+    "ram": {
+      "capacity": [
+        "capacity_gb"
+      ],
+      "memory_type": [
+        "memory_type"
+      ],
+      "speed": [
+        "speed_mhz"
+      ],
+      "form_factor": [
+        "form_factor"
+      ],
+      "latency": [
+        "latency"
+      ]
+    },
+    "ssd": {
+      "capacity": [
+        "capacity_gb"
+      ],
+      "interface": [
+        "interface"
+      ],
+      "form_factor": [
+        "form_factor"
+      ],
+      "read_speed": [
+        "read_speed_mbps"
+      ],
+      "write_speed": [
+        "write_speed_mbps"
+      ]
+    },
+    "televisions": {
+      "display": [
+        "display_size_in",
+        "resolution",
+        "refresh_rate_hz",
+        "panel_type"
+      ],
+      "gaming": [
+        "hdmi_version",
+        "refresh_rate_hz"
+      ],
+      "audio": [
+        "audio_output_w"
+      ],
+      "connectivity": [
+        "connectivity"
+      ]
+    },
+    "monitors": {
+      "display": [
+        "display_size_in",
+        "resolution",
+        "refresh_rate_hz",
+        "panel_type"
+      ],
+      "connectivity": [
+        "connectivity",
+        "interface"
+      ],
+      "physical": [
+        "weight_kg"
+      ]
+    }
+  },
+  "relationship_types": {
+    "$comment": "How one product relates to another. `type` drives both the wording shown and whether price proportionality applies — an accessory dearer than its anchor is suppressed, an upsell is expected to cost more.",
+    "values": [
+      "cross_sell",
+      "upsell",
+      "alternative",
+      "accessory",
+      "compatible",
+      "frequently_bought_together",
+      "ecosystem",
+      "replacement",
+      "upgrade"
+    ]
+  },
+  "compatibility_predicates": {
+    "$comment": "How a compatibility claim is meant. `not_compatible_with` is an exclusion and always wins over any positive match — refusing to sell a part that will not fit matters more than making the sale.",
+    "values": [
+      "compatible_with",
+      "requires",
+      "works_with",
+      "not_compatible_with",
+      "recommended_for"
+    ]
+  },
+  "accessory_types": {
+    "laptop_sleeve": "laptop-accessories",
+    "laptop_bag": "laptop-accessories",
+    "usb_c_hub": "laptop-accessories",
+    "cooling_pad": "laptop-accessories",
+    "wireless_mouse": "laptop-accessories",
+    "external_ssd": "ssd",
+    "phone_case": "phone-accessories",
+    "screen_protector": "phone-accessories",
+    "charger": "chargers",
+    "earbuds": "earbuds",
+    "headphones": "headphones",
+    "gaming_headset": "gaming-headsets",
+    "gaming_mouse": "gaming-accessories",
+    "mousepad": "gaming-accessories",
+    "controller": "controllers",
+    "charging_station": "gaming-accessories",
+    "television": "televisions",
+    "monitor": "monitors"
+  },
+  "$comment_segments": "What kind of buyer a product is FOR. A product may sit in several. Segments are per-category because 'flagship' means nothing for a cooling pad.",
+  "$comment_specification_groups": "How specs are presented, per category. Presentation only — retrieval never depends on grouping. A key absent from every group still filters; it just does not get a heading.",
+  "$comment_accessory_types": "The accessory kinds a product can declare it accepts, in compatibility.compatible_accessory_types. Each maps to a taxonomy slug so the engine can go and find real products."
+}

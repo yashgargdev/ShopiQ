@@ -1,0 +1,315 @@
+{
+  "$comment": "Category-level recommendation rules. These say what KINDS of product go with what, so the engine can then go and find whatever real, in-stock products exist — a rule naming products directly would have to be rewritten every time the catalogue changed. Product-specific pairings live on the product itself, under `relationships`.",
+  "version": "1.0.0",
+  "settings": {
+    "max_recommendations": {
+      "value": 3,
+      "$comment": "Section 54. Three is a suggestion; seventeen is a wall of upsell nobody reads."
+    },
+    "accessory_budget_ratio": {
+      "value": 0.15,
+      "$comment": "Default accessory spend as a fraction of the anchor's price. A 60k laptop justifies roughly 9k of accessories across all of them, which is why a 3k sleeve reads as reasonable and a 25k monitor does not."
+    },
+    "max_accessory_price_ratio": {
+      "value": 1,
+      "$comment": "An accessory costing more than the thing it accessorises is not an accessory. Hard exclusion, not a penalty — in a thin catalogue a merely-deprioritised candidate is still the top candidate."
+    },
+    "upsell_max_uplift_ratio": {
+      "value": 0.25,
+      "$comment": "An upsell may cost up to 25% more than the stated budget. Beyond that it stops being 'a bit more' and becomes ignoring what the customer said."
+    },
+    "diversity": {
+      "max_per_brand": 2,
+      "$comment": "Section 51. Three results from one brand reads as a paid placement even when it is honestly ranked."
+    }
+  },
+  "rules": [
+    {
+      "id": "gaming-laptop-accessories",
+      "when": {
+        "category": {
+          "in": [
+            "laptops",
+            "gaming-laptops"
+          ]
+        },
+        "segments": {
+          "contains": "gaming"
+        }
+      },
+      "recommend": [
+        {
+          "category": "gaming-accessories",
+          "type": "accessory",
+          "priority": 10,
+          "reason": "a gaming mouse is a real upgrade over a trackpad"
+        },
+        {
+          "category": "gaming-headsets",
+          "type": "accessory",
+          "priority": 9,
+          "reason": "positional audio and a mic for playing with friends"
+        },
+        {
+          "category": "laptop-accessories",
+          "type": "accessory",
+          "priority": 8,
+          "reason": "gaming laptops run hot and travel heavy — a cooling pad or padded sleeve helps"
+        },
+        {
+          "category": "controllers",
+          "type": "accessory",
+          "priority": 7,
+          "reason": "plays over USB or Bluetooth for the games a keyboard suits badly"
+        }
+      ]
+    },
+    {
+      "id": "laptop-accessories",
+      "when": {
+        "category": {
+          "in": [
+            "laptops",
+            "gaming-laptops"
+          ]
+        }
+      },
+      "recommend": [
+        {
+          "category": "laptop-accessories",
+          "type": "accessory",
+          "priority": 9,
+          "reason": "protects the laptop when you carry it"
+        },
+        {
+          "category": "headphones",
+          "type": "accessory",
+          "priority": 7,
+          "reason": "for calls and music while you work"
+        },
+        {
+          "category": "monitors",
+          "type": "cross_sell",
+          "priority": 5,
+          "reason": "a second screen for working at a desk"
+        }
+      ]
+    },
+    {
+      "id": "phone-accessories",
+      "when": {
+        "category": "phones"
+      },
+      "recommend": [
+        {
+          "category": "phone-accessories",
+          "type": "accessory",
+          "priority": 9,
+          "reason": "a case and screen protector on day one, before the first drop"
+        },
+        {
+          "category": "earbuds",
+          "type": "accessory",
+          "priority": 8,
+          "reason": "most phones no longer include earphones"
+        },
+        {
+          "category": "chargers",
+          "type": "accessory",
+          "priority": 7,
+          "reason": "many phones now ship without a charger in the box"
+        }
+      ]
+    },
+    {
+      "id": "playstation-ecosystem",
+      "when": {
+        "category": "playstation"
+      },
+      "recommend": [
+        {
+          "category": "controllers",
+          "type": "ecosystem",
+          "priority": 10,
+          "reason": "a second controller is what makes it a couch console"
+        },
+        {
+          "category": "gaming-accessories",
+          "type": "ecosystem",
+          "priority": 9,
+          "reason": "a charging station keeps both controllers ready"
+        },
+        {
+          "category": "gaming-headsets",
+          "type": "ecosystem",
+          "priority": 8,
+          "reason": "party chat and positional audio"
+        },
+        {
+          "category": "televisions",
+          "type": "ecosystem",
+          "priority": 7,
+          "reason": "a 4K 120 Hz screen over HDMI 2.1 is what the console can actually drive",
+          "require": {
+            "specifications.refresh_rate_hz": {
+              "greater_than_or_equal": 120
+            },
+            "specifications.resolution": {
+              "equals": "4K"
+            },
+            "specifications.hdmi_version": {
+              "greater_than_or_equal": 2.1
+            }
+          },
+          "$comment": "Section 24. The requirement is what makes this honest: recommending any television beside a PS5 would be recommending a screen that cannot show what it outputs. If no TV in the catalogue meets it, none is offered."
+        }
+      ]
+    },
+    {
+      "id": "gpu-build",
+      "when": {
+        "category": "gpu"
+      },
+      "recommend": [
+        {
+          "category": "cpu",
+          "type": "compatible",
+          "priority": 8,
+          "reason": "the processor to pair it with"
+        },
+        {
+          "category": "ram",
+          "type": "compatible",
+          "priority": 7,
+          "reason": "memory for the same build"
+        },
+        {
+          "category": "ssd",
+          "type": "cross_sell",
+          "priority": 6,
+          "reason": "somewhere fast to install games"
+        }
+      ]
+    },
+    {
+      "id": "monitor-desk",
+      "when": {
+        "category": "monitors"
+      },
+      "recommend": [
+        {
+          "category": "laptop-accessories",
+          "type": "cross_sell",
+          "priority": 6,
+          "reason": "a hub, so one cable does display and power"
+        }
+      ]
+    },
+    {
+      "id": "television-gaming",
+      "when": {
+        "category": "televisions",
+        "segments": {
+          "contains": "gaming"
+        }
+      },
+      "recommend": [
+        {
+          "category": "playstation",
+          "type": "cross_sell",
+          "priority": 6,
+          "reason": "the console this screen is specified for"
+        },
+        {
+          "category": "gaming-headsets",
+          "type": "accessory",
+          "priority": 5,
+          "reason": "for late sessions without waking the house"
+        }
+      ]
+    },
+    {
+      "id": "storage-upgrade",
+      "when": {
+        "category": {
+          "in": [
+            "ssd",
+            "hdd"
+          ]
+        }
+      },
+      "recommend": [
+        {
+          "category": "ram",
+          "type": "cross_sell",
+          "priority": 5,
+          "reason": "the other half of the usual upgrade"
+        }
+      ]
+    }
+  ],
+  "brand_ecosystems": {
+    "Apple": {
+      "boost": 6,
+      "categories": [
+        "earbuds",
+        "headphones",
+        "chargers",
+        "phone-accessories",
+        "laptop-accessories"
+      ]
+    },
+    "Samsung": {
+      "boost": 6,
+      "categories": [
+        "earbuds",
+        "chargers",
+        "phone-accessories",
+        "monitors",
+        "televisions"
+      ]
+    },
+    "Sony": {
+      "boost": 6,
+      "categories": [
+        "controllers",
+        "gaming-headsets",
+        "gaming-accessories",
+        "headphones",
+        "televisions"
+      ]
+    },
+    "Nothing": {
+      "boost": 6,
+      "categories": [
+        "earbuds",
+        "chargers",
+        "phone-accessories"
+      ]
+    },
+    "ASUS": {
+      "boost": 4,
+      "categories": [
+        "monitors",
+        "gaming-accessories",
+        "pc-components",
+        "gpu"
+      ]
+    },
+    "Lenovo": {
+      "boost": 4,
+      "categories": [
+        "laptop-accessories",
+        "monitors"
+      ]
+    },
+    "HP": {
+      "boost": 4,
+      "categories": [
+        "laptop-accessories",
+        "monitors"
+      ]
+    }
+  },
+  "$comment_brand_ecosystems": "Section 23. A brand match is a RANKING BOOST inside an already-relevant category, never a rule of its own — 'you bought Apple so here is Apple' is not a reason, but preferring AirPods among earbuds for an iPhone owner is."
+}

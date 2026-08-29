@@ -1,0 +1,62 @@
+{
+  "$comment": "ShopiQ category taxonomy. Slugs here are the contract between the catalogue, the recommendation rules and the categories table — a rule that names a slug not in this file is a bug, and validateCatalogData() reports it. Extend by adding nodes; never renumber or rename an existing slug, because product rows and rules both reference it.",
+  "version": "1.0.0",
+  "root": "electronics",
+  "nodes": [
+    { "slug": "electronics", "name": "Electronics", "parent": null },
+
+    { "slug": "laptops", "name": "Laptops", "parent": "electronics" },
+    { "slug": "gaming-laptops", "name": "Gaming Laptops", "parent": "laptops" },
+
+    { "slug": "phones", "name": "Phones", "parent": "electronics" },
+
+    { "slug": "audio", "name": "Audio", "parent": "electronics" },
+    { "slug": "earbuds", "name": "Earbuds", "parent": "audio" },
+    { "slug": "headphones", "name": "Headphones", "parent": "audio" },
+
+    { "slug": "chargers", "name": "Chargers", "parent": "electronics" },
+
+    { "slug": "accessories", "name": "Accessories", "parent": "electronics" },
+    { "slug": "phone-accessories", "name": "Phone Accessories", "parent": "accessories" },
+    { "slug": "laptop-accessories", "name": "Laptop Accessories", "parent": "accessories" },
+
+    { "slug": "gaming", "name": "Gaming", "parent": "electronics" },
+    { "slug": "playstation", "name": "PlayStation", "parent": "gaming" },
+    { "slug": "controllers", "name": "Controllers", "parent": "gaming" },
+    { "slug": "gaming-headsets", "name": "Gaming Headsets", "parent": "gaming" },
+    { "slug": "gaming-accessories", "name": "Gaming Accessories", "parent": "gaming" },
+
+    { "slug": "televisions", "name": "Televisions", "parent": "electronics" },
+    { "slug": "monitors", "name": "Monitors", "parent": "electronics" },
+
+    { "slug": "pc-components", "name": "PC Components", "parent": "electronics" },
+    { "slug": "cpu", "name": "Processors", "parent": "pc-components" },
+    { "slug": "gpu", "name": "Graphics Cards", "parent": "pc-components" },
+    { "slug": "ram", "name": "Memory", "parent": "pc-components" },
+    { "slug": "ssd", "name": "Solid State Drives", "parent": "pc-components" },
+    { "slug": "hdd", "name": "Hard Drives", "parent": "pc-components" }
+  ],
+
+  "$comment_aliases": "What people say, mapped to a slug. Used by requirement extraction so 'lappy' and 'graphics card' resolve without the model guessing. An alias must never point at a slug that is not a node above.",
+  "aliases": {
+    "laptops": ["laptop", "laptops", "notebook", "notebooks", "ultrabook", "lappy", "macbook"],
+    "gaming-laptops": ["gaming laptop", "gaming laptops", "gaming notebook", "gaming lappy"],
+    "phones": ["phone", "phones", "smartphone", "smartphones", "mobile", "mobiles", "handset"],
+    "earbuds": ["earbud", "earbuds", "tws", "buds", "airpods", "true wireless"],
+    "headphones": ["headphone", "headphones", "earphone", "earphones", "iem", "iems", "over ear"],
+    "chargers": ["charger", "chargers", "adapter", "power adapter", "fast charger", "brick"],
+    "phone-accessories": ["phone case", "cover", "screen protector", "popsocket", "phone stand"],
+    "laptop-accessories": ["laptop sleeve", "sleeve", "laptop bag", "usb hub", "usb-c hub", "docking station", "cooling pad"],
+    "playstation": ["ps5", "playstation", "playstation 5", "console"],
+    "controllers": ["controller", "controllers", "gamepad", "joystick", "dualsense"],
+    "gaming-headsets": ["gaming headset", "gaming headsets", "gaming headphone"],
+    "gaming-accessories": ["mousepad", "mouse pad", "deskmat", "desk mat", "charging station", "cooling pad"],
+    "televisions": ["tv", "tvs", "television", "televisions", "smart tv", "4k tv"],
+    "monitors": ["monitor", "monitors", "display", "screen"],
+    "cpu": ["cpu", "processor", "processors", "chip"],
+    "gpu": ["gpu", "graphics card", "graphics cards", "video card"],
+    "ram": ["ram", "memory", "memory stick", "dimm", "so-dimm", "sodimm"],
+    "ssd": ["ssd", "solid state drive", "nvme", "m.2"],
+    "hdd": ["hdd", "hard drive", "hard disk", "spinning disk"]
+  }
+}

@@ -102,6 +102,60 @@ export const getCategoriesInput = z
   })
   .strict();
 
+/**
+ * Recommendations for a product the shopper is looking at.
+ *
+ * The tool takes a product and a KIND of relationship — never a list of
+ * products to suggest. What comes back is decided by the rules and the live
+ * catalogue, so the model cannot nominate the answer it wants.
+ */
+export const findRecommendationsInput = z
+  .object({
+    product_id: productRefSchema,
+    type: z
+      .enum([
+        'cross_sell',
+        'upsell',
+        'alternative',
+        'accessory',
+        'compatible',
+        'frequently_bought_together',
+        'ecosystem',
+        'replacement',
+        'upgrade',
+      ])
+      .nullish(),
+    /** Narrow to one category, for "what TV goes with this?". */
+    category: z
+      .string()
+      .trim()
+      .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Category must be a slug.')
+      .max(80)
+      .nullish(),
+    limit: z.number().int().min(1).max(5).nullish(),
+    /** Brands the shopper has ruled out. Applied as a filter, not a penalty. */
+    exclude_brands: z.array(z.string().trim().min(1).max(80)).max(10).nullish(),
+  })
+  .strict();
+
+/**
+ * Products in a category that actually work with another product.
+ *
+ * Separate from find_recommendations because the question is different: not
+ * "what else might they like" but "what will physically work with this".
+ */
+export const findCompatibleProductsInput = z
+  .object({
+    product_id: productRefSchema,
+    category: z
+      .string()
+      .trim()
+      .regex(/^[a-z0-9]+(-[a-z0-9]+)*$/, 'Category must be a slug.')
+      .max(80),
+    limit: z.number().int().min(1).max(5).nullish(),
+  })
+  .strict();
+
 export const getRelatedProductsInput = z
   .object({
     product_id: productRefSchema,
@@ -203,6 +257,8 @@ export type CompareProductsInput = z.infer<typeof compareProductsInput>;
 export type CheckInventoryInput = z.infer<typeof checkInventoryInput>;
 export type GetCategoriesInput = z.infer<typeof getCategoriesInput>;
 export type GetRelatedProductsInput = z.infer<typeof getRelatedProductsInput>;
+export type FindRecommendationsInput = z.infer<typeof findRecommendationsInput>;
+export type FindCompatibleProductsInput = z.infer<typeof findCompatibleProductsInput>;
 
 /**
  * Translate the tool-facing `filters` object into the database's filter

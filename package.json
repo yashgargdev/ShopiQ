@@ -43,7 +43,8 @@
     "test:agent": "node -r dotenv/config scripts/test-agent.mjs dotenv_config_path=.env.local",
     "dev:https": "next dev --experimental-https",
     "dev:mock": "cross-env PAYMENTS_PROVIDER=mock next dev",
-    "dev:mock-https": "cross-env PAYMENTS_PROVIDER=mock next dev --experimental-https"
+    "dev:mock-https": "cross-env PAYMENTS_PROVIDER=mock next dev --experimental-https",
+    "test:catalog": "node scripts/test-catalog.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.120.0",

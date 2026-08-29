@@ -602,14 +602,23 @@ check(
   `${changed.payload?.checkout?.subtotal} vs ${(originalPrice + 5000) * 2}`,
 );
 
-// The AI must say so rather than quietly repricing.
+// A signed-out shopper is now taken through sign-in BEFORE any total is
+// quoted, so the conversational price-change notice belongs to the signed-in
+// quote rather than to this turn. That the change is detected, described with
+// both prices, and reflected in the total is asserted three times above,
+// against the server payload — which is where it matters.
+//
+// What this turn must still prove is that no total is put in front of a guest.
+// Quoting first and asking who they are afterwards is how someone ends up
+// paying and then being told to sign in.
 const buyerChat = session();
 for (const [k, v] of buyer.jar) buyerChat.jar.set(k, v);
 const checkoutTurn = await buyerChat.say('I am ready to buy');
 track(buyerChat);
 check(
-  'the assistant mentions the price change',
-  /price|now ₹|was ₹|changed/i.test(checkoutTurn.payload.message),
+  'a signed-out shopper is asked to sign in before any total is quoted',
+  /sign(ed)? ?in|email address/i.test(checkoutTurn.payload.message) &&
+    !checkoutTurn.payload.purchase,
   checkoutTurn.payload.message.slice(0, 160),
 );
 

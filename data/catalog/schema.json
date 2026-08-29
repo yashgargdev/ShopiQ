@@ -1,0 +1,203 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://shopiq.yashgarg.co.in/catalog/schema.json",
+  "title": "ShopiQ canonical product",
+  "description": "The shape a catalogue import must supply. This is a KNOWLEDGE model, not a table definition: one entry here becomes one row in `products` plus rows in `product_specs`, `product_images` and `inventory`. Nothing here creates a variant table — a configuration IS a product, and `product_family` is the only thing tying configurations together.",
+
+  "type": "object",
+  "required": ["catalog_version", "products"],
+  "additionalProperties": false,
+
+  "properties": {
+    "catalog_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Semver for the dataset, not the software. Bump when the product set changes so an import can be traced back to what produced it."
+    },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "demo_dataset": {
+      "type": "boolean",
+      "default": false,
+      "description": "Catalog metadata, deliberately NOT a database column. Marks a dataset as illustrative so nobody mistakes it for real merchandising."
+    },
+    "products": { "type": "array", "items": { "$ref": "#/$defs/product" } }
+  },
+
+  "$defs": {
+    "product": {
+      "type": "object",
+      "required": [
+        "id", "name", "brand", "category", "pricing", "sku", "inventory"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Stable import key, used as the product slug. Must not change between imports: order history, images and rules all reference it."
+        },
+
+        "product_family": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+          "description": "Logical grouping ONLY — there is no family table and no variant table. Every purchasable configuration is its own product row; this string is what lets the assistant say 'the 1 TB version' and find its sibling. Example: asus-tuf-a15 covers asus-tuf-a15-16gb-512gb and asus-tuf-a15-32gb-1tb."
+        },
+
+        "name": { "type": "string", "minLength": 1, "maxLength": 200 },
+        "brand": { "type": "string", "minLength": 1, "maxLength": 80 },
+
+        "category": {
+          "type": "string",
+          "description": "A leaf slug from taxonomy.json. Validation rejects anything else, because a product in a category no rule names is a product nothing will ever recommend."
+        },
+        "subcategory": { "type": "string" },
+
+        "segments": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "From vocabulary.json segments, for this product's category."
+        },
+
+        "description": { "type": "string" },
+        "short_description": { "type": "string", "maxLength": 300 },
+
+        "configuration": {
+          "type": "object",
+          "description": "What distinguishes this row from its siblings in the same product_family — the axes on which a shopper chooses. Example: { \"ram_gb\": 32, \"storage_gb\": 1024 }. Keys should also appear in specifications so they remain filterable.",
+          "additionalProperties": { "type": ["string", "number", "boolean"] }
+        },
+
+        "pricing": {
+          "type": "object",
+          "required": ["selling_price"],
+          "additionalProperties": false,
+          "properties": {
+            "mrp": { "type": "number", "minimum": 0, "description": "Becomes products.compare_at_price. Must be >= selling_price." },
+            "selling_price": { "type": "number", "minimum": 0, "description": "Becomes products.price. THE PRICE THE CUSTOMER PAYS COMES FROM THE DATABASE AT READ TIME, never from this file once imported." },
+            "currency": { "type": "string", "default": "INR", "pattern": "^[A-Z]{3}$" }
+          }
+        },
+
+        "sku": { "type": "string", "minLength": 1, "maxLength": 64 },
+
+        "inventory": {
+          "type": "object",
+          "required": ["quantity"],
+          "additionalProperties": false,
+          "properties": {
+            "quantity": { "type": "integer", "minimum": 0 },
+            "low_stock_threshold": { "type": "integer", "minimum": 0, "default": 5 }
+          },
+          "description": "Seed value only. Live availability is always read from the inventory table; the recommender treats this file as historical the moment it is imported."
+        },
+
+        "specifications": {
+          "type": "object",
+          "description": "Normalized keys from vocabulary.json. Numeric keys must carry NUMBERS, not strings with units — '16 GB' cannot be compared against 16 and would silently drop the product from every range filter.",
+          "additionalProperties": { "type": ["string", "number", "boolean"] }
+        },
+
+        "performance": {
+          "type": "object",
+          "description": "1-10 per dimension. A recommendation signal, not a benchmark — see vocabulary.json.",
+          "additionalProperties": { "type": "integer", "minimum": 1, "maximum": 10 }
+        },
+
+        "use_cases": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "From the closed use_cases vocabulary."
+        },
+
+        "tags": { "type": "array", "items": { "type": "string" } },
+
+        "compatibility": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "platform": { "type": "string" },
+            "attributes": {
+              "type": "object",
+              "description": "The facts another product is matched against: { \"socket\": \"AM5\" }, { \"memory_type\": \"DDR5\", \"form_factor\": \"DIMM\" }, { \"connector\": \"USB-C\", \"power_w\": 65 }.",
+              "additionalProperties": { "type": ["string", "number", "boolean"] }
+            },
+            "compatible_sizes": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "For carriers: a sleeve listing [\"13\", \"14\"] fits those display sizes."
+            },
+            "compatible_accessory_types": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Accessory kinds this product accepts, from vocabulary.json accessory_types."
+            },
+            "claims": {
+              "type": "array",
+              "description": "Explicit statements about other products or classes. A not_compatible_with claim is an exclusion and overrides every positive match.",
+              "items": {
+                "type": "object",
+                "required": ["predicate"],
+                "additionalProperties": false,
+                "properties": {
+                  "predicate": { "type": "string" },
+                  "product_id": { "type": "string" },
+                  "product_family": { "type": "string" },
+                  "category": { "type": "string" },
+                  "brand": { "type": "string" },
+                  "attributes": { "type": "object", "additionalProperties": { "type": ["string", "number", "boolean"] } },
+                  "reason": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+
+        "relationships": {
+          "type": "array",
+          "description": "Product-specific relationships, for the cases a category rule cannot express — 'a MacBook Air wants THIS hub'. Category-level rules in recommendations.json cover everything else, so this list should stay short.",
+          "items": {
+            "type": "object",
+            "required": ["type"],
+            "additionalProperties": false,
+            "properties": {
+              "type": { "type": "string", "description": "From relationship_types." },
+              "product_id": { "type": "string" },
+              "product_family": { "type": "string" },
+              "category": { "type": "string" },
+              "priority": { "type": "integer", "minimum": 1, "maximum": 10, "default": 5 },
+              "reason": { "type": "string", "description": "Shown to the customer. Must be a fact about the pairing, not a sales line." }
+            }
+          }
+        },
+
+        "images": {
+          "type": "array",
+          "description": "Supplied by the import. NEVER invented: a placeholder URL that 404s is worse than no image, and an image of the wrong product is worse still.",
+          "items": {
+            "type": "object",
+            "required": ["url"],
+            "additionalProperties": false,
+            "properties": {
+              "url": { "type": "string" },
+              "alt": { "type": "string" },
+              "colour": { "type": "string", "description": "Names the finish this shot shows. This is where colour options come from — there is no colour column and no per-colour stock." },
+              "is_primary": { "type": "boolean", "default": false }
+            }
+          }
+        },
+
+        "recommendation_profile": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Hints that tune ranking for this product without touching global rules.",
+          "properties": {
+            "boost": { "type": "number", "minimum": -20, "maximum": 20, "description": "Flat adjustment to the final score. Bounded on purpose: a boost large enough to override budget fit would let merchandising put an unaffordable product first." },
+            "hero": { "type": "boolean", "description": "Prefer as the lead example of its family when several tie." },
+            "accessory_budget_ratio": { "type": "number", "minimum": 0, "maximum": 1, "description": "Sensible accessory spend as a fraction of this product's price. Defaults to the global setting." },
+            "suppress_cross_sell": { "type": "boolean", "description": "Never offer accessories alongside this. For products where it would be crass." }
+          }
+        }
+      }
+    }
+  }
+}

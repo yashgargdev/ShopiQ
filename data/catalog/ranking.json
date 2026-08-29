@@ -1,0 +1,68 @@
+{
+  "$comment": "Ranking weights, in one place. Section 46 asks for configurable weights and no hardcoding — every consumer reads a profile from here rather than carrying its own numbers, so a change to how ShopiQ ranks is a change to this file.",
+  "version": "1.0.0",
+  "default_profile": "shopping",
+
+  "profiles": {
+    "shopping": {
+      "$comment": "The requirement-driven search profile. These are the weights the recommendation engine has used since Phase 2 and they sum to 100, which several assertions depend on. Change them deliberately.",
+      "weights": {
+        "budget": 30,
+        "useCase": 25,
+        "specification": 20,
+        "preference": 15,
+        "rating": 10
+      }
+    },
+
+    "discovery": {
+      "$comment": "For 'show me some good laptops' — no stated budget, no stated use case. Section 52: with nothing specific to match, precision has nothing to work with, so quality and value carry more and diversity is widened.",
+      "weights": {
+        "budget": 20,
+        "useCase": 15,
+        "specification": 15,
+        "preference": 10,
+        "rating": 20,
+        "value": 20
+      },
+      "diversity": { "max_per_brand": 1 }
+    },
+
+    "accessory": {
+      "$comment": "For ranking things to go WITH something else. Relationship strength and fit dominate; the shopper's original budget is about the anchor, not the extras, so it barely applies.",
+      "weights": {
+        "relationship": 35,
+        "compatibility": 25,
+        "priceProportion": 20,
+        "rating": 10,
+        "availability": 10
+      }
+    }
+  },
+
+  "$comment_signals": "What each signal means, so a weight change is an informed one.",
+  "signals": {
+    "budget": "How comfortably the price sits inside a stated budget. Full marks anywhere under it; falls away above it rather than cutting off, so a near miss can still be shown and labelled.",
+    "useCase": "Overlap between what the shopper said they would do and what the product declares it suits.",
+    "specification": "How well real spec values meet stated constraints. Read from product_specs, never inferred.",
+    "preference": "Soft leanings — lighter, longer battery, better camera.",
+    "rating": "Customer rating, damped by review count so one five-star review does not outrank fifty four-star ones.",
+    "value": "Price against what comparable products in the same category cost. Rewards the honest deal, not the cheapest thing.",
+    "relationship": "Strength of the declared pairing: an explicit product relationship beats a category rule, which beats a bare category match.",
+    "compatibility": "Whether the attributes actually fit. A hard exclusion, not a weight, when a claim says not_compatible_with.",
+    "priceProportion": "Whether an accessory costs a sensible fraction of its anchor.",
+    "availability": "In stock, and how much. Out of stock is excluded before ranking rather than scored low."
+  },
+
+  "$comment_guardrails": "Section 45: no single signal may decide the outcome on its own.",
+  "guardrails": {
+    "max_single_signal_share": 0.4,
+    "$comment_share": "No signal may contribute more than 40% of the achievable total in a profile. Validated on load — a profile that breaks this is a configuration error, because a 60% budget weight makes 'cheapest' the answer to every question.",
+    "hard_filters_never_scored": [
+      "availability",
+      "not_compatible_with",
+      "excluded_brand"
+    ],
+    "$comment_filters": "These remove candidates rather than lowering them. A product that cannot be bought, cannot fit, or was explicitly refused must not appear at position four."
+  }
+}

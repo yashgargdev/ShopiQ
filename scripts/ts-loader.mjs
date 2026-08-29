@@ -14,7 +14,19 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const ROOT = process.cwd();
-const EXTENSIONS = ['', '.ts', '.tsx', '.mjs', '.js', '/index.ts', '/index.tsx', '/index.js'];
+const EXTENSIONS = ['', '.ts', '.tsx', '.mjs', '.js', '/index.ts', '/index.tsx', '/index.js', '.json'];
+
+/**
+ * Node refuses a JSON import without `with { type: 'json' }`; bundlers do not
+ * need it and the application source does not carry it. Supplying it here
+ * keeps the catalogue config importable in tests without decorating the real
+ * imports for the benefit of a test harness.
+ */
+function withJsonAttribute(url, result) {
+  return url.endsWith('.json')
+    ? { ...result, importAttributes: { type: 'json' } }
+    : result;
+}
 
 function firstExisting(basePath) {
   for (const extension of EXTENSIONS) {
@@ -52,7 +64,8 @@ export async function resolve(specifier, context, nextResolve) {
   if (specifier.startsWith('@/')) {
     const resolved = firstExisting(path.join(ROOT, specifier.slice(2)));
     if (resolved) {
-      return { url: pathToFileURL(resolved).href, shortCircuit: true };
+      const url = pathToFileURL(resolved).href;
+      return withJsonAttribute(url, { url, shortCircuit: true });
     }
   }
 
@@ -63,7 +76,8 @@ export async function resolve(specifier, context, nextResolve) {
       : ROOT;
     const resolved = firstExisting(path.resolve(parentPath, specifier));
     if (resolved) {
-      return { url: pathToFileURL(resolved).href, shortCircuit: true };
+      const url = pathToFileURL(resolved).href;
+      return withJsonAttribute(url, { url, shortCircuit: true });
     }
   }
 

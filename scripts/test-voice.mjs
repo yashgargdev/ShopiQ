@@ -331,6 +331,23 @@ try {
   state.userId = user.user.id;
   await admin.from('customers').upsert({ id: state.userId, email, full_name: 'Voice Tester' });
 
+  // Checkout will not quote a total until it knows where the order ships —
+  // otherwise an order can be paid for and created against "Not provided".
+  // This suite is about voice, not about the address flow, so give the shopper
+  // one and let the payment-safety checks below be the thing under test.
+  await admin.from('customer_addresses').insert({
+    customer_id: state.userId,
+    label: 'Home',
+    full_name: 'Voice Tester',
+    phone: '+919876543210',
+    line1: '42 MG Road',
+    city: 'Bengaluru',
+    state: 'Karnataka',
+    postal_code: '560001',
+    country: 'India',
+    is_default: true,
+  });
+
   const buyer = session();
   await buyer.signIn(email, password);
 
@@ -412,10 +429,17 @@ try {
     readyToBuy.payload?.type === 'purchase_confirmation',
     readyToBuy.payload?.type,
   );
+  // The requirement is that the AMOUNT is spoken, not that a rupee glyph
+  // appears. Nobody says "₹" out loud, and a Hinglish reply renders it as
+  // "rupees" — asserting the symbol would have been asserting the wrong thing
+  // and would fail the moment the summary was spoken in any Indian language.
+  // What must never drift is the number itself.
+  const spokenTotal = String(Math.round((readyToBuy.payload?.purchase?.amountMinor ?? 0) / 100));
+  const spokenDigits = (readyToBuy.payload?.speech ?? '').replace(/[^\d]/g, '');
   check(
     'the spoken summary states the total',
-    (readyToBuy.payload?.speech ?? '').includes('₹'),
-    readyToBuy.payload?.speech?.slice(0, 90),
+    spokenTotal.length > 0 && spokenDigits.includes(spokenTotal),
+    `expected ${spokenTotal} in "${readyToBuy.payload?.speech?.slice(0, 90)}"`,
   );
 
   const { count: paymentsAtQuote } = await admin

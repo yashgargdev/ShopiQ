@@ -35,6 +35,8 @@ import {
   requestSupportTool,
   updateProfileTool,
 } from './account-tools';
+import { findCompatibleProductsTool, findRecommendationsTool } from './catalog-tools';
+import { findCompatibleProductsInput, findRecommendationsInput } from './schemas';
 import {
   cancelOrderInput,
   getOrderInput,
@@ -206,6 +208,24 @@ const TOOLS = {
       'List the active ShopiQ categories with product counts. Use this to map what the shopper said onto a real category slug before searching.',
     schema: getCategoriesInput,
     run: getCategories,
+    mutates: false,
+  }),
+
+  find_recommendations: describe({
+    name: 'find_recommendations',
+    description:
+      'What to suggest alongside a product the customer is looking at or has bought: accessories, ecosystem items, compatible parts. Returns real in-stock products with a score and the reason each was chosen. Optionally narrow by relationship type or category, or exclude brands the customer has ruled out.',
+    schema: findRecommendationsInput,
+    run: findRecommendationsTool,
+    mutates: false,
+  }),
+
+  find_compatible_products: describe({
+    name: 'find_compatible_products',
+    description:
+      'Products in a category that will actually work with a given product — the right memory for a board, a television a console can drive. Returns only what meets the requirement; an empty list means nothing in stock qualifies, which is the honest answer.',
+    schema: findCompatibleProductsInput,
+    run: findCompatibleProductsTool,
     mutates: false,
   }),
 
