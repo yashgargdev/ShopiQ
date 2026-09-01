@@ -118,6 +118,31 @@ export function assessCompatibility(
     }
   }
 
+  // -- an accessory made for a different brand ----------------------------
+  //
+  // A claim that names a brand is a claim about WHICH products this fits, not
+  // merely a preference. A "Clear Case for Galaxy" carries
+  // recommended_for { brand: Samsung, category: smartphones }; offering it
+  // beside an iPhone is offering a case that does not fit the phone.
+  //
+  // Scoped to the anchor's own category so it only bites where the claim
+  // applies: a Samsung charger is still fine for an Apple laptop.
+  for (const claim of candidateFacts.claims ?? []) {
+    if (claim.predicate === 'not_compatible_with' || !claim.brand) continue;
+
+    const claimCoversAnchorCategory =
+      !claim.category ||
+      sameValue(claim.category, anchor.category) ||
+      categoryAncestors(anchor.category).includes(claim.category);
+
+    if (claimCoversAnchorCategory && !sameValue(claim.brand, anchor.brand)) {
+      return {
+        verdict: 'incompatible',
+        reasons: [`made for ${claim.brand} devices, not ${anchor.brand ?? 'this one'}`],
+      };
+    }
+  }
+
   // -- attribute contradictions -------------------------------------------
   // Only keys BOTH declare are compared. A candidate that says nothing about
   // its socket is unknown, not wrong.

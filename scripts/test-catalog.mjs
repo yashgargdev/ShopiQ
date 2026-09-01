@@ -140,9 +140,12 @@ section('Recommendation rules');
 
 const laptopTargets = targetsFor(laptop);
 check('a gaming laptop matches rules', laptopTargets.length > 0);
+// Mice moved to their own category so a category-level reason cannot be
+// attached to the wrong kind of product — "a charging station keeps
+// controllers ready" read as nonsense beside a mouse.
 check(
-  'gaming accessories are the top target',
-  laptopTargets[0]?.category === 'gaming-accessories',
+  'a mouse is the top target for a gaming laptop',
+  laptopTargets[0]?.category === 'mice',
   laptopTargets.map((t) => t.category).join(','),
 );
 check('every target carries a reason', laptopTargets.every((t) => t.reason && t.reason.length > 8));

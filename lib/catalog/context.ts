@@ -43,7 +43,7 @@ export interface CompactProduct {
 const PRIORITY_SPECS: Record<string, string[]> = {
   laptops: ['processor', 'gpu', 'ram_gb', 'storage_gb', 'display_size_in', 'refresh_rate_hz', 'weight_kg'],
   'gaming-laptops': ['gpu', 'processor', 'ram_gb', 'refresh_rate_hz', 'storage_gb', 'weight_kg'],
-  phones: ['ram_gb', 'storage_gb', 'camera_mp', 'battery_mah', 'display_size_in', 'refresh_rate_hz'],
+  smartphones: ['ram_gb', 'storage_gb', 'camera_mp', 'battery_mah', 'display_size_in', 'refresh_rate_hz'],
   televisions: ['display_size_in', 'resolution', 'refresh_rate_hz', 'hdmi_version', 'panel_type'],
   monitors: ['display_size_in', 'resolution', 'refresh_rate_hz', 'panel_type'],
   ram: ['capacity_gb', 'memory_type', 'form_factor', 'speed_mhz'],

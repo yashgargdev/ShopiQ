@@ -639,9 +639,17 @@ async function main() {
     .select('*', { count: 'exact', head: true })
     .eq('is_active', true);
   check(
-    'totalProducts matches the catalogue',
-    stats.totalProducts === liveProductCount,
-    stats.totalProducts + ' vs ' + liveProductCount,
+    'activeProducts matches the sellable catalogue',
+    stats.activeProducts === liveProductCount,
+    stats.activeProducts + ' vs ' + liveProductCount,
+  );
+  // totalProducts counts every row, activeProducts only the sellable ones.
+  // They agreed until the catalogue import retired its first product — this
+  // asserts the relationship rather than an accidental equality.
+  check(
+    'the total includes products retired from sale',
+    stats.totalProducts >= stats.activeProducts,
+    stats.totalProducts + ' total vs ' + stats.activeProducts + ' active',
   );
   check(
     'cancelled orders are excluded from revenue',

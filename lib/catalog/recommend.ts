@@ -71,6 +71,18 @@ export function toSubject(
   product: ProductSummary,
   extra?: Partial<RuleSubject> & { compatibility_facts?: CompatibilitySubject['compatibility_facts'] },
 ): CompatibilitySubject {
+  // Catalogue knowledge lives in products.catalog_metadata. Reading it here is
+  // what lets a rule match on a segment or a compatibility claim at all: with
+  // an empty object the engine cannot tell "this product declares nothing"
+  // from "nothing was stored", and silently recommends things that do not fit.
+  const meta = (product.catalogMetadata ?? {}) as {
+    segments?: string[];
+    use_cases?: string[];
+    performance?: Record<string, number>;
+    compatibility?: CompatibilitySubject['compatibility_facts'];
+    product_family?: string | null;
+  };
+
   return {
     id: product.id,
     category: product.category.slug,
@@ -78,8 +90,13 @@ export function toSubject(
     price: product.price,
     tags: product.tags ?? [],
     specifications: (product.specs as Record<string, unknown>) ?? {},
-    segments: [],
-    use_cases: [],
+    // Falls back to tags, which the importer also seeds with segments, so a
+    // product written before catalog_metadata existed still matches.
+    segments: meta.segments?.length ? meta.segments : (product.tags ?? []),
+    use_cases: meta.use_cases ?? [],
+    performance: meta.performance ?? {},
+    product_family: meta.product_family ?? null,
+    compatibility_facts: meta.compatibility ?? null,
     ...extra,
   };
 }
@@ -109,8 +126,19 @@ export async function findRecommendations(
   }
 
   const limit = input.limit ?? settingValue('max_recommendations', 3);
-  const maxAccessoryPrice =
-    input.anchor.price * settingValue('max_accessory_price_ratio', 1);
+
+  /**
+   * The "cheaper than its anchor" ceiling applies to ACCESSORIES only.
+   *
+   * A sleeve dearer than the laptop is absurd; a television dearer than the
+   * console it is bought for is completely normal. Applying one ceiling to
+   * both meant the PS5 was offered no television at all — the rule fired, the
+   * requirement matched, and then the price filter removed every candidate.
+   */
+  const ceilingFor = (type: string) =>
+    type === 'accessory'
+      ? Math.round(input.anchor.price * settingValue('max_accessory_price_ratio', 1))
+      : null;
 
   const appliedRules = new Set<string>();
   const emptyCategories: string[] = [];
@@ -129,9 +157,8 @@ export async function findRecommendations(
             category: slug,
             brand: null,
             min_price: null,
-            // Push the price ceiling into Postgres rather than filtering in
-            // memory — §57.
-            max_price: Math.round(maxAccessoryPrice),
+            // Pushed into Postgres rather than filtered in memory — §57.
+            max_price: ceilingFor(target.type),
             min_rating: null,
             filters: null,
             in_stock_only: true,

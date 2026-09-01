@@ -19,10 +19,24 @@ const VIEWPORTS = [
   { name: 'mobile', width: 390, height: 844 },
 ];
 
+// A hardcoded slug becomes a 404 the moment the catalogue changes, and a 404
+// still renders cleanly — so the check went on passing while testing nothing.
+// Ask the API which product actually exists.
+const firstProduct = await fetch(`${BASE}/api/products?limit=1`)
+  .then((r) => r.json())
+  .then((j) => j.products?.[0]?.slug)
+  .catch(() => null);
+if (!firstProduct) {
+  console.error('Could not resolve a product slug from /api/products — is the server up?');
+  process.exit(1);
+}
+
 const PAGES = [
+  // `/` is the agent experience and deliberately carries none of the
+  // storefront shell, so the shell assertions below run against /products.
   ['home', '/'],
   ['products', '/products'],
-  ['product', '/products/tuf-gaming-a15-2025'],
+  [`product`, `/products/${firstProduct}`],
   ['categories', '/categories'],
   ['category', '/categories/laptops'],
   ['search', '/search?q=gaming+laptop'],
@@ -144,7 +158,10 @@ async function main() {
       }
 
       // 6. Mobile: the bottom nav must be present; desktop: the FAB.
-      if (label === 'home') {
+      //
+      // Asserted on /products, not /: the front door is the agent experience
+      // and deliberately carries none of the storefront shell.
+      if (label === 'products') {
         const hasMobileNav = await page.locator('nav[aria-label="Primary"]').isVisible().catch(() => false);
         const hasFab = await page
           .locator('button[aria-label="Ask ShopiQ"]')
@@ -153,10 +170,10 @@ async function main() {
           .catch(() => false);
 
         if (viewport.name === 'mobile' && !hasMobileNav) {
-          flag('mobile/home: bottom navigation is not visible');
+          flag('mobile/products: bottom navigation is not visible');
         }
         if (viewport.name === 'desktop' && !hasFab) {
-          flag('desktop/home: Ask ShopiQ floating button is not visible');
+          flag('desktop/products: Ask ShopiQ floating button is not visible');
         }
       }
 
@@ -181,7 +198,7 @@ async function main() {
   console.log('\n[1mAI entry point behaviour[0m');
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
   const page = await context.newPage();
-  await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+  await page.goto(`${BASE}/products`, { waitUntil: 'networkidle' });
   await page.locator('button[aria-label="Ask the ShopiQ AI assistant"]').first().click();
   await page.waitForTimeout(400);
 

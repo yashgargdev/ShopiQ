@@ -48,7 +48,10 @@ try {
     }
   });
 
-  await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+  // The storefront shell — header button, mobile nav, FAB — lives on the
+  // catalogue routes. `/` is the agent experience and carries none of it, so
+  // every shell interaction below is driven from /products.
+  await page.goto(`${BASE}/products`, { waitUntil: 'networkidle' });
 
   await page.locator('button[aria-label="Ask the ShopiQ AI assistant"]').first().click();
   await page.waitForTimeout(500);
@@ -183,7 +186,7 @@ try {
 
   const mobile = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const mobilePage = await mobile.newPage();
-  await mobilePage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+  await mobilePage.goto(`${BASE}/products`, { waitUntil: 'networkidle' });
 
   await mobilePage.locator('nav[aria-label="Primary"] button[aria-label="Ask ShopiQ"]').click();
   await mobilePage.waitForTimeout(600);

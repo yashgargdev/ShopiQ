@@ -72,6 +72,22 @@ try {
   if (error) throw new Error(error.message);
   state.userId = user.user.id;
   await admin.from('customers').upsert({ id: state.userId, email, full_name: 'UI Pay Tester' });
+
+  // Nothing is quoted until we know where it ships, so a customer with no
+  // saved address is blocked BEFORE the quote — correctly. This fixture is a
+  // customer ready to buy, which means one with somewhere to send it.
+  await admin.from('customer_addresses').insert({
+    customer_id: state.userId,
+    label: 'Home',
+    full_name: 'UI Pay Tester',
+    phone: '9876543210',
+    line1: '12 Test Lane',
+    city: 'Bengaluru',
+    state: 'Karnataka',
+    postal_code: '560001',
+    country: 'IN',
+    is_default: true,
+  });
   check('a test customer exists', Boolean(state.userId));
 
   const context = await browser.newContext({ viewport: { width: 1440, height: 950 } });
@@ -130,7 +146,10 @@ try {
     }
   });
 
-  await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+  // The storefront shell — header button, mobile nav, FAB — lives on the
+  // catalogue routes. `/` is the agent experience and carries none of it, so
+  // every shell interaction below is driven from /products.
+  await page.goto(`${BASE}/products`, { waitUntil: 'networkidle' });
   await page.locator('button[aria-label="Ask the ShopiQ AI assistant"]').first().click();
   await page.waitForTimeout(600);
   check('the assistant opens', await panel.isVisible());

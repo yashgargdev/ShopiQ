@@ -1,0 +1,7864 @@
+{
+  "catalog_version": "1.0.0",
+  "generated_at": "2026-09-01T20:42:33.777Z",
+  "demo_dataset": true,
+  "products": [
+    {
+      "id": "iphone-16-8-128",
+      "product_family": "iphone-16",
+      "name": "Apple iPhone 16 8GB 128GB",
+      "brand": "Apple",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "The everyday iPhone, with Camera Control and the Action button.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 128
+      },
+      "pricing": {
+        "mrp": 79900,
+        "selling_price": 74900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-IP16-8-128",
+      "inventory": {
+        "quantity": 50
+      },
+      "specifications": {
+        "display_type": "Super Retina XDR OLED",
+        "panel_type": "OLED",
+        "operating_system": "iOS",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_size_in": 6.1,
+        "refresh_rate_hz": 60,
+        "processor": "Apple A18",
+        "camera_mp": 48,
+        "battery_mah": 3561,
+        "charging_w": 20,
+        "weight_kg": 0.17,
+        "ram_gb": 8,
+        "storage_gb": 128
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 8,
+        "battery": 7,
+        "display_quality": 8,
+        "portability": 9,
+        "value": 7
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "gaming",
+        "calls"
+      ],
+      "tags": [
+        "apple",
+        "flagship",
+        "ios",
+        "usb-c"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IPhone%2016/Pink.webp",
+          "alt": "Apple Apple iPhone 16 8GB 128GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "iphone-16-8-256",
+      "product_family": "iphone-16",
+      "name": "Apple iPhone 16 8GB 256GB",
+      "brand": "Apple",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "The everyday iPhone, with Camera Control and the Action button.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 89900,
+        "selling_price": 84900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-IP16-8-256",
+      "inventory": {
+        "quantity": 50
+      },
+      "specifications": {
+        "display_type": "Super Retina XDR OLED",
+        "panel_type": "OLED",
+        "operating_system": "iOS",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_size_in": 6.1,
+        "refresh_rate_hz": 60,
+        "processor": "Apple A18",
+        "camera_mp": 48,
+        "battery_mah": 3561,
+        "charging_w": 20,
+        "weight_kg": 0.17,
+        "ram_gb": 8,
+        "storage_gb": 256
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 8,
+        "battery": 7,
+        "display_quality": 8,
+        "portability": 9,
+        "value": 7
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "gaming",
+        "calls"
+      ],
+      "tags": [
+        "apple",
+        "flagship",
+        "ios",
+        "usb-c"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IPhone%2016/Pink.webp",
+          "alt": "Apple Apple iPhone 16 8GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "iphone-16-8-512",
+      "product_family": "iphone-16",
+      "name": "Apple iPhone 16 8GB 512GB",
+      "brand": "Apple",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "The everyday iPhone, with Camera Control and the Action button.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 109900,
+        "selling_price": 104900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-IP16-8-512",
+      "inventory": {
+        "quantity": 10
+      },
+      "specifications": {
+        "display_type": "Super Retina XDR OLED",
+        "panel_type": "OLED",
+        "operating_system": "iOS",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_size_in": 6.1,
+        "refresh_rate_hz": 60,
+        "processor": "Apple A18",
+        "camera_mp": 48,
+        "battery_mah": 3561,
+        "charging_w": 20,
+        "weight_kg": 0.17,
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 8,
+        "battery": 7,
+        "display_quality": 8,
+        "portability": 9,
+        "value": 7
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "gaming",
+        "calls"
+      ],
+      "tags": [
+        "apple",
+        "flagship",
+        "ios",
+        "usb-c"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IPhone%2016/Pink.webp",
+          "alt": "Apple Apple iPhone 16 8GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "iphone-17-8-256",
+      "product_family": "iphone-17",
+      "name": "Apple iPhone 17 8GB 256GB",
+      "brand": "Apple",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "The current standard iPhone, with a brighter 120 Hz display.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 89900,
+        "selling_price": 82900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-IP17-8-256",
+      "inventory": {
+        "quantity": 40
+      },
+      "specifications": {
+        "display_type": "Super Retina XDR OLED",
+        "panel_type": "OLED",
+        "operating_system": "iOS",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_size_in": 6.3,
+        "refresh_rate_hz": 120,
+        "processor": "Apple A19",
+        "camera_mp": 48,
+        "battery_mah": 3700,
+        "charging_w": 25,
+        "weight_kg": 0.177,
+        "ram_gb": 8,
+        "storage_gb": 256
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 9,
+        "battery": 8,
+        "display_quality": 9,
+        "portability": 9,
+        "value": 7
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "gaming",
+        "calls",
+        "content_creation"
+      ],
+      "tags": [
+        "apple",
+        "flagship",
+        "ios",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IPhone%2016/Pink.webp",
+          "alt": "Apple Apple iPhone 17 8GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "iphone-17-8-512",
+      "product_family": "iphone-17",
+      "name": "Apple iPhone 17 8GB 512GB",
+      "brand": "Apple",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "The current standard iPhone, with a brighter 120 Hz display.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 109900,
+        "selling_price": 102900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-IP17-8-512",
+      "inventory": {
+        "quantity": 40
+      },
+      "specifications": {
+        "display_type": "Super Retina XDR OLED",
+        "panel_type": "OLED",
+        "operating_system": "iOS",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_size_in": 6.3,
+        "refresh_rate_hz": 120,
+        "processor": "Apple A19",
+        "camera_mp": 48,
+        "battery_mah": 3700,
+        "charging_w": 25,
+        "weight_kg": 0.177,
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 9,
+        "battery": 8,
+        "display_quality": 9,
+        "portability": 9,
+        "value": 7
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "gaming",
+        "calls",
+        "content_creation"
+      ],
+      "tags": [
+        "apple",
+        "flagship",
+        "ios",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IPhone%2016/Pink.webp",
+          "alt": "Apple Apple iPhone 17 8GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "iphone-17-pro-12-256",
+      "product_family": "iphone-17-pro",
+      "name": "Apple iPhone 17 Pro 12GB 256GB",
+      "brand": "Apple",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "The professional iPhone, with a telephoto camera and ProMotion.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 139900,
+        "selling_price": 134900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-IP17P-12-256",
+      "inventory": {
+        "quantity": 15
+      },
+      "specifications": {
+        "display_type": "Super Retina XDR OLED",
+        "panel_type": "OLED",
+        "operating_system": "iOS",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_size_in": 6.3,
+        "refresh_rate_hz": 120,
+        "processor": "Apple A19 Pro",
+        "camera_mp": 48,
+        "battery_mah": 3900,
+        "charging_w": 30,
+        "weight_kg": 0.199,
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "performance": {
+        "photography": 10,
+        "gaming": 10,
+        "battery": 8,
+        "display_quality": 10,
+        "portability": 8,
+        "value": 6
+      },
+      "use_cases": [
+        "photography",
+        "video_editing",
+        "gaming",
+        "professional",
+        "content_creation"
+      ],
+      "tags": [
+        "apple",
+        "flagship",
+        "ios",
+        "pro",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IPhone%2016/Pink.webp",
+          "alt": "Apple Apple iPhone 17 Pro 12GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "iphone-17-pro-12-512",
+      "product_family": "iphone-17-pro",
+      "name": "Apple iPhone 17 Pro 12GB 512GB",
+      "brand": "Apple",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "The professional iPhone, with a telephoto camera and ProMotion.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 159900,
+        "selling_price": 154900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-IP17P-12-512",
+      "inventory": {
+        "quantity": 8
+      },
+      "specifications": {
+        "display_type": "Super Retina XDR OLED",
+        "panel_type": "OLED",
+        "operating_system": "iOS",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_size_in": 6.3,
+        "refresh_rate_hz": 120,
+        "processor": "Apple A19 Pro",
+        "camera_mp": 48,
+        "battery_mah": 3900,
+        "charging_w": 30,
+        "weight_kg": 0.199,
+        "ram_gb": 12,
+        "storage_gb": 512
+      },
+      "performance": {
+        "photography": 10,
+        "gaming": 10,
+        "battery": 8,
+        "display_quality": 10,
+        "portability": 8,
+        "value": 6
+      },
+      "use_cases": [
+        "photography",
+        "video_editing",
+        "gaming",
+        "professional",
+        "content_creation"
+      ],
+      "tags": [
+        "apple",
+        "flagship",
+        "ios",
+        "pro",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IPhone%2016/Pink.webp",
+          "alt": "Apple Apple iPhone 17 Pro 12GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "galaxy-s25-12-256",
+      "product_family": "galaxy-s25",
+      "name": "Samsung Galaxy S25 12GB 256GB",
+      "brand": "Samsung",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "Compact Samsung flagship with a 120 Hz AMOLED display.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 80999,
+        "selling_price": 69999,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-S25-12-256",
+      "inventory": {
+        "quantity": 35
+      },
+      "specifications": {
+        "panel_type": "OLED",
+        "operating_system": "Android",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_type": "Dynamic AMOLED 2X",
+        "display_size_in": 6.2,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 8 Elite",
+        "camera_mp": 50,
+        "battery_mah": 4000,
+        "charging_w": 25,
+        "weight_kg": 0.162,
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 9,
+        "battery": 7,
+        "display_quality": 9,
+        "portability": 9,
+        "value": 7
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "gaming",
+        "calls"
+      ],
+      "tags": [
+        "samsung",
+        "android",
+        "flagship",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Samsung Samsung Galaxy S25 12GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "galaxy-s25-12-512",
+      "product_family": "galaxy-s25",
+      "name": "Samsung Galaxy S25 12GB 512GB",
+      "brand": "Samsung",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "Compact Samsung flagship with a 120 Hz AMOLED display.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 92999,
+        "selling_price": 79999,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-S25-12-512",
+      "inventory": {
+        "quantity": 35
+      },
+      "specifications": {
+        "panel_type": "OLED",
+        "operating_system": "Android",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_type": "Dynamic AMOLED 2X",
+        "display_size_in": 6.2,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 8 Elite",
+        "camera_mp": 50,
+        "battery_mah": 4000,
+        "charging_w": 25,
+        "weight_kg": 0.162,
+        "ram_gb": 12,
+        "storage_gb": 512
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 9,
+        "battery": 7,
+        "display_quality": 9,
+        "portability": 9,
+        "value": 7
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "gaming",
+        "calls"
+      ],
+      "tags": [
+        "samsung",
+        "android",
+        "flagship",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Samsung Samsung Galaxy S25 12GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "galaxy-s25-ultra-12-256",
+      "product_family": "galaxy-s25-ultra",
+      "name": "Samsung Galaxy S25 Ultra 12GB 256GB",
+      "brand": "Samsung",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "The big Samsung flagship, with the S Pen and a 200 MP camera.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 129999,
+        "selling_price": 119999,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-S25U-12-256",
+      "inventory": {
+        "quantity": 12
+      },
+      "specifications": {
+        "panel_type": "OLED",
+        "operating_system": "Android",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_type": "Dynamic AMOLED 2X",
+        "display_size_in": 6.9,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 8 Elite",
+        "camera_mp": 200,
+        "battery_mah": 5000,
+        "charging_w": 45,
+        "weight_kg": 0.218,
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "performance": {
+        "photography": 10,
+        "gaming": 10,
+        "battery": 9,
+        "display_quality": 10,
+        "portability": 6,
+        "value": 6
+      },
+      "use_cases": [
+        "photography",
+        "video_editing",
+        "professional",
+        "gaming",
+        "content_creation"
+      ],
+      "tags": [
+        "samsung",
+        "android",
+        "flagship",
+        "spen",
+        "200mp"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Samsung Samsung Galaxy S25 Ultra 12GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "galaxy-s25-ultra-12-512",
+      "product_family": "galaxy-s25-ultra",
+      "name": "Samsung Galaxy S25 Ultra 12GB 512GB",
+      "brand": "Samsung",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "The big Samsung flagship, with the S Pen and a 200 MP camera.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 141999,
+        "selling_price": 129999,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-S25U-12-512",
+      "inventory": {
+        "quantity": 6
+      },
+      "specifications": {
+        "panel_type": "OLED",
+        "operating_system": "Android",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_type": "Dynamic AMOLED 2X",
+        "display_size_in": 6.9,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 8 Elite",
+        "camera_mp": 200,
+        "battery_mah": 5000,
+        "charging_w": 45,
+        "weight_kg": 0.218,
+        "ram_gb": 12,
+        "storage_gb": 512
+      },
+      "performance": {
+        "photography": 10,
+        "gaming": 10,
+        "battery": 9,
+        "display_quality": 10,
+        "portability": 6,
+        "value": 6
+      },
+      "use_cases": [
+        "photography",
+        "video_editing",
+        "professional",
+        "gaming",
+        "content_creation"
+      ],
+      "tags": [
+        "samsung",
+        "android",
+        "flagship",
+        "spen",
+        "200mp"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Samsung Samsung Galaxy S25 Ultra 12GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "galaxy-s26-12-256",
+      "product_family": "galaxy-s26",
+      "name": "Samsung Galaxy S26 12GB 256GB",
+      "brand": "Samsung",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "The new Galaxy S, with faster charging than the S25.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 89999,
+        "selling_price": 79999,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-S26-12-256",
+      "inventory": {
+        "quantity": 25
+      },
+      "specifications": {
+        "panel_type": "OLED",
+        "operating_system": "Android",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_type": "Dynamic AMOLED 2X",
+        "display_size_in": 6.7,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 8 Elite Gen 2",
+        "camera_mp": 50,
+        "battery_mah": 4900,
+        "charging_w": 45,
+        "weight_kg": 0.19,
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 9,
+        "battery": 9,
+        "display_quality": 9,
+        "portability": 8,
+        "value": 7
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "gaming",
+        "content_creation"
+      ],
+      "tags": [
+        "samsung",
+        "android",
+        "flagship",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Samsung Samsung Galaxy S26 12GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "galaxy-s26-12-512",
+      "product_family": "galaxy-s26",
+      "name": "Samsung Galaxy S26 12GB 512GB",
+      "brand": "Samsung",
+      "category": "smartphones",
+      "segments": [
+        "flagship",
+        "camera"
+      ],
+      "short_description": "The new Galaxy S, with faster charging than the S25.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 109999,
+        "selling_price": 99999,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-S26-12-512",
+      "inventory": {
+        "quantity": 25
+      },
+      "specifications": {
+        "panel_type": "OLED",
+        "operating_system": "Android",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_type": "Dynamic AMOLED 2X",
+        "display_size_in": 6.7,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 8 Elite Gen 2",
+        "camera_mp": 50,
+        "battery_mah": 4900,
+        "charging_w": 45,
+        "weight_kg": 0.19,
+        "ram_gb": 12,
+        "storage_gb": 512
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 9,
+        "battery": 9,
+        "display_quality": 9,
+        "portability": 8,
+        "value": 7
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "gaming",
+        "content_creation"
+      ],
+      "tags": [
+        "samsung",
+        "android",
+        "flagship",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Samsung Samsung Galaxy S26 12GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "nothing-phone-3a-8-128",
+      "product_family": "nothing-phone-3a",
+      "name": "Nothing Phone (3a) 8GB 128GB",
+      "brand": "Nothing",
+      "category": "smartphones",
+      "segments": [
+        "mid_range",
+        "camera"
+      ],
+      "short_description": "Mid-range Android with the Glyph interface.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 128
+      },
+      "pricing": {
+        "mrp": 27999,
+        "selling_price": 24999,
+        "currency": "INR"
+      },
+      "sku": "NOTHING-P3A-8-128",
+      "inventory": {
+        "quantity": 30
+      },
+      "specifications": {
+        "panel_type": "AMOLED",
+        "operating_system": "Android",
+        "water_resistance": "IP64",
+        "connector": "USB-C",
+        "display_size_in": 6.77,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 7s Gen 3",
+        "camera_mp": 50,
+        "battery_mah": 5000,
+        "charging_w": 50,
+        "weight_kg": 0.201,
+        "ram_gb": 8,
+        "storage_gb": 128
+      },
+      "performance": {
+        "photography": 7,
+        "gaming": 6,
+        "battery": 8,
+        "display_quality": 8,
+        "portability": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "daily_use",
+        "photography",
+        "calls"
+      ],
+      "tags": [
+        "nothing",
+        "android",
+        "value",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Nothing Nothing Phone (3a) 8GB 128GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "nothing-phone-3a-12-256",
+      "product_family": "nothing-phone-3a",
+      "name": "Nothing Phone (3a) 12GB 256GB",
+      "brand": "Nothing",
+      "category": "smartphones",
+      "segments": [
+        "mid_range",
+        "camera"
+      ],
+      "short_description": "Mid-range Android with the Glyph interface.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 32999,
+        "selling_price": 29999,
+        "currency": "INR"
+      },
+      "sku": "NOTHING-P3A-12-256",
+      "inventory": {
+        "quantity": 30
+      },
+      "specifications": {
+        "panel_type": "AMOLED",
+        "operating_system": "Android",
+        "water_resistance": "IP64",
+        "connector": "USB-C",
+        "display_size_in": 6.77,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 7s Gen 3",
+        "camera_mp": 50,
+        "battery_mah": 5000,
+        "charging_w": 50,
+        "weight_kg": 0.201,
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "performance": {
+        "photography": 7,
+        "gaming": 6,
+        "battery": 8,
+        "display_quality": 8,
+        "portability": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "daily_use",
+        "photography",
+        "calls"
+      ],
+      "tags": [
+        "nothing",
+        "android",
+        "value",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Nothing Nothing Phone (3a) 12GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "pixel-9a-8-128",
+      "product_family": "pixel-9a",
+      "name": "Google Pixel 9a 8GB 128GB",
+      "brand": "Google",
+      "category": "smartphones",
+      "segments": [
+        "mid_range",
+        "camera"
+      ],
+      "short_description": "Google mid-ranger with the Pixel camera pipeline.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 128
+      },
+      "pricing": {
+        "mrp": 54999,
+        "selling_price": 49999,
+        "currency": "INR"
+      },
+      "sku": "GOOGLE-P9A-8-128",
+      "inventory": {
+        "quantity": 22
+      },
+      "specifications": {
+        "panel_type": "OLED",
+        "operating_system": "Android",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_size_in": 6.3,
+        "refresh_rate_hz": 120,
+        "processor": "Google Tensor G4",
+        "camera_mp": 48,
+        "battery_mah": 5100,
+        "charging_w": 23,
+        "weight_kg": 0.186,
+        "ram_gb": 8,
+        "storage_gb": 128
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 6,
+        "battery": 8,
+        "display_quality": 8,
+        "portability": 8,
+        "value": 9
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "calls"
+      ],
+      "tags": [
+        "google",
+        "android",
+        "camera",
+        "value"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Google Google Pixel 9a 8GB 128GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "pixel-9a-8-256",
+      "product_family": "pixel-9a",
+      "name": "Google Pixel 9a 8GB 256GB",
+      "brand": "Google",
+      "category": "smartphones",
+      "segments": [
+        "mid_range",
+        "camera"
+      ],
+      "short_description": "Google mid-ranger with the Pixel camera pipeline.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 60999,
+        "selling_price": 55999,
+        "currency": "INR"
+      },
+      "sku": "GOOGLE-P9A-8-256",
+      "inventory": {
+        "quantity": 22
+      },
+      "specifications": {
+        "panel_type": "OLED",
+        "operating_system": "Android",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_size_in": 6.3,
+        "refresh_rate_hz": 120,
+        "processor": "Google Tensor G4",
+        "camera_mp": 48,
+        "battery_mah": 5100,
+        "charging_w": 23,
+        "weight_kg": 0.186,
+        "ram_gb": 8,
+        "storage_gb": 256
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 6,
+        "battery": 8,
+        "display_quality": 8,
+        "portability": 8,
+        "value": 9
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "calls"
+      ],
+      "tags": [
+        "google",
+        "android",
+        "camera",
+        "value"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Google Google Pixel 9a 8GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "oneplus-13r-12-256",
+      "product_family": "oneplus-13r",
+      "name": "OnePlus 13R 12GB 256GB",
+      "brand": "OnePlus",
+      "category": "smartphones",
+      "segments": [
+        "upper_mid_range",
+        "gaming"
+      ],
+      "short_description": "Fast Android with a large battery, tuned for gaming.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 47999,
+        "selling_price": 42999,
+        "currency": "INR"
+      },
+      "sku": "ONEPLUS-13R-12-256",
+      "inventory": {
+        "quantity": 18
+      },
+      "specifications": {
+        "panel_type": "AMOLED",
+        "operating_system": "Android",
+        "water_resistance": "IP65",
+        "connector": "USB-C",
+        "display_size_in": 6.78,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 8 Gen 3",
+        "camera_mp": 50,
+        "battery_mah": 6000,
+        "charging_w": 80,
+        "weight_kg": 0.206,
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "performance": {
+        "photography": 8,
+        "gaming": 9,
+        "battery": 10,
+        "display_quality": 9,
+        "portability": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "daily_use",
+        "photography"
+      ],
+      "tags": [
+        "oneplus",
+        "android",
+        "gaming",
+        "fast-charging"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "OnePlus OnePlus 13R 12GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "oneplus-13r-16-512",
+      "product_family": "oneplus-13r",
+      "name": "OnePlus 13R 16GB 512GB",
+      "brand": "OnePlus",
+      "category": "smartphones",
+      "segments": [
+        "upper_mid_range",
+        "gaming"
+      ],
+      "short_description": "Fast Android with a large battery, tuned for gaming.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 54999,
+        "selling_price": 49999,
+        "currency": "INR"
+      },
+      "sku": "ONEPLUS-13R-16-512",
+      "inventory": {
+        "quantity": 18
+      },
+      "specifications": {
+        "panel_type": "AMOLED",
+        "operating_system": "Android",
+        "water_resistance": "IP65",
+        "connector": "USB-C",
+        "display_size_in": 6.78,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 8 Gen 3",
+        "camera_mp": 50,
+        "battery_mah": 6000,
+        "charging_w": 80,
+        "weight_kg": 0.206,
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "performance": {
+        "photography": 8,
+        "gaming": 9,
+        "battery": 10,
+        "display_quality": 9,
+        "portability": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "daily_use",
+        "photography"
+      ],
+      "tags": [
+        "oneplus",
+        "android",
+        "gaming",
+        "fast-charging"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "OnePlus OnePlus 13R 16GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "xiaomi-14-12-256",
+      "product_family": "xiaomi-14",
+      "name": "Xiaomi 14 12GB 256GB",
+      "brand": "Xiaomi",
+      "category": "smartphones",
+      "segments": [
+        "upper_mid_range",
+        "camera"
+      ],
+      "short_description": "Compact Xiaomi flagship with Leica-tuned cameras.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 69999,
+        "selling_price": 54999,
+        "currency": "INR"
+      },
+      "sku": "XIAOMI-14-12-256",
+      "inventory": {
+        "quantity": 16
+      },
+      "specifications": {
+        "panel_type": "AMOLED",
+        "operating_system": "Android",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_size_in": 6.36,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 8 Gen 3",
+        "camera_mp": 50,
+        "battery_mah": 4610,
+        "charging_w": 90,
+        "weight_kg": 0.193,
+        "ram_gb": 12,
+        "storage_gb": 256
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 9,
+        "battery": 8,
+        "display_quality": 9,
+        "portability": 9,
+        "value": 8
+      },
+      "use_cases": [
+        "photography",
+        "gaming",
+        "daily_use"
+      ],
+      "tags": [
+        "xiaomi",
+        "android",
+        "camera",
+        "fast-charging"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Xiaomi Xiaomi 14 12GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "xiaomi-14-12-512",
+      "product_family": "xiaomi-14",
+      "name": "Xiaomi 14 12GB 512GB",
+      "brand": "Xiaomi",
+      "category": "smartphones",
+      "segments": [
+        "upper_mid_range",
+        "camera"
+      ],
+      "short_description": "Compact Xiaomi flagship with Leica-tuned cameras.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 74999,
+        "selling_price": 59999,
+        "currency": "INR"
+      },
+      "sku": "XIAOMI-14-12-512",
+      "inventory": {
+        "quantity": 16
+      },
+      "specifications": {
+        "panel_type": "AMOLED",
+        "operating_system": "Android",
+        "water_resistance": "IP68",
+        "connector": "USB-C",
+        "display_size_in": 6.36,
+        "refresh_rate_hz": 120,
+        "processor": "Snapdragon 8 Gen 3",
+        "camera_mp": 50,
+        "battery_mah": 4610,
+        "charging_w": 90,
+        "weight_kg": 0.193,
+        "ram_gb": 12,
+        "storage_gb": 512
+      },
+      "performance": {
+        "photography": 9,
+        "gaming": 9,
+        "battery": 8,
+        "display_quality": 9,
+        "portability": 9,
+        "value": 8
+      },
+      "use_cases": [
+        "photography",
+        "gaming",
+        "daily_use"
+      ],
+      "tags": [
+        "xiaomi",
+        "android",
+        "camera",
+        "fast-charging"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "Xiaomi Xiaomi 14 12GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "oppo-reno-13-8-256",
+      "product_family": "oppo-reno-13",
+      "name": "OPPO Reno 13 8GB 256GB",
+      "brand": "OPPO",
+      "category": "smartphones",
+      "segments": [
+        "mid_range",
+        "camera"
+      ],
+      "short_description": "Slim mid-range phone with a strong selfie camera.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 37999,
+        "selling_price": 32999,
+        "currency": "INR"
+      },
+      "sku": "OPPO-R13-8-256",
+      "inventory": {
+        "quantity": 20
+      },
+      "specifications": {
+        "panel_type": "AMOLED",
+        "operating_system": "Android",
+        "water_resistance": "IP66",
+        "connector": "USB-C",
+        "display_size_in": 6.59,
+        "refresh_rate_hz": 120,
+        "processor": "Dimensity 8350",
+        "camera_mp": 50,
+        "battery_mah": 5600,
+        "charging_w": 80,
+        "weight_kg": 0.181,
+        "ram_gb": 8,
+        "storage_gb": 256
+      },
+      "performance": {
+        "photography": 8,
+        "gaming": 7,
+        "battery": 9,
+        "display_quality": 8,
+        "portability": 8,
+        "value": 8
+      },
+      "use_cases": [
+        "photography",
+        "daily_use",
+        "calls"
+      ],
+      "tags": [
+        "oppo",
+        "android",
+        "value"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "phone_case",
+          "screen_protector",
+          "charger",
+          "earbuds"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Samsung/Titanium%20Gray.webp",
+          "alt": "OPPO OPPO Reno 13 8GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "macbook-air-16-256",
+      "product_family": "macbook-air",
+      "name": "Apple MacBook Air M4 16GB 256GB",
+      "brand": "Apple",
+      "category": "laptops",
+      "segments": [
+        "ultraportable",
+        "student",
+        "business"
+      ],
+      "short_description": "Fanless, light, and quiet. The default choice for writing and study.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 256
+      },
+      "pricing": {
+        "mrp": 114900,
+        "selling_price": 99900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-MBA-M4-16-256",
+      "inventory": {
+        "quantity": 20
+      },
+      "specifications": {
+        "processor": "Apple M4",
+        "gpu": "Apple M4 10-core GPU",
+        "display_size_in": 13.6,
+        "resolution": "QHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "battery_wh": 53.8,
+        "weight_kg": 1.24,
+        "operating_system": "macOS",
+        "ram_gb": 16,
+        "storage_gb": 256,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 4,
+        "programming": 9,
+        "office": 10,
+        "content_creation": 8,
+        "portability": 10,
+        "battery": 10,
+        "value": 7
+      },
+      "use_cases": [
+        "programming",
+        "office",
+        "college",
+        "travel",
+        "productivity"
+      ],
+      "tags": [
+        "apple",
+        "macos",
+        "portable",
+        "premium"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/macbook/base.webp",
+          "alt": "Apple Apple MacBook Air M4 16GB 256GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "macbook-air-16-512",
+      "product_family": "macbook-air",
+      "name": "Apple MacBook Air M4 16GB 512GB",
+      "brand": "Apple",
+      "category": "laptops",
+      "segments": [
+        "ultraportable",
+        "student",
+        "business"
+      ],
+      "short_description": "Fanless, light, and quiet. The default choice for writing and study.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 134900,
+        "selling_price": 119900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-MBA-M4-16-512",
+      "inventory": {
+        "quantity": 20
+      },
+      "specifications": {
+        "processor": "Apple M4",
+        "gpu": "Apple M4 10-core GPU",
+        "display_size_in": 13.6,
+        "resolution": "QHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "battery_wh": 53.8,
+        "weight_kg": 1.24,
+        "operating_system": "macOS",
+        "ram_gb": 16,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 4,
+        "programming": 9,
+        "office": 10,
+        "content_creation": 8,
+        "portability": 10,
+        "battery": 10,
+        "value": 7
+      },
+      "use_cases": [
+        "programming",
+        "office",
+        "college",
+        "travel",
+        "productivity"
+      ],
+      "tags": [
+        "apple",
+        "macos",
+        "portable",
+        "premium"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/macbook/base.webp",
+          "alt": "Apple Apple MacBook Air M4 16GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "macbook-air-24-512",
+      "product_family": "macbook-air",
+      "name": "Apple MacBook Air M4 24GB 512GB",
+      "brand": "Apple",
+      "category": "laptops",
+      "segments": [
+        "ultraportable",
+        "student",
+        "business"
+      ],
+      "short_description": "Fanless, light, and quiet. The default choice for writing and study.",
+      "configuration": {
+        "ram_gb": 24,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 154900,
+        "selling_price": 139900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-MBA-M4-24-512",
+      "inventory": {
+        "quantity": 8
+      },
+      "specifications": {
+        "processor": "Apple M4",
+        "gpu": "Apple M4 10-core GPU",
+        "display_size_in": 13.6,
+        "resolution": "QHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "battery_wh": 53.8,
+        "weight_kg": 1.24,
+        "operating_system": "macOS",
+        "ram_gb": 24,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 4,
+        "programming": 9,
+        "office": 10,
+        "content_creation": 8,
+        "portability": 10,
+        "battery": 10,
+        "value": 7
+      },
+      "use_cases": [
+        "programming",
+        "office",
+        "college",
+        "travel",
+        "productivity"
+      ],
+      "tags": [
+        "apple",
+        "macos",
+        "portable",
+        "premium"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/macbook/base.webp",
+          "alt": "Apple Apple MacBook Air M4 24GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "macbook-pro-24-512",
+      "product_family": "macbook-pro",
+      "name": "Apple MacBook Pro M4 Pro 24GB 512GB",
+      "brand": "Apple",
+      "category": "laptops",
+      "segments": [
+        "creator",
+        "business",
+        "performance"
+      ],
+      "short_description": "For sustained work: video, compiling, and anything that runs for hours.",
+      "configuration": {
+        "ram_gb": 24,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 219900,
+        "selling_price": 199900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-MBP-M4P-24-512",
+      "inventory": {
+        "quantity": 10
+      },
+      "specifications": {
+        "processor": "Apple M4 Pro",
+        "gpu": "Apple M4 Pro 16-core GPU",
+        "display_size_in": 14.2,
+        "resolution": "QHD",
+        "refresh_rate_hz": 120,
+        "panel_type": "Mini-LED",
+        "battery_wh": 72.4,
+        "weight_kg": 1.55,
+        "operating_system": "macOS",
+        "ram_gb": 24,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 6,
+        "programming": 10,
+        "office": 10,
+        "content_creation": 10,
+        "portability": 8,
+        "battery": 9,
+        "value": 6
+      },
+      "use_cases": [
+        "programming",
+        "video_editing",
+        "content_creation",
+        "professional"
+      ],
+      "tags": [
+        "apple",
+        "macos",
+        "creator",
+        "premium"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/macbook/base.webp",
+          "alt": "Apple Apple MacBook Pro M4 Pro 24GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "macbook-pro-24-1024",
+      "product_family": "macbook-pro",
+      "name": "Apple MacBook Pro M4 Pro 24GB 1TB",
+      "brand": "Apple",
+      "category": "laptops",
+      "segments": [
+        "creator",
+        "business",
+        "performance"
+      ],
+      "short_description": "For sustained work: video, compiling, and anything that runs for hours.",
+      "configuration": {
+        "ram_gb": 24,
+        "storage_gb": 1024
+      },
+      "pricing": {
+        "mrp": 239900,
+        "selling_price": 219900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-MBP-M4P-24-1024",
+      "inventory": {
+        "quantity": 10
+      },
+      "specifications": {
+        "processor": "Apple M4 Pro",
+        "gpu": "Apple M4 Pro 16-core GPU",
+        "display_size_in": 14.2,
+        "resolution": "QHD",
+        "refresh_rate_hz": 120,
+        "panel_type": "Mini-LED",
+        "battery_wh": 72.4,
+        "weight_kg": 1.55,
+        "operating_system": "macOS",
+        "ram_gb": 24,
+        "storage_gb": 1024,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 6,
+        "programming": 10,
+        "office": 10,
+        "content_creation": 10,
+        "portability": 8,
+        "battery": 9,
+        "value": 6
+      },
+      "use_cases": [
+        "programming",
+        "video_editing",
+        "content_creation",
+        "professional"
+      ],
+      "tags": [
+        "apple",
+        "macos",
+        "creator",
+        "premium"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/macbook/base.webp",
+          "alt": "Apple Apple MacBook Pro M4 Pro 24GB 1TB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "macbook-pro-48-1024",
+      "product_family": "macbook-pro",
+      "name": "Apple MacBook Pro M4 Pro 48GB 1TB",
+      "brand": "Apple",
+      "category": "laptops",
+      "segments": [
+        "creator",
+        "business",
+        "performance"
+      ],
+      "short_description": "For sustained work: video, compiling, and anything that runs for hours.",
+      "configuration": {
+        "ram_gb": 48,
+        "storage_gb": 1024
+      },
+      "pricing": {
+        "mrp": 309900,
+        "selling_price": 289900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-MBP-M4P-48-1024",
+      "inventory": {
+        "quantity": 4
+      },
+      "specifications": {
+        "processor": "Apple M4 Pro",
+        "gpu": "Apple M4 Pro 16-core GPU",
+        "display_size_in": 14.2,
+        "resolution": "QHD",
+        "refresh_rate_hz": 120,
+        "panel_type": "Mini-LED",
+        "battery_wh": 72.4,
+        "weight_kg": 1.55,
+        "operating_system": "macOS",
+        "ram_gb": 48,
+        "storage_gb": 1024,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 6,
+        "programming": 10,
+        "office": 10,
+        "content_creation": 10,
+        "portability": 8,
+        "battery": 9,
+        "value": 6
+      },
+      "use_cases": [
+        "programming",
+        "video_editing",
+        "content_creation",
+        "professional"
+      ],
+      "tags": [
+        "apple",
+        "macos",
+        "creator",
+        "premium"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/macbook/base.webp",
+          "alt": "Apple Apple MacBook Pro M4 Pro 48GB 1TB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "asus-tuf-a15-8-512",
+      "product_family": "asus-tuf-a15",
+      "name": "ASUS TUF Gaming A15 8GB 512GB",
+      "brand": "ASUS",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "performance"
+      ],
+      "short_description": "Durable mainstream gaming laptop with a 144 Hz panel.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 79999,
+        "selling_price": 64999,
+        "currency": "INR"
+      },
+      "sku": "ASUS-TUF-A15-8-512",
+      "inventory": {
+        "quantity": 18
+      },
+      "specifications": {
+        "processor": "AMD Ryzen 7 7435HS",
+        "gpu": "NVIDIA RTX 4060 8GB",
+        "vram_gb": 8,
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 144,
+        "panel_type": "IPS",
+        "battery_wh": 90,
+        "weight_kg": 2.2,
+        "operating_system": "Windows 11",
+        "ram_gb": 8,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 9,
+        "programming": 8,
+        "office": 8,
+        "content_creation": 8,
+        "portability": 4,
+        "battery": 5,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "programming",
+        "content_creation",
+        "college"
+      ],
+      "tags": [
+        "gaming",
+        "rtx",
+        "asus",
+        "144hz"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_sleeve",
+          "laptop_bag"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ASUS ASUS TUF Gaming A15 8GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "asus-tuf-a15-16-512",
+      "product_family": "asus-tuf-a15",
+      "name": "ASUS TUF Gaming A15 16GB 512GB",
+      "brand": "ASUS",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "performance"
+      ],
+      "short_description": "Durable mainstream gaming laptop with a 144 Hz panel.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 89999,
+        "selling_price": 74999,
+        "currency": "INR"
+      },
+      "sku": "ASUS-TUF-A15-16-512",
+      "inventory": {
+        "quantity": 18
+      },
+      "specifications": {
+        "processor": "AMD Ryzen 7 7435HS",
+        "gpu": "NVIDIA RTX 4060 8GB",
+        "vram_gb": 8,
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 144,
+        "panel_type": "IPS",
+        "battery_wh": 90,
+        "weight_kg": 2.2,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 9,
+        "programming": 8,
+        "office": 8,
+        "content_creation": 8,
+        "portability": 4,
+        "battery": 5,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "programming",
+        "content_creation",
+        "college"
+      ],
+      "tags": [
+        "gaming",
+        "rtx",
+        "asus",
+        "144hz"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_sleeve",
+          "laptop_bag"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ASUS ASUS TUF Gaming A15 16GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "asus-tuf-a15-16-1024",
+      "product_family": "asus-tuf-a15",
+      "name": "ASUS TUF Gaming A15 16GB 1TB",
+      "brand": "ASUS",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "performance"
+      ],
+      "short_description": "Durable mainstream gaming laptop with a 144 Hz panel.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 1024
+      },
+      "pricing": {
+        "mrp": 99999,
+        "selling_price": 84999,
+        "currency": "INR"
+      },
+      "sku": "ASUS-TUF-A15-16-1024",
+      "inventory": {
+        "quantity": 18
+      },
+      "specifications": {
+        "processor": "AMD Ryzen 7 7435HS",
+        "gpu": "NVIDIA RTX 4060 8GB",
+        "vram_gb": 8,
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 144,
+        "panel_type": "IPS",
+        "battery_wh": 90,
+        "weight_kg": 2.2,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 1024,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 9,
+        "programming": 8,
+        "office": 8,
+        "content_creation": 8,
+        "portability": 4,
+        "battery": 5,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "programming",
+        "content_creation",
+        "college"
+      ],
+      "tags": [
+        "gaming",
+        "rtx",
+        "asus",
+        "144hz"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_sleeve",
+          "laptop_bag"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ASUS ASUS TUF Gaming A15 16GB 1TB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "asus-rog-strix-16-1024",
+      "product_family": "asus-rog-strix",
+      "name": "ASUS ROG Strix G16 16GB 1TB",
+      "brand": "ASUS",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "performance"
+      ],
+      "short_description": "High-refresh gaming laptop for competitive play.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 1024
+      },
+      "pricing": {
+        "mrp": 159999,
+        "selling_price": 134999,
+        "currency": "INR"
+      },
+      "sku": "ASUS-ROG-G16-16-1024",
+      "inventory": {
+        "quantity": 8
+      },
+      "specifications": {
+        "processor": "Intel Core i7-13650HX",
+        "gpu": "NVIDIA RTX 4070 8GB",
+        "vram_gb": 8,
+        "display_size_in": 16,
+        "resolution": "QHD",
+        "refresh_rate_hz": 240,
+        "panel_type": "IPS",
+        "battery_wh": 90,
+        "weight_kg": 2.5,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 1024,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 10,
+        "programming": 9,
+        "office": 8,
+        "content_creation": 9,
+        "portability": 3,
+        "battery": 4,
+        "value": 7
+      },
+      "use_cases": [
+        "gaming",
+        "content_creation",
+        "video_editing"
+      ],
+      "tags": [
+        "gaming",
+        "rtx",
+        "asus",
+        "240hz",
+        "premium"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_bag"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ASUS ASUS ROG Strix G16 16GB 1TB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "asus-rog-strix-32-1024",
+      "product_family": "asus-rog-strix",
+      "name": "ASUS ROG Strix G16 32GB 1TB",
+      "brand": "ASUS",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "performance"
+      ],
+      "short_description": "High-refresh gaming laptop for competitive play.",
+      "configuration": {
+        "ram_gb": 32,
+        "storage_gb": 1024
+      },
+      "pricing": {
+        "mrp": 179999,
+        "selling_price": 154999,
+        "currency": "INR"
+      },
+      "sku": "ASUS-ROG-G16-32-1024",
+      "inventory": {
+        "quantity": 5
+      },
+      "specifications": {
+        "processor": "Intel Core i7-13650HX",
+        "gpu": "NVIDIA RTX 4070 8GB",
+        "vram_gb": 8,
+        "display_size_in": 16,
+        "resolution": "QHD",
+        "refresh_rate_hz": 240,
+        "panel_type": "IPS",
+        "battery_wh": 90,
+        "weight_kg": 2.5,
+        "operating_system": "Windows 11",
+        "ram_gb": 32,
+        "storage_gb": 1024,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 10,
+        "programming": 9,
+        "office": 8,
+        "content_creation": 9,
+        "portability": 3,
+        "battery": 4,
+        "value": 7
+      },
+      "use_cases": [
+        "gaming",
+        "content_creation",
+        "video_editing"
+      ],
+      "tags": [
+        "gaming",
+        "rtx",
+        "asus",
+        "240hz",
+        "premium"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_bag"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ASUS ASUS ROG Strix G16 32GB 1TB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "asus-vivobook-15-8-512",
+      "product_family": "asus-vivobook-15",
+      "name": "ASUS Vivobook 15 8GB 512GB",
+      "brand": "ASUS",
+      "category": "laptops",
+      "segments": [
+        "student",
+        "budget",
+        "business"
+      ],
+      "short_description": "Everyday laptop for coursework, browsing and documents.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 54999,
+        "selling_price": 42999,
+        "currency": "INR"
+      },
+      "sku": "ASUS-VIVO-15-8-512",
+      "inventory": {
+        "quantity": 40
+      },
+      "specifications": {
+        "processor": "Intel Core i5-1335U",
+        "gpu": "Intel Iris Xe",
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "battery_wh": 42,
+        "weight_kg": 1.7,
+        "operating_system": "Windows 11",
+        "ram_gb": 8,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 3,
+        "programming": 6,
+        "office": 8,
+        "content_creation": 5,
+        "portability": 7,
+        "battery": 6,
+        "value": 9
+      },
+      "use_cases": [
+        "office",
+        "college",
+        "daily_use",
+        "productivity"
+      ],
+      "tags": [
+        "budget",
+        "student",
+        "asus"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "laptop_bag",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ASUS ASUS Vivobook 15 8GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "asus-vivobook-15-16-512",
+      "product_family": "asus-vivobook-15",
+      "name": "ASUS Vivobook 15 16GB 512GB",
+      "brand": "ASUS",
+      "category": "laptops",
+      "segments": [
+        "student",
+        "budget",
+        "business"
+      ],
+      "short_description": "Everyday laptop for coursework, browsing and documents.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 63999,
+        "selling_price": 51999,
+        "currency": "INR"
+      },
+      "sku": "ASUS-VIVO-15-16-512",
+      "inventory": {
+        "quantity": 40
+      },
+      "specifications": {
+        "processor": "Intel Core i5-1335U",
+        "gpu": "Intel Iris Xe",
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "battery_wh": 42,
+        "weight_kg": 1.7,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 3,
+        "programming": 6,
+        "office": 8,
+        "content_creation": 5,
+        "portability": 7,
+        "battery": 6,
+        "value": 9
+      },
+      "use_cases": [
+        "office",
+        "college",
+        "daily_use",
+        "productivity"
+      ],
+      "tags": [
+        "budget",
+        "student",
+        "asus"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "laptop_bag",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ASUS ASUS Vivobook 15 16GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "hp-victus-15-8-512",
+      "product_family": "hp-victus-15",
+      "name": "HP Victus 15 8GB 512GB",
+      "brand": "HP",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "budget"
+      ],
+      "short_description": "Entry gaming laptop that doubles as a study machine.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 66999,
+        "selling_price": 52999,
+        "currency": "INR"
+      },
+      "sku": "HP-VICTUS-15-8-512",
+      "inventory": {
+        "quantity": 22
+      },
+      "specifications": {
+        "processor": "AMD Ryzen 5 7535HS",
+        "gpu": "NVIDIA RTX 3050 6GB",
+        "vram_gb": 6,
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 144,
+        "panel_type": "IPS",
+        "battery_wh": 52.5,
+        "weight_kg": 2.29,
+        "operating_system": "Windows 11",
+        "ram_gb": 8,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 7,
+        "programming": 7,
+        "office": 8,
+        "content_creation": 6,
+        "portability": 4,
+        "battery": 5,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "college",
+        "programming"
+      ],
+      "tags": [
+        "gaming",
+        "budget",
+        "hp",
+        "144hz"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_sleeve"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "HP HP Victus 15 8GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "hp-victus-15-16-512",
+      "product_family": "hp-victus-15",
+      "name": "HP Victus 15 16GB 512GB",
+      "brand": "HP",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "budget"
+      ],
+      "short_description": "Entry gaming laptop that doubles as a study machine.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 74999,
+        "selling_price": 59999,
+        "currency": "INR"
+      },
+      "sku": "HP-VICTUS-15-16-512",
+      "inventory": {
+        "quantity": 22
+      },
+      "specifications": {
+        "processor": "AMD Ryzen 5 7535HS",
+        "gpu": "NVIDIA RTX 3050 6GB",
+        "vram_gb": 6,
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 144,
+        "panel_type": "IPS",
+        "battery_wh": 52.5,
+        "weight_kg": 2.29,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 7,
+        "programming": 7,
+        "office": 8,
+        "content_creation": 6,
+        "portability": 4,
+        "battery": 5,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "college",
+        "programming"
+      ],
+      "tags": [
+        "gaming",
+        "budget",
+        "hp",
+        "144hz"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_sleeve"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "HP HP Victus 15 16GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "hp-pavilion-14-8-512",
+      "product_family": "hp-pavilion-14",
+      "name": "HP Pavilion 14 8GB 512GB",
+      "brand": "HP",
+      "category": "laptops",
+      "segments": [
+        "student",
+        "business",
+        "budget"
+      ],
+      "short_description": "Compact all-rounder for office work and study.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 61999,
+        "selling_price": 48999,
+        "currency": "INR"
+      },
+      "sku": "HP-PAV-14-8-512",
+      "inventory": {
+        "quantity": 28
+      },
+      "specifications": {
+        "processor": "Intel Core i5-1340P",
+        "gpu": "Intel Iris Xe",
+        "display_size_in": 14,
+        "resolution": "FHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "battery_wh": 51,
+        "weight_kg": 1.41,
+        "operating_system": "Windows 11",
+        "ram_gb": 8,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 3,
+        "programming": 7,
+        "office": 9,
+        "content_creation": 5,
+        "portability": 8,
+        "battery": 8,
+        "value": 8
+      },
+      "use_cases": [
+        "office",
+        "programming",
+        "college",
+        "travel"
+      ],
+      "tags": [
+        "student",
+        "portable",
+        "hp"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "laptop_bag",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "HP HP Pavilion 14 8GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "hp-pavilion-14-16-1024",
+      "product_family": "hp-pavilion-14",
+      "name": "HP Pavilion 14 16GB 1TB",
+      "brand": "HP",
+      "category": "laptops",
+      "segments": [
+        "student",
+        "business",
+        "budget"
+      ],
+      "short_description": "Compact all-rounder for office work and study.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 1024
+      },
+      "pricing": {
+        "mrp": 76999,
+        "selling_price": 62999,
+        "currency": "INR"
+      },
+      "sku": "HP-PAV-14-16-1024",
+      "inventory": {
+        "quantity": 28
+      },
+      "specifications": {
+        "processor": "Intel Core i5-1340P",
+        "gpu": "Intel Iris Xe",
+        "display_size_in": 14,
+        "resolution": "FHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "battery_wh": 51,
+        "weight_kg": 1.41,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 1024,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 3,
+        "programming": 7,
+        "office": 9,
+        "content_creation": 5,
+        "portability": 8,
+        "battery": 8,
+        "value": 8
+      },
+      "use_cases": [
+        "office",
+        "programming",
+        "college",
+        "travel"
+      ],
+      "tags": [
+        "student",
+        "portable",
+        "hp"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "laptop_bag",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "HP HP Pavilion 14 16GB 1TB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "dell-inspiron-15-8-512",
+      "product_family": "dell-inspiron-15",
+      "name": "Dell Inspiron 15 8GB 512GB",
+      "brand": "Dell",
+      "category": "laptops",
+      "segments": [
+        "student",
+        "budget",
+        "business"
+      ],
+      "short_description": "Straightforward everyday laptop with a full-size keyboard.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 52999,
+        "selling_price": 39999,
+        "currency": "INR"
+      },
+      "sku": "DELL-INSP-15-8-512",
+      "inventory": {
+        "quantity": 30
+      },
+      "specifications": {
+        "processor": "Intel Core i5-1334U",
+        "gpu": "Intel UHD",
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "battery_wh": 54,
+        "weight_kg": 1.65,
+        "operating_system": "Windows 11",
+        "ram_gb": 8,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 2,
+        "programming": 6,
+        "office": 8,
+        "content_creation": 4,
+        "portability": 7,
+        "battery": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "office",
+        "college",
+        "daily_use"
+      ],
+      "tags": [
+        "budget",
+        "student",
+        "dell"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "laptop_bag",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Dell Dell Inspiron 15 8GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "dell-inspiron-15-16-512",
+      "product_family": "dell-inspiron-15",
+      "name": "Dell Inspiron 15 16GB 512GB",
+      "brand": "Dell",
+      "category": "laptops",
+      "segments": [
+        "student",
+        "budget",
+        "business"
+      ],
+      "short_description": "Straightforward everyday laptop with a full-size keyboard.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 60999,
+        "selling_price": 47999,
+        "currency": "INR"
+      },
+      "sku": "DELL-INSP-15-16-512",
+      "inventory": {
+        "quantity": 30
+      },
+      "specifications": {
+        "processor": "Intel Core i5-1334U",
+        "gpu": "Intel UHD",
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "battery_wh": 54,
+        "weight_kg": 1.65,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 2,
+        "programming": 6,
+        "office": 8,
+        "content_creation": 4,
+        "portability": 7,
+        "battery": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "office",
+        "college",
+        "daily_use"
+      ],
+      "tags": [
+        "budget",
+        "student",
+        "dell"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "laptop_bag",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Dell Dell Inspiron 15 16GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "dell-xps-13-16-512",
+      "product_family": "dell-xps-13",
+      "name": "Dell XPS 13 16GB 512GB",
+      "brand": "Dell",
+      "category": "laptops",
+      "segments": [
+        "ultraportable",
+        "premium",
+        "business"
+      ],
+      "short_description": "Premium thin-and-light with an excellent display.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 154999,
+        "selling_price": 134999,
+        "currency": "INR"
+      },
+      "sku": "DELL-XPS-13-16-512",
+      "inventory": {
+        "quantity": 9
+      },
+      "specifications": {
+        "processor": "Intel Core Ultra 7 155H",
+        "gpu": "Intel Arc",
+        "display_size_in": 13.4,
+        "resolution": "QHD",
+        "refresh_rate_hz": 120,
+        "panel_type": "OLED",
+        "battery_wh": 55,
+        "weight_kg": 1.19,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 4,
+        "programming": 9,
+        "office": 10,
+        "content_creation": 8,
+        "portability": 10,
+        "battery": 9,
+        "value": 6
+      },
+      "use_cases": [
+        "programming",
+        "office",
+        "travel",
+        "professional"
+      ],
+      "tags": [
+        "premium",
+        "portable",
+        "dell",
+        "oled"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "usb_c_hub",
+          "wireless_mouse",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Dell Dell XPS 13 16GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "dell-xps-13-32-1024",
+      "product_family": "dell-xps-13",
+      "name": "Dell XPS 13 32GB 1TB",
+      "brand": "Dell",
+      "category": "laptops",
+      "segments": [
+        "ultraportable",
+        "premium",
+        "business"
+      ],
+      "short_description": "Premium thin-and-light with an excellent display.",
+      "configuration": {
+        "ram_gb": 32,
+        "storage_gb": 1024
+      },
+      "pricing": {
+        "mrp": 184999,
+        "selling_price": 164999,
+        "currency": "INR"
+      },
+      "sku": "DELL-XPS-13-32-1024",
+      "inventory": {
+        "quantity": 4
+      },
+      "specifications": {
+        "processor": "Intel Core Ultra 7 155H",
+        "gpu": "Intel Arc",
+        "display_size_in": 13.4,
+        "resolution": "QHD",
+        "refresh_rate_hz": 120,
+        "panel_type": "OLED",
+        "battery_wh": 55,
+        "weight_kg": 1.19,
+        "operating_system": "Windows 11",
+        "ram_gb": 32,
+        "storage_gb": 1024,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 4,
+        "programming": 9,
+        "office": 10,
+        "content_creation": 8,
+        "portability": 10,
+        "battery": 9,
+        "value": 6
+      },
+      "use_cases": [
+        "programming",
+        "office",
+        "travel",
+        "professional"
+      ],
+      "tags": [
+        "premium",
+        "portable",
+        "dell",
+        "oled"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "usb_c_hub",
+          "wireless_mouse",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Dell Dell XPS 13 32GB 1TB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "lenovo-loq-15-12-512",
+      "product_family": "lenovo-loq-15",
+      "name": "Lenovo LOQ 15 12GB 512GB",
+      "brand": "Lenovo",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "budget"
+      ],
+      "short_description": "Value gaming laptop with a bright 144 Hz screen.",
+      "configuration": {
+        "ram_gb": 12,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 72999,
+        "selling_price": 57999,
+        "currency": "INR"
+      },
+      "sku": "LENOVO-LOQ-15-12-512",
+      "inventory": {
+        "quantity": 24
+      },
+      "specifications": {
+        "processor": "Intel Core i5-12450HX",
+        "gpu": "NVIDIA RTX 4050 6GB",
+        "vram_gb": 6,
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 144,
+        "panel_type": "IPS",
+        "battery_wh": 60,
+        "weight_kg": 2.38,
+        "operating_system": "Windows 11",
+        "ram_gb": 12,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 8,
+        "programming": 8,
+        "office": 8,
+        "content_creation": 7,
+        "portability": 4,
+        "battery": 5,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "programming",
+        "college"
+      ],
+      "tags": [
+        "gaming",
+        "value",
+        "lenovo",
+        "144hz"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_sleeve"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Lenovo Lenovo LOQ 15 12GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "lenovo-loq-15-16-512",
+      "product_family": "lenovo-loq-15",
+      "name": "Lenovo LOQ 15 16GB 512GB",
+      "brand": "Lenovo",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "budget"
+      ],
+      "short_description": "Value gaming laptop with a bright 144 Hz screen.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 79999,
+        "selling_price": 63999,
+        "currency": "INR"
+      },
+      "sku": "LENOVO-LOQ-15-16-512",
+      "inventory": {
+        "quantity": 24
+      },
+      "specifications": {
+        "processor": "Intel Core i5-12450HX",
+        "gpu": "NVIDIA RTX 4050 6GB",
+        "vram_gb": 6,
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 144,
+        "panel_type": "IPS",
+        "battery_wh": 60,
+        "weight_kg": 2.38,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 8,
+        "programming": 8,
+        "office": 8,
+        "content_creation": 7,
+        "portability": 4,
+        "battery": 5,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "programming",
+        "college"
+      ],
+      "tags": [
+        "gaming",
+        "value",
+        "lenovo",
+        "144hz"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_sleeve"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Lenovo Lenovo LOQ 15 16GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "lenovo-legion-5-16-512",
+      "product_family": "lenovo-legion-5",
+      "name": "Lenovo Legion 5 16GB 512GB",
+      "brand": "Lenovo",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "performance"
+      ],
+      "short_description": "Serious gaming laptop with strong cooling.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 114999,
+        "selling_price": 94999,
+        "currency": "INR"
+      },
+      "sku": "LENOVO-LEG-5-16-512",
+      "inventory": {
+        "quantity": 10
+      },
+      "specifications": {
+        "processor": "AMD Ryzen 7 7840HS",
+        "gpu": "NVIDIA RTX 4060 8GB",
+        "vram_gb": 8,
+        "display_size_in": 16,
+        "resolution": "QHD",
+        "refresh_rate_hz": 165,
+        "panel_type": "IPS",
+        "battery_wh": 80,
+        "weight_kg": 2.4,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 9,
+        "programming": 9,
+        "office": 8,
+        "content_creation": 9,
+        "portability": 4,
+        "battery": 6,
+        "value": 8
+      },
+      "use_cases": [
+        "gaming",
+        "content_creation",
+        "programming"
+      ],
+      "tags": [
+        "gaming",
+        "rtx",
+        "lenovo",
+        "165hz"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_bag"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Lenovo Lenovo Legion 5 16GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "lenovo-legion-5-32-1024",
+      "product_family": "lenovo-legion-5",
+      "name": "Lenovo Legion 5 32GB 1TB",
+      "brand": "Lenovo",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "performance"
+      ],
+      "short_description": "Serious gaming laptop with strong cooling.",
+      "configuration": {
+        "ram_gb": 32,
+        "storage_gb": 1024
+      },
+      "pricing": {
+        "mrp": 134999,
+        "selling_price": 114999,
+        "currency": "INR"
+      },
+      "sku": "LENOVO-LEG-5-32-1024",
+      "inventory": {
+        "quantity": 5
+      },
+      "specifications": {
+        "processor": "AMD Ryzen 7 7840HS",
+        "gpu": "NVIDIA RTX 4060 8GB",
+        "vram_gb": 8,
+        "display_size_in": 16,
+        "resolution": "QHD",
+        "refresh_rate_hz": 165,
+        "panel_type": "IPS",
+        "battery_wh": 80,
+        "weight_kg": 2.4,
+        "operating_system": "Windows 11",
+        "ram_gb": 32,
+        "storage_gb": 1024,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 9,
+        "programming": 9,
+        "office": 8,
+        "content_creation": 9,
+        "portability": 4,
+        "battery": 6,
+        "value": 8
+      },
+      "use_cases": [
+        "gaming",
+        "content_creation",
+        "programming"
+      ],
+      "tags": [
+        "gaming",
+        "rtx",
+        "lenovo",
+        "165hz"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_bag"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Lenovo Lenovo Legion 5 32GB 1TB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "lenovo-ideapad-slim-3-8-512",
+      "product_family": "lenovo-ideapad-slim-3",
+      "name": "Lenovo IdeaPad Slim 3 8GB 512GB",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "segments": [
+        "student",
+        "budget"
+      ],
+      "short_description": "The budget pick for notes, browsing and video calls.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 44999,
+        "selling_price": 32999,
+        "currency": "INR"
+      },
+      "sku": "LENOVO-IDEA-S3-8-512",
+      "inventory": {
+        "quantity": 45
+      },
+      "specifications": {
+        "processor": "AMD Ryzen 5 7520U",
+        "gpu": "AMD Radeon 610M",
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "TN",
+        "battery_wh": 47,
+        "weight_kg": 1.62,
+        "operating_system": "Windows 11",
+        "ram_gb": 8,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 2,
+        "programming": 5,
+        "office": 7,
+        "content_creation": 3,
+        "portability": 7,
+        "battery": 7,
+        "value": 10
+      },
+      "use_cases": [
+        "college",
+        "office",
+        "daily_use"
+      ],
+      "tags": [
+        "budget",
+        "student",
+        "lenovo"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "laptop_bag",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Lenovo Lenovo IdeaPad Slim 3 8GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "lenovo-ideapad-slim-3-16-512",
+      "product_family": "lenovo-ideapad-slim-3",
+      "name": "Lenovo IdeaPad Slim 3 16GB 512GB",
+      "brand": "Lenovo",
+      "category": "laptops",
+      "segments": [
+        "student",
+        "budget"
+      ],
+      "short_description": "The budget pick for notes, browsing and video calls.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 54999,
+        "selling_price": 41999,
+        "currency": "INR"
+      },
+      "sku": "LENOVO-IDEA-S3-16-512",
+      "inventory": {
+        "quantity": 45
+      },
+      "specifications": {
+        "processor": "AMD Ryzen 5 7520U",
+        "gpu": "AMD Radeon 610M",
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "TN",
+        "battery_wh": 47,
+        "weight_kg": 1.62,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 2,
+        "programming": 5,
+        "office": 7,
+        "content_creation": 3,
+        "portability": 7,
+        "battery": 7,
+        "value": 10
+      },
+      "use_cases": [
+        "college",
+        "office",
+        "daily_use"
+      ],
+      "tags": [
+        "budget",
+        "student",
+        "lenovo"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "laptop_bag",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Lenovo Lenovo IdeaPad Slim 3 16GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "acer-nitro-v-8-512",
+      "product_family": "acer-nitro-v",
+      "name": "Acer Nitro V 15 8GB 512GB",
+      "brand": "Acer",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "budget"
+      ],
+      "short_description": "Affordable RTX gaming laptop.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 71999,
+        "selling_price": 54999,
+        "currency": "INR"
+      },
+      "sku": "ACER-NITRO-V-8-512",
+      "inventory": {
+        "quantity": 20
+      },
+      "specifications": {
+        "processor": "Intel Core i5-13420H",
+        "gpu": "NVIDIA RTX 4050 6GB",
+        "vram_gb": 6,
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 144,
+        "panel_type": "IPS",
+        "battery_wh": 57,
+        "weight_kg": 2.1,
+        "operating_system": "Windows 11",
+        "ram_gb": 8,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 8,
+        "programming": 7,
+        "office": 8,
+        "content_creation": 7,
+        "portability": 5,
+        "battery": 5,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "college",
+        "programming"
+      ],
+      "tags": [
+        "gaming",
+        "budget",
+        "acer",
+        "rtx"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_sleeve"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Acer Acer Nitro V 15 8GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "acer-nitro-v-16-1024",
+      "product_family": "acer-nitro-v",
+      "name": "Acer Nitro V 15 16GB 1TB",
+      "brand": "Acer",
+      "category": "gaming-laptops",
+      "segments": [
+        "gaming",
+        "budget"
+      ],
+      "short_description": "Affordable RTX gaming laptop.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 1024
+      },
+      "pricing": {
+        "mrp": 86999,
+        "selling_price": 69999,
+        "currency": "INR"
+      },
+      "sku": "ACER-NITRO-V-16-1024",
+      "inventory": {
+        "quantity": 20
+      },
+      "specifications": {
+        "processor": "Intel Core i5-13420H",
+        "gpu": "NVIDIA RTX 4050 6GB",
+        "vram_gb": 6,
+        "display_size_in": 15.6,
+        "resolution": "FHD",
+        "refresh_rate_hz": 144,
+        "panel_type": "IPS",
+        "battery_wh": 57,
+        "weight_kg": 2.1,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 1024,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 8,
+        "programming": 7,
+        "office": 8,
+        "content_creation": 7,
+        "portability": 5,
+        "battery": 5,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "college",
+        "programming"
+      ],
+      "tags": [
+        "gaming",
+        "budget",
+        "acer",
+        "rtx"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "gaming_mouse",
+          "gaming_headset",
+          "cooling_pad",
+          "laptop_sleeve"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Acer Acer Nitro V 15 16GB 1TB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "acer-aspire-lite-8-512",
+      "product_family": "acer-aspire-lite",
+      "name": "Acer Aspire Lite 14 8GB 512GB",
+      "brand": "Acer",
+      "category": "laptops",
+      "segments": [
+        "student",
+        "budget"
+      ],
+      "short_description": "Light, cheap and adequate — a first laptop.",
+      "configuration": {
+        "ram_gb": 8,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 39999,
+        "selling_price": 28999,
+        "currency": "INR"
+      },
+      "sku": "ACER-ASP-L14-8-512",
+      "inventory": {
+        "quantity": 35
+      },
+      "specifications": {
+        "processor": "Intel Core i3-1215U",
+        "gpu": "Intel UHD",
+        "display_size_in": 14,
+        "resolution": "FHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "battery_wh": 50,
+        "weight_kg": 1.35,
+        "operating_system": "Windows 11",
+        "ram_gb": 8,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 2,
+        "programming": 4,
+        "office": 7,
+        "content_creation": 3,
+        "portability": 9,
+        "battery": 7,
+        "value": 10
+      },
+      "use_cases": [
+        "college",
+        "daily_use",
+        "office"
+      ],
+      "tags": [
+        "budget",
+        "student",
+        "acer",
+        "portable"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "laptop_bag",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Acer Acer Aspire Lite 14 8GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "acer-aspire-lite-16-512",
+      "product_family": "acer-aspire-lite",
+      "name": "Acer Aspire Lite 14 16GB 512GB",
+      "brand": "Acer",
+      "category": "laptops",
+      "segments": [
+        "student",
+        "budget"
+      ],
+      "short_description": "Light, cheap and adequate — a first laptop.",
+      "configuration": {
+        "ram_gb": 16,
+        "storage_gb": 512
+      },
+      "pricing": {
+        "mrp": 47999,
+        "selling_price": 36999,
+        "currency": "INR"
+      },
+      "sku": "ACER-ASP-L14-16-512",
+      "inventory": {
+        "quantity": 35
+      },
+      "specifications": {
+        "processor": "Intel Core i3-1215U",
+        "gpu": "Intel UHD",
+        "display_size_in": 14,
+        "resolution": "FHD",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "battery_wh": 50,
+        "weight_kg": 1.35,
+        "operating_system": "Windows 11",
+        "ram_gb": 16,
+        "storage_gb": 512,
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 2,
+        "programming": 4,
+        "office": 7,
+        "content_creation": 3,
+        "portability": 9,
+        "battery": 7,
+        "value": 10
+      },
+      "use_cases": [
+        "college",
+        "daily_use",
+        "office"
+      ],
+      "tags": [
+        "budget",
+        "student",
+        "acer",
+        "portable"
+      ],
+      "compatibility": {
+        "platform": "laptop",
+        "attributes": {
+          "connector": "USB-C"
+        },
+        "compatible_accessory_types": [
+          "laptop_sleeve",
+          "laptop_bag",
+          "usb_c_hub",
+          "wireless_mouse",
+          "external_ssd",
+          "charger"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Acer Acer Aspire Lite 14 16GB 512GB",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "apple-airpods-pro-3",
+      "product_family": "apple-airpods-pro-3",
+      "name": "AirPods Pro 3",
+      "brand": "Apple",
+      "category": "earbuds",
+      "segments": [
+        "audiophile",
+        "commute",
+        "calls"
+      ],
+      "short_description": "Apple wireless earbuds.",
+      "pricing": {
+        "mrp": 26900,
+        "selling_price": 24900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-APP3",
+      "inventory": {
+        "quantity": 40
+      },
+      "specifications": {
+        "anc": "Active",
+        "battery_hours": 8,
+        "driver_type": "Dynamic",
+        "connectivity": "Bluetooth 5.3",
+        "water_resistance": "IP54",
+        "wireless_charging": "Yes",
+        "microphones": 3
+      },
+      "performance": {
+        "audio_quality": 9,
+        "battery": 8,
+        "build_quality": 9,
+        "value": 7
+      },
+      "use_cases": [
+        "music",
+        "calls",
+        "commute",
+        "travel"
+      ],
+      "tags": [
+        "apple",
+        "anc",
+        "wireless"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IEMs/base.webp",
+          "alt": "Apple AirPods Pro 3",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "apple-airpods-4",
+      "product_family": "apple-airpods-4",
+      "name": "AirPods 4",
+      "brand": "Apple",
+      "category": "earbuds",
+      "segments": [
+        "commute",
+        "calls"
+      ],
+      "short_description": "Apple wireless earbuds.",
+      "pricing": {
+        "mrp": 14900,
+        "selling_price": 12900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-AP4",
+      "inventory": {
+        "quantity": 50
+      },
+      "specifications": {
+        "anc": "None",
+        "battery_hours": 6,
+        "driver_type": "Dynamic",
+        "connectivity": "Bluetooth 5.3",
+        "water_resistance": "IPX4",
+        "microphones": 2
+      },
+      "performance": {
+        "audio_quality": 8,
+        "battery": 7,
+        "build_quality": 8,
+        "value": 8
+      },
+      "use_cases": [
+        "music",
+        "calls",
+        "commute",
+        "travel"
+      ],
+      "tags": [
+        "apple",
+        "wireless"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IEMs/base.webp",
+          "alt": "Apple AirPods 4",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "samsung-galaxy-buds3-pro",
+      "product_family": "samsung-galaxy-buds3-pro",
+      "name": "Galaxy Buds3 Pro",
+      "brand": "Samsung",
+      "category": "earbuds",
+      "segments": [
+        "audiophile",
+        "commute",
+        "calls"
+      ],
+      "short_description": "Samsung wireless earbuds.",
+      "pricing": {
+        "mrp": 24999,
+        "selling_price": 19999,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-BUDS3P",
+      "inventory": {
+        "quantity": 30
+      },
+      "specifications": {
+        "anc": "Active",
+        "battery_hours": 7,
+        "driver_type": "Dual dynamic",
+        "connectivity": "Bluetooth 5.4",
+        "water_resistance": "IP57",
+        "wireless_charging": "Yes",
+        "microphones": 3
+      },
+      "performance": {
+        "audio_quality": 9,
+        "battery": 8,
+        "build_quality": 8,
+        "value": 8
+      },
+      "use_cases": [
+        "music",
+        "calls",
+        "commute",
+        "travel"
+      ],
+      "tags": [
+        "samsung",
+        "anc",
+        "wireless"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IEMs/base.webp",
+          "alt": "Samsung Galaxy Buds3 Pro",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "samsung-galaxy-buds3",
+      "product_family": "samsung-galaxy-buds3",
+      "name": "Galaxy Buds3",
+      "brand": "Samsung",
+      "category": "earbuds",
+      "segments": [
+        "commute",
+        "calls"
+      ],
+      "short_description": "Samsung wireless earbuds.",
+      "pricing": {
+        "mrp": 16999,
+        "selling_price": 12999,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-BUDS3",
+      "inventory": {
+        "quantity": 35
+      },
+      "specifications": {
+        "anc": "Active",
+        "battery_hours": 6,
+        "driver_type": "Dynamic",
+        "connectivity": "Bluetooth 5.4",
+        "water_resistance": "IP54",
+        "microphones": 3
+      },
+      "performance": {
+        "audio_quality": 8,
+        "battery": 7,
+        "build_quality": 8,
+        "value": 8
+      },
+      "use_cases": [
+        "music",
+        "calls",
+        "commute",
+        "travel"
+      ],
+      "tags": [
+        "samsung",
+        "anc",
+        "wireless"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IEMs/base.webp",
+          "alt": "Samsung Galaxy Buds3",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "nothing-ear-a",
+      "product_family": "nothing-ear-a",
+      "name": "Ear (a)",
+      "brand": "Nothing",
+      "category": "earbuds",
+      "segments": [
+        "commute",
+        "budget"
+      ],
+      "short_description": "Nothing wireless earbuds.",
+      "pricing": {
+        "mrp": 8999,
+        "selling_price": 7999,
+        "currency": "INR"
+      },
+      "sku": "NOTHING-EAR-A",
+      "inventory": {
+        "quantity": 45
+      },
+      "specifications": {
+        "anc": "Active",
+        "battery_hours": 9,
+        "driver_type": "Dynamic",
+        "connectivity": "Bluetooth 5.3",
+        "water_resistance": "IP54",
+        "microphones": 3
+      },
+      "performance": {
+        "audio_quality": 8,
+        "battery": 9,
+        "build_quality": 7,
+        "value": 10
+      },
+      "use_cases": [
+        "music",
+        "calls",
+        "commute",
+        "travel"
+      ],
+      "tags": [
+        "nothing",
+        "anc",
+        "value"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IEMs/base.webp",
+          "alt": "Nothing Ear (a)",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "nothing-ear-2",
+      "product_family": "nothing-ear-2",
+      "name": "Ear (2)",
+      "brand": "Nothing",
+      "category": "earbuds",
+      "segments": [
+        "audiophile",
+        "commute"
+      ],
+      "short_description": "Nothing wireless earbuds.",
+      "pricing": {
+        "mrp": 11999,
+        "selling_price": 9999,
+        "currency": "INR"
+      },
+      "sku": "NOTHING-EAR-2",
+      "inventory": {
+        "quantity": 25
+      },
+      "specifications": {
+        "anc": "Active",
+        "battery_hours": 8,
+        "driver_type": "Dynamic",
+        "connectivity": "Bluetooth 5.3",
+        "water_resistance": "IP54",
+        "wireless_charging": "Yes",
+        "microphones": 3
+      },
+      "performance": {
+        "audio_quality": 8,
+        "battery": 8,
+        "build_quality": 8,
+        "value": 9
+      },
+      "use_cases": [
+        "music",
+        "calls",
+        "commute",
+        "travel"
+      ],
+      "tags": [
+        "nothing",
+        "anc"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IEMs/base.webp",
+          "alt": "Nothing Ear (2)",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "google-pixel-buds-a-series",
+      "product_family": "google-pixel-buds-a-series",
+      "name": "Pixel Buds A-Series",
+      "brand": "Google",
+      "category": "earbuds",
+      "segments": [
+        "commute",
+        "calls",
+        "budget"
+      ],
+      "short_description": "Google wireless earbuds.",
+      "pricing": {
+        "mrp": 9999,
+        "selling_price": 6999,
+        "currency": "INR"
+      },
+      "sku": "GOOGLE-PBA",
+      "inventory": {
+        "quantity": 28
+      },
+      "specifications": {
+        "anc": "None",
+        "battery_hours": 5,
+        "driver_type": "Dynamic",
+        "connectivity": "Bluetooth 5.0",
+        "water_resistance": "IPX4",
+        "microphones": 2
+      },
+      "performance": {
+        "audio_quality": 7,
+        "battery": 6,
+        "build_quality": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "music",
+        "calls",
+        "commute",
+        "travel"
+      ],
+      "tags": [
+        "google",
+        "value"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IEMs/base.webp",
+          "alt": "Google Pixel Buds A-Series",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "xiaomi-redmi-buds-5-pro",
+      "product_family": "xiaomi-redmi-buds-5-pro",
+      "name": "Redmi Buds 5 Pro",
+      "brand": "Xiaomi",
+      "category": "earbuds",
+      "segments": [
+        "commute",
+        "budget",
+        "sports"
+      ],
+      "short_description": "Xiaomi wireless earbuds.",
+      "pricing": {
+        "mrp": 5999,
+        "selling_price": 3999,
+        "currency": "INR"
+      },
+      "sku": "XIAOMI-RB5P",
+      "inventory": {
+        "quantity": 60
+      },
+      "specifications": {
+        "anc": "Active",
+        "battery_hours": 10,
+        "driver_type": "Dual dynamic",
+        "connectivity": "Bluetooth 5.3",
+        "water_resistance": "IP54",
+        "microphones": 3
+      },
+      "performance": {
+        "audio_quality": 7,
+        "battery": 9,
+        "build_quality": 6,
+        "value": 10
+      },
+      "use_cases": [
+        "music",
+        "calls",
+        "commute",
+        "travel"
+      ],
+      "tags": [
+        "xiaomi",
+        "anc",
+        "value"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IEMs/base.webp",
+          "alt": "Xiaomi Redmi Buds 5 Pro",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sony-ier-z1r",
+      "product_family": "sony-ier-z1r",
+      "name": "Sony IER-Z1R In-Ear Monitors",
+      "brand": "Sony",
+      "category": "earbuds",
+      "segments": [
+        "audiophile"
+      ],
+      "short_description": "Flagship wired in-ear monitors with a three-driver hybrid design.",
+      "pricing": {
+        "mrp": 174990,
+        "selling_price": 159990,
+        "currency": "INR"
+      },
+      "sku": "SONY-IERZ1R",
+      "inventory": {
+        "quantity": 4
+      },
+      "specifications": {
+        "driver_type": "Hybrid 3-driver",
+        "connectivity": "Wired 4.4mm / 3.5mm",
+        "anc": "None"
+      },
+      "performance": {
+        "audio_quality": 10,
+        "build_quality": 10,
+        "value": 4
+      },
+      "use_cases": [
+        "music",
+        "professional"
+      ],
+      "tags": [
+        "sony",
+        "audiophile",
+        "premium",
+        "wired"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "3.5 mm"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/IEMs/base.webp",
+          "alt": "Sony Sony IER-Z1R In-Ear Monitors",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sony-wh-1000xm5",
+      "product_family": "sony-wh-1000xm5",
+      "name": "Sony WH-1000XM5",
+      "brand": "Sony",
+      "category": "headphones",
+      "segments": [
+        "audiophile",
+        "commute"
+      ],
+      "short_description": "Sony over-ear headphones.",
+      "pricing": {
+        "mrp": 34990,
+        "selling_price": 26990,
+        "currency": "INR"
+      },
+      "sku": "SONY-XM5",
+      "inventory": {
+        "quantity": 15
+      },
+      "specifications": {
+        "anc": "Active",
+        "battery_hours": 30,
+        "driver_type": "30mm dynamic",
+        "connectivity": "Bluetooth 5.2"
+      },
+      "performance": {
+        "audio_quality": 10,
+        "battery": 10,
+        "build_quality": 9,
+        "value": 8
+      },
+      "use_cases": [
+        "music",
+        "travel",
+        "calls",
+        "commute"
+      ],
+      "tags": [
+        "sony",
+        "anc",
+        "travel"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/262565_0_cMTz4dVUv.webp",
+          "alt": "Sony Sony WH-1000XM5",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "bose-quietcomfort-ultra",
+      "product_family": "bose-quietcomfort-ultra",
+      "name": "Bose QuietComfort Ultra",
+      "brand": "Bose",
+      "category": "headphones",
+      "segments": [
+        "audiophile",
+        "commute"
+      ],
+      "short_description": "Bose over-ear headphones.",
+      "pricing": {
+        "mrp": 35900,
+        "selling_price": 29990,
+        "currency": "INR"
+      },
+      "sku": "BOSE-QCU",
+      "inventory": {
+        "quantity": 10
+      },
+      "specifications": {
+        "anc": "Active",
+        "battery_hours": 24,
+        "driver_type": "35mm dynamic",
+        "connectivity": "Bluetooth 5.3"
+      },
+      "performance": {
+        "audio_quality": 9,
+        "battery": 9,
+        "build_quality": 9,
+        "value": 7
+      },
+      "use_cases": [
+        "music",
+        "travel",
+        "calls",
+        "commute"
+      ],
+      "tags": [
+        "bose",
+        "anc",
+        "travel"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/262565_0_cMTz4dVUv.webp",
+          "alt": "Bose Bose QuietComfort Ultra",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "jbl-tune-770nc",
+      "product_family": "jbl-tune-770nc",
+      "name": "JBL Tune 770NC",
+      "brand": "JBL",
+      "category": "headphones",
+      "segments": [
+        "budget",
+        "commute"
+      ],
+      "short_description": "JBL over-ear headphones.",
+      "pricing": {
+        "mrp": 9999,
+        "selling_price": 6999,
+        "currency": "INR"
+      },
+      "sku": "JBL-T770",
+      "inventory": {
+        "quantity": 30
+      },
+      "specifications": {
+        "anc": "Active",
+        "battery_hours": 70,
+        "driver_type": "40mm dynamic",
+        "connectivity": "Bluetooth 5.3"
+      },
+      "performance": {
+        "audio_quality": 7,
+        "battery": 10,
+        "build_quality": 7,
+        "value": 10
+      },
+      "use_cases": [
+        "music",
+        "travel",
+        "calls",
+        "commute"
+      ],
+      "tags": [
+        "jbl",
+        "anc",
+        "value"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/262565_0_cMTz4dVUv.webp",
+          "alt": "JBL JBL Tune 770NC",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sennheiser-hd-560s",
+      "product_family": "sennheiser-hd-560s",
+      "name": "Sennheiser HD 560S",
+      "brand": "Sennheiser",
+      "category": "headphones",
+      "segments": [
+        "studio",
+        "audiophile"
+      ],
+      "short_description": "Sennheiser over-ear headphones.",
+      "pricing": {
+        "mrp": 21990,
+        "selling_price": 17990,
+        "currency": "INR"
+      },
+      "sku": "SENN-HD560S",
+      "inventory": {
+        "quantity": 8
+      },
+      "specifications": {
+        "anc": "None",
+        "driver_type": "38mm dynamic",
+        "connectivity": "Wired 3.5mm"
+      },
+      "performance": {
+        "audio_quality": 9,
+        "build_quality": 8,
+        "value": 8
+      },
+      "use_cases": [
+        "music",
+        "travel",
+        "calls",
+        "commute"
+      ],
+      "tags": [
+        "sennheiser",
+        "studio",
+        "wired"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/262565_0_cMTz4dVUv.webp",
+          "alt": "Sennheiser Sennheiser HD 560S",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "boat-rockerz-550",
+      "product_family": "boat-rockerz-550",
+      "name": "boAt Rockerz 550",
+      "brand": "boAt",
+      "category": "headphones",
+      "segments": [
+        "budget"
+      ],
+      "short_description": "boAt over-ear headphones.",
+      "pricing": {
+        "mrp": 4990,
+        "selling_price": 2499,
+        "currency": "INR"
+      },
+      "sku": "BOAT-R550",
+      "inventory": {
+        "quantity": 50
+      },
+      "specifications": {
+        "anc": "None",
+        "battery_hours": 20,
+        "driver_type": "50mm dynamic",
+        "connectivity": "Bluetooth 5.0"
+      },
+      "performance": {
+        "audio_quality": 6,
+        "battery": 8,
+        "build_quality": 6,
+        "value": 9
+      },
+      "use_cases": [
+        "music",
+        "travel",
+        "calls",
+        "commute"
+      ],
+      "tags": [
+        "boat",
+        "budget"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/262565_0_cMTz4dVUv.webp",
+          "alt": "boAt boAt Rockerz 550",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "apple-20w-usb-c-power-adapter",
+      "product_family": "apple-20w-usb-c-power-adapter",
+      "name": "Apple 20W USB-C Power Adapter",
+      "brand": "Apple",
+      "category": "chargers",
+      "segments": [
+        "budget"
+      ],
+      "short_description": "20W charger for phones.",
+      "pricing": {
+        "mrp": 2100,
+        "selling_price": 1900,
+        "currency": "INR"
+      },
+      "sku": "APPLE-CHG-20",
+      "inventory": {
+        "quantity": 60
+      },
+      "specifications": {
+        "power_w": 20,
+        "connector": "USB-C",
+        "charging_w": 20,
+        "connectivity": "1 port"
+      },
+      "performance": {
+        "value": 9,
+        "build_quality": 8
+      },
+      "use_cases": [
+        "daily_use",
+        "travel"
+      ],
+      "tags": [
+        "charger",
+        "usb-c",
+        "fast-charging"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C",
+          "power_w": 20
+        },
+        "claims": [
+          {
+            "predicate": "recommended_for",
+            "category": "smartphones",
+            "reason": "20W suits phones"
+          }
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/shopping.webp",
+          "alt": "Apple Apple 20W USB-C Power Adapter",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "samsung-25w-travel-adapter",
+      "product_family": "samsung-25w-travel-adapter",
+      "name": "Samsung 25W Travel Adapter",
+      "brand": "Samsung",
+      "category": "chargers",
+      "segments": [
+        "budget"
+      ],
+      "short_description": "25W charger for phones.",
+      "pricing": {
+        "mrp": 1999,
+        "selling_price": 1499,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-CHG-25",
+      "inventory": {
+        "quantity": 55
+      },
+      "specifications": {
+        "power_w": 25,
+        "connector": "USB-C",
+        "charging_w": 25,
+        "connectivity": "1 port"
+      },
+      "performance": {
+        "value": 9,
+        "build_quality": 8
+      },
+      "use_cases": [
+        "daily_use",
+        "travel"
+      ],
+      "tags": [
+        "charger",
+        "usb-c",
+        "fast-charging"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C",
+          "power_w": 25
+        },
+        "claims": [
+          {
+            "predicate": "recommended_for",
+            "category": "smartphones",
+            "reason": "25W suits phones"
+          }
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/shopping.webp",
+          "alt": "Samsung Samsung 25W Travel Adapter",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "oneplus-supervooc-80w-adapter",
+      "product_family": "oneplus-supervooc-80w-adapter",
+      "name": "OnePlus SUPERVOOC 80W Adapter",
+      "brand": "OnePlus",
+      "category": "chargers",
+      "segments": [
+        "fast_charging"
+      ],
+      "short_description": "80W charger for phones.",
+      "pricing": {
+        "mrp": 2999,
+        "selling_price": 2499,
+        "currency": "INR"
+      },
+      "sku": "ONEPLUS-CHG-80",
+      "inventory": {
+        "quantity": 30
+      },
+      "specifications": {
+        "power_w": 80,
+        "connector": "USB-C",
+        "charging_w": 80,
+        "connectivity": "1 port"
+      },
+      "performance": {
+        "value": 8,
+        "build_quality": 8
+      },
+      "use_cases": [
+        "daily_use",
+        "travel"
+      ],
+      "tags": [
+        "charger",
+        "usb-c",
+        "fast-charging",
+        "gan"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C",
+          "power_w": 80
+        },
+        "claims": [
+          {
+            "predicate": "recommended_for",
+            "category": "smartphones",
+            "reason": "80W suits phones"
+          }
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/shopping.webp",
+          "alt": "OnePlus OnePlus SUPERVOOC 80W Adapter",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "anker-nano-30w-usb-c",
+      "product_family": "anker-nano-30w-usb-c",
+      "name": "Anker Nano 30W USB-C",
+      "brand": "Anker",
+      "category": "chargers",
+      "segments": [
+        "budget"
+      ],
+      "short_description": "30W charger for phones.",
+      "pricing": {
+        "mrp": 2999,
+        "selling_price": 2299,
+        "currency": "INR"
+      },
+      "sku": "ANKER-CHG-30",
+      "inventory": {
+        "quantity": 40
+      },
+      "specifications": {
+        "power_w": 30,
+        "connector": "USB-C",
+        "charging_w": 30,
+        "connectivity": "1 port"
+      },
+      "performance": {
+        "value": 9,
+        "build_quality": 8
+      },
+      "use_cases": [
+        "daily_use",
+        "travel"
+      ],
+      "tags": [
+        "charger",
+        "usb-c",
+        "fast-charging"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C",
+          "power_w": 30
+        },
+        "claims": [
+          {
+            "predicate": "recommended_for",
+            "category": "smartphones",
+            "reason": "30W suits phones"
+          }
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/shopping.webp",
+          "alt": "Anker Anker Nano 30W USB-C",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "anker-45w-gan-dual-port",
+      "product_family": "anker-45w-gan-dual-port",
+      "name": "Anker 45W GaN Dual-Port",
+      "brand": "Anker",
+      "category": "chargers",
+      "segments": [
+        "fast_charging"
+      ],
+      "short_description": "45W 2-port charger for phones.",
+      "pricing": {
+        "mrp": 4499,
+        "selling_price": 3499,
+        "currency": "INR"
+      },
+      "sku": "ANKER-CHG-45",
+      "inventory": {
+        "quantity": 25
+      },
+      "specifications": {
+        "power_w": 45,
+        "connector": "USB-C",
+        "charging_w": 45,
+        "connectivity": "2 port"
+      },
+      "performance": {
+        "value": 9,
+        "build_quality": 8
+      },
+      "use_cases": [
+        "daily_use",
+        "travel"
+      ],
+      "tags": [
+        "charger",
+        "usb-c",
+        "fast-charging",
+        "gan"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C",
+          "power_w": 45
+        },
+        "claims": [
+          {
+            "predicate": "recommended_for",
+            "category": "smartphones",
+            "reason": "45W suits phones"
+          }
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/shopping.webp",
+          "alt": "Anker Anker 45W GaN Dual-Port",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "anker-65w-gan-charger",
+      "product_family": "anker-65w-gan-charger",
+      "name": "Anker 65W GaN Charger",
+      "brand": "Anker",
+      "category": "chargers",
+      "segments": [
+        "fast_charging"
+      ],
+      "short_description": "65W 2-port charger for laptops.",
+      "pricing": {
+        "mrp": 5999,
+        "selling_price": 4499,
+        "currency": "INR"
+      },
+      "sku": "ANKER-CHG-65",
+      "inventory": {
+        "quantity": 22
+      },
+      "specifications": {
+        "power_w": 65,
+        "connector": "USB-C",
+        "charging_w": 65,
+        "connectivity": "2 port"
+      },
+      "performance": {
+        "value": 8,
+        "build_quality": 8
+      },
+      "use_cases": [
+        "daily_use",
+        "travel"
+      ],
+      "tags": [
+        "charger",
+        "usb-c",
+        "fast-charging",
+        "gan"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C",
+          "power_w": 65
+        },
+        "claims": [
+          {
+            "predicate": "recommended_for",
+            "category": "laptops",
+            "reason": "65W suits laptops"
+          }
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/51GvWC7uAtL._AC_UF1000%2C1000_QL80_.jpg",
+          "alt": "Anker Anker 65W GaN Charger",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "ugreen-100w-gan-4-port",
+      "product_family": "ugreen-100w-gan-4-port",
+      "name": "Ugreen 100W GaN 4-Port",
+      "brand": "Ugreen",
+      "category": "chargers",
+      "segments": [
+        "fast_charging"
+      ],
+      "short_description": "100W 4-port charger for laptops.",
+      "pricing": {
+        "mrp": 8999,
+        "selling_price": 6999,
+        "currency": "INR"
+      },
+      "sku": "UGREEN-CHG-100",
+      "inventory": {
+        "quantity": 15
+      },
+      "specifications": {
+        "power_w": 100,
+        "connector": "USB-C",
+        "charging_w": 100,
+        "connectivity": "4 port"
+      },
+      "performance": {
+        "value": 8,
+        "build_quality": 8
+      },
+      "use_cases": [
+        "daily_use",
+        "travel"
+      ],
+      "tags": [
+        "charger",
+        "usb-c",
+        "fast-charging",
+        "gan"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C",
+          "power_w": 100
+        },
+        "claims": [
+          {
+            "predicate": "recommended_for",
+            "category": "laptops",
+            "reason": "100W suits laptops"
+          }
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/51GvWC7uAtL._AC_UF1000%2C1000_QL80_.jpg",
+          "alt": "Ugreen Ugreen 100W GaN 4-Port",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "dell-65w-usb-c-laptop-adapter",
+      "product_family": "dell-65w-usb-c-laptop-adapter",
+      "name": "Dell 65W USB-C Laptop Adapter",
+      "brand": "Dell",
+      "category": "chargers",
+      "segments": [
+        "fast_charging"
+      ],
+      "short_description": "65W charger for laptops.",
+      "pricing": {
+        "mrp": 4999,
+        "selling_price": 3999,
+        "currency": "INR"
+      },
+      "sku": "DELL-CHG-65",
+      "inventory": {
+        "quantity": 18
+      },
+      "specifications": {
+        "power_w": 65,
+        "connector": "USB-C",
+        "charging_w": 65,
+        "connectivity": "1 port"
+      },
+      "performance": {
+        "value": 8,
+        "build_quality": 8
+      },
+      "use_cases": [
+        "daily_use",
+        "travel"
+      ],
+      "tags": [
+        "charger",
+        "usb-c",
+        "fast-charging",
+        "gan"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C",
+          "power_w": 65
+        },
+        "claims": [
+          {
+            "predicate": "recommended_for",
+            "category": "laptops",
+            "reason": "65W suits laptops"
+          }
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/51GvWC7uAtL._AC_UF1000%2C1000_QL80_.jpg",
+          "alt": "Dell Dell 65W USB-C Laptop Adapter",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "hp-140w-usb-c-laptop-adapter",
+      "product_family": "hp-140w-usb-c-laptop-adapter",
+      "name": "HP 140W USB-C Laptop Adapter",
+      "brand": "HP",
+      "category": "chargers",
+      "segments": [
+        "fast_charging"
+      ],
+      "short_description": "140W charger for laptops.",
+      "pricing": {
+        "mrp": 9499,
+        "selling_price": 7999,
+        "currency": "INR"
+      },
+      "sku": "HP-CHG-140",
+      "inventory": {
+        "quantity": 10
+      },
+      "specifications": {
+        "power_w": 140,
+        "connector": "USB-C",
+        "charging_w": 140,
+        "connectivity": "1 port"
+      },
+      "performance": {
+        "value": 8,
+        "build_quality": 8
+      },
+      "use_cases": [
+        "daily_use",
+        "travel"
+      ],
+      "tags": [
+        "charger",
+        "usb-c",
+        "fast-charging",
+        "gan"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C",
+          "power_w": 140
+        },
+        "claims": [
+          {
+            "predicate": "recommended_for",
+            "category": "laptops",
+            "reason": "140W suits laptops"
+          }
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/51GvWC7uAtL._AC_UF1000%2C1000_QL80_.jpg",
+          "alt": "HP HP 140W USB-C Laptop Adapter",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "shopiq-laptop-sleeve-13",
+      "product_family": "laptop-sleeve",
+      "name": "ShopiQ Laptop Sleeve 13\"",
+      "brand": "ShopiQ",
+      "category": "laptop-accessories",
+      "segments": [
+        "budget",
+        "travel"
+      ],
+      "short_description": "Padded sleeve sized for 13-inch laptops.",
+      "pricing": {
+        "mrp": 1999,
+        "selling_price": 1299,
+        "currency": "INR"
+      },
+      "sku": "SHOPIQ-SLV-13",
+      "inventory": {
+        "quantity": 40
+      },
+      "specifications": {
+        "weight_kg": 0.3
+      },
+      "performance": {
+        "build_quality": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "travel",
+        "college",
+        "office"
+      ],
+      "tags": [
+        "sleeve",
+        "protection",
+        "budget"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "compatible_sizes": [
+          "13"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ShopiQ ShopiQ Laptop Sleeve 13\"",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "shopiq-laptop-sleeve-14",
+      "product_family": "laptop-sleeve",
+      "name": "ShopiQ Laptop Sleeve 14\"",
+      "brand": "ShopiQ",
+      "category": "laptop-accessories",
+      "segments": [
+        "budget",
+        "travel"
+      ],
+      "short_description": "Padded sleeve sized for 14-inch laptops.",
+      "pricing": {
+        "mrp": 2199,
+        "selling_price": 1499,
+        "currency": "INR"
+      },
+      "sku": "SHOPIQ-SLV-14",
+      "inventory": {
+        "quantity": 45
+      },
+      "specifications": {
+        "weight_kg": 0.3
+      },
+      "performance": {
+        "build_quality": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "travel",
+        "college",
+        "office"
+      ],
+      "tags": [
+        "sleeve",
+        "protection",
+        "budget"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "compatible_sizes": [
+          "14"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ShopiQ ShopiQ Laptop Sleeve 14\"",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "shopiq-laptop-sleeve-15",
+      "product_family": "laptop-sleeve",
+      "name": "ShopiQ Laptop Sleeve 15\"",
+      "brand": "ShopiQ",
+      "category": "laptop-accessories",
+      "segments": [
+        "budget",
+        "travel"
+      ],
+      "short_description": "Padded sleeve sized for 15-inch laptops.",
+      "pricing": {
+        "mrp": 2399,
+        "selling_price": 1699,
+        "currency": "INR"
+      },
+      "sku": "SHOPIQ-SLV-15",
+      "inventory": {
+        "quantity": 38
+      },
+      "specifications": {
+        "weight_kg": 0.3
+      },
+      "performance": {
+        "build_quality": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "travel",
+        "college",
+        "office"
+      ],
+      "tags": [
+        "sleeve",
+        "protection",
+        "budget"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "compatible_sizes": [
+          "15"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ShopiQ ShopiQ Laptop Sleeve 15\"",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "shopiq-laptop-sleeve-16",
+      "product_family": "laptop-sleeve",
+      "name": "ShopiQ Laptop Sleeve 16\"",
+      "brand": "ShopiQ",
+      "category": "laptop-accessories",
+      "segments": [
+        "budget",
+        "travel"
+      ],
+      "short_description": "Padded sleeve sized for 16-inch laptops.",
+      "pricing": {
+        "mrp": 2599,
+        "selling_price": 1899,
+        "currency": "INR"
+      },
+      "sku": "SHOPIQ-SLV-16",
+      "inventory": {
+        "quantity": 30
+      },
+      "specifications": {
+        "weight_kg": 0.3
+      },
+      "performance": {
+        "build_quality": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "travel",
+        "college",
+        "office"
+      ],
+      "tags": [
+        "sleeve",
+        "protection",
+        "budget"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "compatible_sizes": [
+          "16"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ShopiQ ShopiQ Laptop Sleeve 16\"",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "shopiq-premium-sleeve-14",
+      "product_family": "laptop-sleeve-premium",
+      "name": "ShopiQ Premium Leather Sleeve 14\"",
+      "brand": "ShopiQ",
+      "category": "laptop-accessories",
+      "segments": [
+        "premium",
+        "travel"
+      ],
+      "short_description": "Leather sleeve for 14-inch laptops.",
+      "pricing": {
+        "mrp": 4499,
+        "selling_price": 3499,
+        "currency": "INR"
+      },
+      "sku": "SHOPIQ-SLVP-14",
+      "inventory": {
+        "quantity": 12
+      },
+      "specifications": {
+        "weight_kg": 0.35
+      },
+      "performance": {
+        "build_quality": 9,
+        "value": 7
+      },
+      "use_cases": [
+        "travel",
+        "professional"
+      ],
+      "tags": [
+        "sleeve",
+        "premium",
+        "leather"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "compatible_sizes": [
+          "14"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ShopiQ ShopiQ Premium Leather Sleeve 14\"",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "shopiq-laptop-backpack",
+      "product_family": "laptop-backpack",
+      "name": "ShopiQ Laptop Backpack 16\"",
+      "brand": "ShopiQ",
+      "category": "laptop-accessories",
+      "segments": [
+        "travel",
+        "budget"
+      ],
+      "short_description": "Padded backpack that carries up to a 16-inch laptop.",
+      "pricing": {
+        "mrp": 3999,
+        "selling_price": 2999,
+        "currency": "INR"
+      },
+      "sku": "SHOPIQ-BAG-16",
+      "inventory": {
+        "quantity": 25
+      },
+      "specifications": {
+        "weight_kg": 0.9
+      },
+      "performance": {
+        "build_quality": 8,
+        "value": 9
+      },
+      "use_cases": [
+        "travel",
+        "college",
+        "office"
+      ],
+      "tags": [
+        "bag",
+        "backpack",
+        "protection"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "compatible_sizes": [
+          "13",
+          "14",
+          "15",
+          "16"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "ShopiQ ShopiQ Laptop Backpack 16\"",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "ugreen-usb-c-hub-7in1",
+      "product_family": "usb-c-hub",
+      "name": "Ugreen 7-in-1 USB-C Hub",
+      "brand": "Ugreen",
+      "category": "laptop-accessories",
+      "segments": [
+        "premium"
+      ],
+      "short_description": "HDMI, USB-A, SD and 100W pass-through from one USB-C port.",
+      "pricing": {
+        "mrp": 4999,
+        "selling_price": 3499,
+        "currency": "INR"
+      },
+      "sku": "UGREEN-HUB-7",
+      "inventory": {
+        "quantity": 20
+      },
+      "specifications": {
+        "interface": "USB-C",
+        "connector": "USB-C",
+        "power_w": 100,
+        "connectivity": "7 ports"
+      },
+      "performance": {
+        "build_quality": 8,
+        "value": 9
+      },
+      "use_cases": [
+        "office",
+        "programming",
+        "content_creation"
+      ],
+      "tags": [
+        "hub",
+        "usb-c",
+        "connectivity"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Ugreen Ugreen 7-in-1 USB-C Hub",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "cosmic-byte-cooling-pad",
+      "product_family": "cooling-pad",
+      "name": "Cosmic Byte Laptop Cooling Pad",
+      "brand": "Cosmic Byte",
+      "category": "laptop-accessories",
+      "segments": [
+        "budget"
+      ],
+      "short_description": "Five-fan cooling stand for gaming laptops.",
+      "pricing": {
+        "mrp": 2499,
+        "selling_price": 1799,
+        "currency": "INR"
+      },
+      "sku": "CB-COOL-5F",
+      "inventory": {
+        "quantity": 30
+      },
+      "specifications": {
+        "weight_kg": 1.1,
+        "connectivity": "USB-A"
+      },
+      "performance": {
+        "build_quality": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming"
+      ],
+      "tags": [
+        "cooling",
+        "gaming",
+        "budget"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "compatible_sizes": [
+          "13",
+          "14",
+          "15",
+          "16"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/laptop/base.webp",
+          "alt": "Cosmic Byte Cosmic Byte Laptop Cooling Pad",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "shopiq-clear-case-for-iphone",
+      "product_family": "shopiq-clear-case-for-iphone",
+      "name": "ShopiQ Clear Case for iPhone",
+      "brand": "ShopiQ",
+      "category": "phone-accessories",
+      "segments": [
+        "budget"
+      ],
+      "short_description": "Protection for Apple phones.",
+      "pricing": {
+        "mrp": 1299,
+        "selling_price": 799,
+        "currency": "INR"
+      },
+      "sku": "SHOPIQ-CASE-IP",
+      "inventory": {
+        "quantity": 80
+      },
+      "specifications": {
+        "weight_kg": 0.05
+      },
+      "performance": {
+        "build_quality": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "daily_use"
+      ],
+      "tags": [
+        "case",
+        "protection",
+        "budget"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "claims": [
+          {
+            "predicate": "recommended_for",
+            "brand": "Apple",
+            "category": "smartphones",
+            "reason": "made for Apple phones"
+          }
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/shopping.webp",
+          "alt": "ShopiQ ShopiQ Clear Case for iPhone",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "shopiq-clear-case-for-galaxy",
+      "product_family": "shopiq-clear-case-for-galaxy",
+      "name": "ShopiQ Clear Case for Galaxy",
+      "brand": "ShopiQ",
+      "category": "phone-accessories",
+      "segments": [
+        "budget"
+      ],
+      "short_description": "Protection for Samsung phones.",
+      "pricing": {
+        "mrp": 1299,
+        "selling_price": 799,
+        "currency": "INR"
+      },
+      "sku": "SHOPIQ-CASE-SG",
+      "inventory": {
+        "quantity": 70
+      },
+      "specifications": {
+        "weight_kg": 0.05
+      },
+      "performance": {
+        "build_quality": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "daily_use"
+      ],
+      "tags": [
+        "case",
+        "protection",
+        "budget"
+      ],
+      "compatibility": {
+        "platform": "mobile",
+        "claims": [
+          {
+            "predicate": "recommended_for",
+            "brand": "Samsung",
+            "category": "smartphones",
+            "reason": "made for Samsung phones"
+          }
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/shopping.webp",
+          "alt": "ShopiQ ShopiQ Clear Case for Galaxy",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "shopiq-tempered-glass-screen-protector",
+      "product_family": "shopiq-tempered-glass-screen-protector",
+      "name": "ShopiQ Tempered Glass Screen Protector",
+      "brand": "ShopiQ",
+      "category": "phone-accessories",
+      "segments": [
+        "budget"
+      ],
+      "short_description": "Phone protection.",
+      "pricing": {
+        "mrp": 999,
+        "selling_price": 499,
+        "currency": "INR"
+      },
+      "sku": "SHOPIQ-SP-GLASS",
+      "inventory": {
+        "quantity": 100
+      },
+      "specifications": {
+        "weight_kg": 0.05
+      },
+      "performance": {
+        "build_quality": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "daily_use"
+      ],
+      "tags": [
+        "case",
+        "protection",
+        "budget"
+      ],
+      "compatibility": {
+        "platform": "mobile"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/shopping.webp",
+          "alt": "ShopiQ ShopiQ Tempered Glass Screen Protector",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "spigen-rugged-armor-case",
+      "product_family": "spigen-rugged-armor-case",
+      "name": "Spigen Rugged Armor Case",
+      "brand": "Spigen",
+      "category": "phone-accessories",
+      "segments": [
+        "budget"
+      ],
+      "short_description": "Phone protection.",
+      "pricing": {
+        "mrp": 2299,
+        "selling_price": 1499,
+        "currency": "INR"
+      },
+      "sku": "SPIGEN-RA",
+      "inventory": {
+        "quantity": 40
+      },
+      "specifications": {
+        "weight_kg": 0.05
+      },
+      "performance": {
+        "build_quality": 7,
+        "value": 9
+      },
+      "use_cases": [
+        "daily_use"
+      ],
+      "tags": [
+        "case",
+        "protection",
+        "budget"
+      ],
+      "compatibility": {
+        "platform": "mobile"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/shopping.webp",
+          "alt": "Spigen Spigen Rugged Armor Case",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "logitech-mx-keys-s",
+      "product_family": "logitech-mx-keys-s",
+      "name": "Logitech MX Keys S",
+      "brand": "Logitech",
+      "category": "keyboards",
+      "segments": [
+        "office",
+        "premium"
+      ],
+      "short_description": "Wireless keyboard.",
+      "pricing": {
+        "mrp": 12995,
+        "selling_price": 9995,
+        "currency": "INR"
+      },
+      "sku": "LOGI-MXKS",
+      "inventory": {
+        "quantity": 20
+      },
+      "specifications": {
+        "connectivity": "Wireless",
+        "connector": "USB-C"
+      },
+      "performance": {
+        "office": 9,
+        "value": 8,
+        "build_quality": 9
+      },
+      "use_cases": [
+        "office",
+        "programming",
+        "productivity"
+      ],
+      "tags": [
+        "wireless",
+        "productivity"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Frame_1000009259.webp",
+          "alt": "Logitech Logitech MX Keys S",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "keychron-k2-mechanical",
+      "product_family": "keychron-k2-mechanical",
+      "name": "Keychron K2 Mechanical",
+      "brand": "Keychron",
+      "category": "keyboards",
+      "segments": [
+        "premium",
+        "office"
+      ],
+      "short_description": "Wireless keyboard.",
+      "pricing": {
+        "mrp": 8999,
+        "selling_price": 7499,
+        "currency": "INR"
+      },
+      "sku": "KEYCH-K2",
+      "inventory": {
+        "quantity": 15
+      },
+      "specifications": {
+        "connectivity": "Wireless",
+        "connector": "USB-C"
+      },
+      "performance": {
+        "office": 9,
+        "gaming": 7,
+        "build_quality": 9,
+        "value": 8
+      },
+      "use_cases": [
+        "office",
+        "programming",
+        "productivity"
+      ],
+      "tags": [
+        "wireless",
+        "productivity"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Frame_1000009259.webp",
+          "alt": "Keychron Keychron K2 Mechanical",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "razer-blackwidow-v4-x",
+      "product_family": "razer-blackwidow-v4-x",
+      "name": "Razer BlackWidow V4 X",
+      "brand": "Razer",
+      "category": "keyboards",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "Wired keyboard.",
+      "pricing": {
+        "mrp": 11999,
+        "selling_price": 8999,
+        "currency": "INR"
+      },
+      "sku": "RAZER-BWV4X",
+      "inventory": {
+        "quantity": 12
+      },
+      "specifications": {
+        "connectivity": "Wired",
+        "connector": "USB-A"
+      },
+      "performance": {
+        "gaming": 9,
+        "office": 7,
+        "build_quality": 8,
+        "value": 8
+      },
+      "use_cases": [
+        "gaming",
+        "office"
+      ],
+      "tags": [
+        "wired",
+        "gaming"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Frame_1000009259.webp",
+          "alt": "Razer Razer BlackWidow V4 X",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "logitech-k380-multi-device",
+      "product_family": "logitech-k380-multi-device",
+      "name": "Logitech K380 Multi-Device",
+      "brand": "Logitech",
+      "category": "keyboards",
+      "segments": [
+        "office",
+        "budget"
+      ],
+      "short_description": "Wireless keyboard.",
+      "pricing": {
+        "mrp": 3495,
+        "selling_price": 2795,
+        "currency": "INR"
+      },
+      "sku": "LOGI-K380",
+      "inventory": {
+        "quantity": 45
+      },
+      "specifications": {
+        "connectivity": "Wireless",
+        "connector": "USB-C"
+      },
+      "performance": {
+        "office": 8,
+        "value": 10,
+        "build_quality": 7
+      },
+      "use_cases": [
+        "office",
+        "programming",
+        "productivity"
+      ],
+      "tags": [
+        "wireless",
+        "productivity"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Frame_1000009259.webp",
+          "alt": "Logitech Logitech K380 Multi-Device",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "redragon-k552-mechanical",
+      "product_family": "redragon-k552-mechanical",
+      "name": "Redragon K552 Mechanical",
+      "brand": "Redragon",
+      "category": "keyboards",
+      "segments": [
+        "gaming",
+        "budget"
+      ],
+      "short_description": "Wired keyboard.",
+      "pricing": {
+        "mrp": 4499,
+        "selling_price": 2999,
+        "currency": "INR"
+      },
+      "sku": "REDR-K552",
+      "inventory": {
+        "quantity": 35
+      },
+      "specifications": {
+        "connectivity": "Wired",
+        "connector": "USB-A"
+      },
+      "performance": {
+        "gaming": 8,
+        "office": 6,
+        "value": 10,
+        "build_quality": 7
+      },
+      "use_cases": [
+        "gaming",
+        "office"
+      ],
+      "tags": [
+        "wired",
+        "gaming"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Frame_1000009259.webp",
+          "alt": "Redragon Redragon K552 Mechanical",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "logitech-mx-master-3s",
+      "product_family": "logitech-mx-master-3s",
+      "name": "Logitech MX Master 3S",
+      "brand": "Logitech",
+      "category": "mice",
+      "segments": [
+        "office",
+        "ergonomic"
+      ],
+      "short_description": "Wireless mouse for everyday work.",
+      "pricing": {
+        "mrp": 10995,
+        "selling_price": 8495,
+        "currency": "INR"
+      },
+      "sku": "LOGI-MXM3S",
+      "inventory": {
+        "quantity": 22
+      },
+      "specifications": {
+        "connectivity": "Wireless"
+      },
+      "performance": {
+        "office": 10,
+        "gaming": 5,
+        "build_quality": 9,
+        "value": 8
+      },
+      "use_cases": [
+        "office",
+        "programming",
+        "productivity"
+      ],
+      "tags": [
+        "mouse",
+        "wireless",
+        "productivity"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Frame1000008117.webp",
+          "alt": "Logitech Logitech MX Master 3S",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "logitech-g502-x",
+      "product_family": "logitech-g502-x",
+      "name": "Logitech G502 X",
+      "brand": "Logitech",
+      "category": "mice",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "Gaming mouse.",
+      "pricing": {
+        "mrp": 8995,
+        "selling_price": 6495,
+        "currency": "INR"
+      },
+      "sku": "LOGI-G502X",
+      "inventory": {
+        "quantity": 18
+      },
+      "specifications": {
+        "connectivity": "Wireless"
+      },
+      "performance": {
+        "gaming": 9,
+        "office": 7,
+        "build_quality": 9,
+        "value": 8
+      },
+      "use_cases": [
+        "gaming"
+      ],
+      "tags": [
+        "gaming",
+        "mouse"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Frame1000008117.webp",
+          "alt": "Logitech Logitech G502 X",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "razer-deathadder-v3",
+      "product_family": "razer-deathadder-v3",
+      "name": "Razer DeathAdder V3",
+      "brand": "Razer",
+      "category": "mice",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "Gaming mouse.",
+      "pricing": {
+        "mrp": 6999,
+        "selling_price": 5499,
+        "currency": "INR"
+      },
+      "sku": "RAZER-DAV3",
+      "inventory": {
+        "quantity": 20
+      },
+      "specifications": {
+        "connectivity": "Wireless"
+      },
+      "performance": {
+        "gaming": 9,
+        "office": 6,
+        "build_quality": 8,
+        "value": 8
+      },
+      "use_cases": [
+        "gaming"
+      ],
+      "tags": [
+        "gaming",
+        "mouse"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Frame1000008117.webp",
+          "alt": "Razer Razer DeathAdder V3",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "logitech-m240-silent",
+      "product_family": "logitech-m240-silent",
+      "name": "Logitech M240 Silent",
+      "brand": "Logitech",
+      "category": "mice",
+      "segments": [
+        "office",
+        "budget"
+      ],
+      "short_description": "Wireless mouse for everyday work.",
+      "pricing": {
+        "mrp": 1995,
+        "selling_price": 1295,
+        "currency": "INR"
+      },
+      "sku": "LOGI-M240",
+      "inventory": {
+        "quantity": 60
+      },
+      "specifications": {
+        "connectivity": "Wireless"
+      },
+      "performance": {
+        "office": 8,
+        "gaming": 3,
+        "build_quality": 7,
+        "value": 10
+      },
+      "use_cases": [
+        "office",
+        "programming",
+        "productivity"
+      ],
+      "tags": [
+        "mouse",
+        "wireless",
+        "productivity"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Frame1000008117.webp",
+          "alt": "Logitech Logitech M240 Silent",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "zebronics-zeb-transformer",
+      "product_family": "zebronics-zeb-transformer",
+      "name": "Zebronics Zeb-Transformer",
+      "brand": "Zebronics",
+      "category": "mice",
+      "segments": [
+        "gaming",
+        "budget"
+      ],
+      "short_description": "Gaming mouse.",
+      "pricing": {
+        "mrp": 1299,
+        "selling_price": 799,
+        "currency": "INR"
+      },
+      "sku": "ZEB-TRANS",
+      "inventory": {
+        "quantity": 70
+      },
+      "specifications": {
+        "connectivity": "Wireless"
+      },
+      "performance": {
+        "gaming": 6,
+        "office": 6,
+        "build_quality": 6,
+        "value": 10
+      },
+      "use_cases": [
+        "gaming"
+      ],
+      "tags": [
+        "gaming",
+        "mouse"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/Frame1000008117.webp",
+          "alt": "Zebronics Zebronics Zeb-Transformer",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "dell-s2425h-24-fhd",
+      "product_family": "dell-s2425h-24-fhd",
+      "name": "Dell S2425H 24\" FHD",
+      "brand": "Dell",
+      "category": "monitors",
+      "segments": [
+        "office",
+        "budget"
+      ],
+      "short_description": "24-inch FHD 100 Hz monitor.",
+      "pricing": {
+        "mrp": 15999,
+        "selling_price": 11999,
+        "currency": "INR"
+      },
+      "sku": "DELL-S2425H",
+      "inventory": {
+        "quantity": 25
+      },
+      "specifications": {
+        "display_size_in": 24,
+        "resolution": "FHD",
+        "refresh_rate_hz": 100,
+        "panel_type": "IPS",
+        "connector": "HDMI"
+      },
+      "performance": {
+        "office": 8,
+        "value": 9,
+        "display_quality": 8
+      },
+      "use_cases": [
+        "office",
+        "content_creation",
+        "programming"
+      ],
+      "tags": [
+        "fhd",
+        "100hz",
+        "office",
+        "budget"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "Dell Dell S2425H 24\" FHD",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "lg-27mp60g-27-fhd",
+      "product_family": "lg-27mp60g-27-fhd",
+      "name": "LG 27MP60G 27\" FHD",
+      "brand": "LG",
+      "category": "monitors",
+      "segments": [
+        "office"
+      ],
+      "short_description": "27-inch FHD 75 Hz monitor.",
+      "pricing": {
+        "mrp": 18999,
+        "selling_price": 14999,
+        "currency": "INR"
+      },
+      "sku": "LG-27MP60G",
+      "inventory": {
+        "quantity": 20
+      },
+      "specifications": {
+        "display_size_in": 27,
+        "resolution": "FHD",
+        "refresh_rate_hz": 75,
+        "panel_type": "IPS",
+        "connector": "HDMI"
+      },
+      "performance": {
+        "office": 8,
+        "value": 9,
+        "display_quality": 8
+      },
+      "use_cases": [
+        "office",
+        "content_creation",
+        "programming"
+      ],
+      "tags": [
+        "fhd",
+        "75hz",
+        "office"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "LG LG 27MP60G 27\" FHD",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "samsung-odyssey-g4-25-fhd-240hz",
+      "product_family": "samsung-odyssey-g4-25-fhd-240hz",
+      "name": "Samsung Odyssey G4 25\" FHD 240Hz",
+      "brand": "Samsung",
+      "category": "monitors",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "25-inch FHD 240 Hz monitor.",
+      "pricing": {
+        "mrp": 32999,
+        "selling_price": 24999,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-G4-25",
+      "inventory": {
+        "quantity": 12
+      },
+      "specifications": {
+        "display_size_in": 25,
+        "resolution": "FHD",
+        "refresh_rate_hz": 240,
+        "panel_type": "IPS",
+        "connector": "HDMI"
+      },
+      "performance": {
+        "gaming": 9,
+        "office": 7,
+        "value": 8,
+        "display_quality": 8
+      },
+      "use_cases": [
+        "gaming",
+        "office"
+      ],
+      "tags": [
+        "fhd",
+        "240hz",
+        "gaming"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "Samsung Samsung Odyssey G4 25\" FHD 240Hz",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "lg-ultragear-27-qhd-180hz",
+      "product_family": "lg-ultragear-27-qhd-180hz",
+      "name": "LG UltraGear 27\" QHD 180Hz",
+      "brand": "LG",
+      "category": "monitors",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "27-inch QHD 180 Hz monitor.",
+      "pricing": {
+        "mrp": 38999,
+        "selling_price": 29999,
+        "currency": "INR"
+      },
+      "sku": "LG-UG27-QHD",
+      "inventory": {
+        "quantity": 15
+      },
+      "specifications": {
+        "display_size_in": 27,
+        "resolution": "QHD",
+        "refresh_rate_hz": 180,
+        "panel_type": "IPS",
+        "connector": "HDMI"
+      },
+      "performance": {
+        "gaming": 9,
+        "content_creation": 8,
+        "value": 8,
+        "display_quality": 8
+      },
+      "use_cases": [
+        "gaming",
+        "office"
+      ],
+      "tags": [
+        "qhd",
+        "180hz",
+        "gaming"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "LG LG UltraGear 27\" QHD 180Hz",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "dell-u2723qe-27-4k",
+      "product_family": "dell-u2723qe-27-4k",
+      "name": "Dell U2723QE 27\" 4K",
+      "brand": "Dell",
+      "category": "monitors",
+      "segments": [
+        "creator",
+        "professional"
+      ],
+      "short_description": "27-inch 4K 60 Hz monitor.",
+      "pricing": {
+        "mrp": 62999,
+        "selling_price": 49999,
+        "currency": "INR"
+      },
+      "sku": "DELL-U2723QE",
+      "inventory": {
+        "quantity": 8
+      },
+      "specifications": {
+        "display_size_in": 27,
+        "resolution": "4K",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "connector": "HDMI"
+      },
+      "performance": {
+        "content_creation": 9,
+        "office": 9,
+        "value": 7,
+        "display_quality": 9
+      },
+      "use_cases": [
+        "office",
+        "content_creation",
+        "programming"
+      ],
+      "tags": [
+        "4k",
+        "60hz",
+        "creator",
+        "professional"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "Dell Dell U2723QE 27\" 4K",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "benq-pd2705u-27-4k-designer",
+      "product_family": "benq-pd2705u-27-4k-designer",
+      "name": "BenQ PD2705U 27\" 4K Designer",
+      "brand": "BenQ",
+      "category": "monitors",
+      "segments": [
+        "creator",
+        "professional"
+      ],
+      "short_description": "27-inch 4K 60 Hz monitor.",
+      "pricing": {
+        "mrp": 67999,
+        "selling_price": 54999,
+        "currency": "INR"
+      },
+      "sku": "BENQ-PD2705U",
+      "inventory": {
+        "quantity": 6
+      },
+      "specifications": {
+        "display_size_in": 27,
+        "resolution": "4K",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "connector": "HDMI"
+      },
+      "performance": {
+        "content_creation": 10,
+        "office": 9,
+        "value": 7,
+        "display_quality": 9
+      },
+      "use_cases": [
+        "office",
+        "content_creation",
+        "programming"
+      ],
+      "tags": [
+        "4k",
+        "60hz",
+        "creator",
+        "professional"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "BenQ BenQ PD2705U 27\" 4K Designer",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "acer-nitro-32-qhd-170hz",
+      "product_family": "acer-nitro-32-qhd-170hz",
+      "name": "Acer Nitro 32\" QHD 170Hz",
+      "brand": "Acer",
+      "category": "monitors",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "32-inch QHD 170 Hz monitor.",
+      "pricing": {
+        "mrp": 35999,
+        "selling_price": 27999,
+        "currency": "INR"
+      },
+      "sku": "ACER-NITRO-32",
+      "inventory": {
+        "quantity": 10
+      },
+      "specifications": {
+        "display_size_in": 32,
+        "resolution": "QHD",
+        "refresh_rate_hz": 170,
+        "panel_type": "VA",
+        "connector": "HDMI"
+      },
+      "performance": {
+        "gaming": 9,
+        "value": 8,
+        "display_quality": 8
+      },
+      "use_cases": [
+        "gaming",
+        "office"
+      ],
+      "tags": [
+        "qhd",
+        "170hz",
+        "gaming"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "Acer Acer Nitro 32\" QHD 170Hz",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "samsung-viewfinity-s8-32-4k",
+      "product_family": "samsung-viewfinity-s8-32-4k",
+      "name": "Samsung ViewFinity S8 32\" 4K",
+      "brand": "Samsung",
+      "category": "monitors",
+      "segments": [
+        "creator",
+        "office"
+      ],
+      "short_description": "32-inch 4K 60 Hz monitor.",
+      "pricing": {
+        "mrp": 54999,
+        "selling_price": 44999,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-S8-32",
+      "inventory": {
+        "quantity": 7
+      },
+      "specifications": {
+        "display_size_in": 32,
+        "resolution": "4K",
+        "refresh_rate_hz": 60,
+        "panel_type": "IPS",
+        "connector": "HDMI"
+      },
+      "performance": {
+        "content_creation": 9,
+        "office": 9,
+        "value": 8,
+        "display_quality": 9
+      },
+      "use_cases": [
+        "office",
+        "content_creation",
+        "programming"
+      ],
+      "tags": [
+        "4k",
+        "60hz",
+        "creator",
+        "office"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "Samsung Samsung ViewFinity S8 32\" 4K",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sony-bravia-7-55-4k-120hz",
+      "product_family": "sony-bravia-7-55-4k-120hz",
+      "name": "Sony BRAVIA 7 55\" 4K 120Hz",
+      "brand": "Sony",
+      "category": "televisions",
+      "segments": [
+        "gaming",
+        "premium"
+      ],
+      "short_description": "55-inch 4K television at 120 Hz over HDMI 2.1.",
+      "pricing": {
+        "mrp": 169990,
+        "selling_price": 139990,
+        "currency": "INR"
+      },
+      "sku": "SONY-BRAVIA7-55",
+      "inventory": {
+        "quantity": 6
+      },
+      "specifications": {
+        "display_size_in": 55,
+        "resolution": "4K",
+        "refresh_rate_hz": 120,
+        "hdmi_version": 2.1,
+        "panel_type": "Mini-LED",
+        "audio_output_w": 20,
+        "connector": "HDMI"
+      },
+      "performance": {
+        "gaming": 9,
+        "display_quality": 8,
+        "value": 7
+      },
+      "use_cases": [
+        "home_entertainment",
+        "gaming"
+      ],
+      "tags": [
+        "4k",
+        "120hz",
+        "hdmi2.1",
+        "mini-led"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "Sony Sony BRAVIA 7 55\" 4K 120Hz",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "lg-c4-oled-65-4k-120hz",
+      "product_family": "lg-c4-oled-65-4k-120hz",
+      "name": "LG C4 OLED 65\" 4K 120Hz",
+      "brand": "LG",
+      "category": "televisions",
+      "segments": [
+        "gaming",
+        "premium"
+      ],
+      "short_description": "65-inch 4K television at 120 Hz over HDMI 2.1.",
+      "pricing": {
+        "mrp": 249990,
+        "selling_price": 199990,
+        "currency": "INR"
+      },
+      "sku": "LG-C4-65",
+      "inventory": {
+        "quantity": 4
+      },
+      "specifications": {
+        "display_size_in": 65,
+        "resolution": "4K",
+        "refresh_rate_hz": 120,
+        "hdmi_version": 2.1,
+        "panel_type": "OLED",
+        "audio_output_w": 20,
+        "connector": "HDMI"
+      },
+      "performance": {
+        "gaming": 9,
+        "display_quality": 10,
+        "value": 7
+      },
+      "use_cases": [
+        "home_entertainment",
+        "gaming"
+      ],
+      "tags": [
+        "4k",
+        "120hz",
+        "hdmi2.1",
+        "oled"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "LG LG C4 OLED 65\" 4K 120Hz",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "samsung-crystal-4k-50",
+      "product_family": "samsung-crystal-4k-50",
+      "name": "Samsung Crystal 4K 50\"",
+      "brand": "Samsung",
+      "category": "televisions",
+      "segments": [
+        "home_entertainment",
+        "budget"
+      ],
+      "short_description": "50-inch 4K television at 60 Hz over HDMI 2.",
+      "pricing": {
+        "mrp": 54990,
+        "selling_price": 39990,
+        "currency": "INR"
+      },
+      "sku": "SAMSUNG-CU-50",
+      "inventory": {
+        "quantity": 14
+      },
+      "specifications": {
+        "display_size_in": 50,
+        "resolution": "4K",
+        "refresh_rate_hz": 60,
+        "hdmi_version": 2,
+        "panel_type": "VA",
+        "audio_output_w": 20,
+        "connector": "HDMI"
+      },
+      "performance": {
+        "gaming": 5,
+        "display_quality": 8,
+        "value": 9
+      },
+      "use_cases": [
+        "home_entertainment"
+      ],
+      "tags": [
+        "4k",
+        "60hz",
+        "va"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "Samsung Samsung Crystal 4K 50\"",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "tcl-p7k-43-4k",
+      "product_family": "tcl-p7k-43-4k",
+      "name": "TCL P7K 43\" 4K",
+      "brand": "TCL",
+      "category": "televisions",
+      "segments": [
+        "home_entertainment",
+        "budget"
+      ],
+      "short_description": "43-inch 4K television at 60 Hz over HDMI 2.",
+      "pricing": {
+        "mrp": 36990,
+        "selling_price": 27990,
+        "currency": "INR"
+      },
+      "sku": "TCL-P7K-43",
+      "inventory": {
+        "quantity": 18
+      },
+      "specifications": {
+        "display_size_in": 43,
+        "resolution": "4K",
+        "refresh_rate_hz": 60,
+        "hdmi_version": 2,
+        "panel_type": "VA",
+        "audio_output_w": 20,
+        "connector": "HDMI"
+      },
+      "performance": {
+        "gaming": 5,
+        "display_quality": 8,
+        "value": 9
+      },
+      "use_cases": [
+        "home_entertainment"
+      ],
+      "tags": [
+        "4k",
+        "60hz",
+        "va"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "HDMI"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/images.jpg",
+          "alt": "TCL TCL P7K 43\" 4K",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sony-playstation-5-slim-digital-edition",
+      "product_family": "ps5",
+      "name": "PlayStation 5 Slim Digital Edition",
+      "brand": "Sony",
+      "category": "playstation",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "No disc drive. Downloads only.",
+      "configuration": {
+        "storage_gb": 1024
+      },
+      "pricing": {
+        "mrp": 49990,
+        "selling_price": 44990,
+        "currency": "INR"
+      },
+      "sku": "SONY-PS5-SLIM-DIG",
+      "inventory": {
+        "quantity": 12
+      },
+      "specifications": {
+        "storage_gb": 1024,
+        "resolution": "4K",
+        "refresh_rate_hz": 120,
+        "hdmi_version": 2.1,
+        "connector": "HDMI",
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 9,
+        "display_quality": 9,
+        "value": 8
+      },
+      "use_cases": [
+        "gaming",
+        "home_entertainment"
+      ],
+      "tags": [
+        "console",
+        "playstation",
+        "4k",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "console",
+        "attributes": {
+          "connector": "HDMI"
+        },
+        "compatible_accessory_types": [
+          "controller",
+          "gaming_headset",
+          "charging_station",
+          "television"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/DualSense/ps5/esq240112-digital-ecomm-playstationps5-0305-679133a09328d.avif",
+          "alt": "Sony PlayStation 5 Slim Digital Edition",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sony-playstation-5-slim-disc-edition",
+      "product_family": "ps5",
+      "name": "PlayStation 5 Slim Disc Edition",
+      "brand": "Sony",
+      "category": "playstation",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "With a 4K Blu-ray drive.",
+      "configuration": {
+        "storage_gb": 1024
+      },
+      "pricing": {
+        "mrp": 59990,
+        "selling_price": 54990,
+        "currency": "INR"
+      },
+      "sku": "SONY-PS5-SLIM-DISC",
+      "inventory": {
+        "quantity": 10
+      },
+      "specifications": {
+        "storage_gb": 1024,
+        "resolution": "4K",
+        "refresh_rate_hz": 120,
+        "hdmi_version": 2.1,
+        "connector": "HDMI",
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 9,
+        "display_quality": 9,
+        "value": 8
+      },
+      "use_cases": [
+        "gaming",
+        "home_entertainment"
+      ],
+      "tags": [
+        "console",
+        "playstation",
+        "4k",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "console",
+        "attributes": {
+          "connector": "HDMI"
+        },
+        "compatible_accessory_types": [
+          "controller",
+          "gaming_headset",
+          "charging_station",
+          "television"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/DualSense/ps5/esq240112-digital-ecomm-playstationps5-0305-679133a09328d.avif",
+          "alt": "Sony PlayStation 5 Slim Disc Edition",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sony-playstation-5-digital-edition",
+      "product_family": "ps5",
+      "name": "PlayStation 5 Digital Edition",
+      "brand": "Sony",
+      "category": "playstation",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "The original digital console.",
+      "configuration": {
+        "storage_gb": 825
+      },
+      "pricing": {
+        "mrp": 49990,
+        "selling_price": 39990,
+        "currency": "INR"
+      },
+      "sku": "SONY-PS5-DIG",
+      "inventory": {
+        "quantity": 5
+      },
+      "specifications": {
+        "storage_gb": 825,
+        "resolution": "4K",
+        "refresh_rate_hz": 120,
+        "hdmi_version": 2.1,
+        "connector": "HDMI",
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 9,
+        "display_quality": 9,
+        "value": 8
+      },
+      "use_cases": [
+        "gaming",
+        "home_entertainment"
+      ],
+      "tags": [
+        "console",
+        "playstation",
+        "4k",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "console",
+        "attributes": {
+          "connector": "HDMI"
+        },
+        "compatible_accessory_types": [
+          "controller",
+          "gaming_headset",
+          "charging_station",
+          "television"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/DualSense/ps5/esq240112-digital-ecomm-playstationps5-0305-679133a09328d.avif",
+          "alt": "Sony PlayStation 5 Digital Edition",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sony-playstation-5-pro",
+      "product_family": "ps5",
+      "name": "PlayStation 5 Pro",
+      "brand": "Sony",
+      "category": "playstation",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "The most capable PS5, for 4K high-refresh play.",
+      "configuration": {
+        "storage_gb": 2048
+      },
+      "pricing": {
+        "mrp": 89990,
+        "selling_price": 79990,
+        "currency": "INR"
+      },
+      "sku": "SONY-PS5-PRO",
+      "inventory": {
+        "quantity": 3
+      },
+      "specifications": {
+        "storage_gb": 2048,
+        "resolution": "4K",
+        "refresh_rate_hz": 120,
+        "hdmi_version": 2.1,
+        "connector": "HDMI",
+        "storage_type": "SSD"
+      },
+      "performance": {
+        "gaming": 10,
+        "display_quality": 9,
+        "value": 8
+      },
+      "use_cases": [
+        "gaming",
+        "home_entertainment"
+      ],
+      "tags": [
+        "console",
+        "playstation",
+        "4k",
+        "120hz"
+      ],
+      "compatibility": {
+        "platform": "console",
+        "attributes": {
+          "connector": "HDMI"
+        },
+        "compatible_accessory_types": [
+          "controller",
+          "gaming_headset",
+          "charging_station",
+          "television"
+        ]
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/DualSense/ps5/esq240112-digital-ecomm-playstationps5-0305-679133a09328d.avif",
+          "alt": "Sony PlayStation 5 Pro",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sony-dualsense-controller",
+      "product_family": "dualsense",
+      "name": "DualSense Wireless Controller",
+      "brand": "Sony",
+      "category": "controllers",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "Haptic feedback and adaptive triggers, on PC as well as PS5.",
+      "pricing": {
+        "mrp": 6990,
+        "selling_price": 5990,
+        "currency": "INR"
+      },
+      "sku": "SONY-DUALSENSE",
+      "inventory": {
+        "quantity": 40
+      },
+      "specifications": {
+        "connectivity": "Bluetooth, USB-C",
+        "battery_hours": 12,
+        "connector": "USB-C"
+      },
+      "performance": {
+        "gaming": 9,
+        "build_quality": 9,
+        "value": 8
+      },
+      "use_cases": [
+        "gaming"
+      ],
+      "tags": [
+        "controller",
+        "playstation",
+        "gaming"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/DualSense/33668_1.webp",
+          "alt": "Sony DualSense Wireless Controller",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sony-dualsense-edge",
+      "product_family": "dualsense",
+      "name": "DualSense Edge Wireless Controller",
+      "brand": "Sony",
+      "category": "controllers",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "The pro controller, with swappable sticks and back paddles.",
+      "pricing": {
+        "mrp": 20990,
+        "selling_price": 18990,
+        "currency": "INR"
+      },
+      "sku": "SONY-DUALSENSE-EDGE",
+      "inventory": {
+        "quantity": 6
+      },
+      "specifications": {
+        "connectivity": "Bluetooth, USB-C",
+        "battery_hours": 10,
+        "connector": "USB-C"
+      },
+      "performance": {
+        "gaming": 10,
+        "build_quality": 10,
+        "value": 6
+      },
+      "use_cases": [
+        "gaming"
+      ],
+      "tags": [
+        "controller",
+        "playstation",
+        "gaming",
+        "premium"
+      ],
+      "compatibility": {
+        "platform": "universal",
+        "attributes": {
+          "connector": "USB-C"
+        }
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/DualSense/33668_1.webp",
+          "alt": "Sony DualSense Edge Wireless Controller",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sony-dualsense-charging-station",
+      "product_family": "ps5-accessories",
+      "name": "DualSense Charging Station",
+      "brand": "Sony",
+      "category": "gaming-accessories",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "Charges two DualSense controllers without the console.",
+      "pricing": {
+        "mrp": 2990,
+        "selling_price": 2490,
+        "currency": "INR"
+      },
+      "sku": "SONY-DS-CHARGE",
+      "inventory": {
+        "quantity": 25
+      },
+      "specifications": {
+        "connectivity": "AC",
+        "power_w": 10
+      },
+      "performance": {
+        "build_quality": 8,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming"
+      ],
+      "tags": [
+        "playstation",
+        "charging",
+        "gaming"
+      ],
+      "compatibility": {
+        "platform": "console"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/DualSense/33668_1.webp",
+          "alt": "Sony DualSense Charging Station",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "sony-pulse-3d-headset",
+      "product_family": "ps5-audio",
+      "name": "PULSE 3D Wireless Headset",
+      "brand": "Sony",
+      "category": "gaming-headsets",
+      "segments": [
+        "gaming"
+      ],
+      "short_description": "Tempest 3D audio headset for PS5.",
+      "pricing": {
+        "mrp": 10990,
+        "selling_price": 8990,
+        "currency": "INR"
+      },
+      "sku": "SONY-PULSE3D",
+      "inventory": {
+        "quantity": 18
+      },
+      "specifications": {
+        "connectivity": "Wireless 2.4GHz",
+        "battery_hours": 12,
+        "driver_type": "40mm"
+      },
+      "performance": {
+        "gaming": 9,
+        "audio_quality": 8,
+        "value": 8
+      },
+      "use_cases": [
+        "gaming"
+      ],
+      "tags": [
+        "headset",
+        "playstation",
+        "gaming",
+        "wireless"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/262565_0_cMTz4dVUv.webp",
+          "alt": "Sony PULSE 3D Wireless Headset",
+          "is_primary": true
+        }
+      ]
+    },
+    {
+      "id": "hyperx-cloud-iii-headset",
+      "product_family": "hyperx-cloud",
+      "name": "HyperX Cloud III Gaming Headset",
+      "brand": "HyperX",
+      "category": "gaming-headsets",
+      "segments": [
+        "gaming",
+        "budget"
+      ],
+      "short_description": "Wired gaming headset with a detachable mic.",
+      "pricing": {
+        "mrp": 9990,
+        "selling_price": 7490,
+        "currency": "INR"
+      },
+      "sku": "HYPERX-CLOUD3",
+      "inventory": {
+        "quantity": 22
+      },
+      "specifications": {
+        "connectivity": "Wired 3.5mm / USB",
+        "driver_type": "53mm",
+        "connector": "3.5 mm"
+      },
+      "performance": {
+        "gaming": 9,
+        "audio_quality": 8,
+        "value": 9
+      },
+      "use_cases": [
+        "gaming",
+        "calls"
+      ],
+      "tags": [
+        "headset",
+        "gaming",
+        "wired"
+      ],
+      "compatibility": {
+        "platform": "universal"
+      },
+      "images": [
+        {
+          "url": "https://cdn.shopiq.yashgarg.co.in/prod-img/262565_0_cMTz4dVUv.webp",
+          "alt": "HyperX HyperX Cloud III Gaming Headset",
+          "is_primary": true
+        }
+      ]
+    }
+  ]
+}

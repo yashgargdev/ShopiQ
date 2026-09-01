@@ -144,9 +144,11 @@ check(
   budgeted.ok && budgeted.output.products.every((product) => product.category === 'Laptops'),
 );
 
+// A compound filter: a minimum on one spec and a maximum on another, which
+// is where a filter that silently ORs its conditions would show itself.
 const specFiltered = await runTool(
   'search_products',
-  { filters: { ram_gb_min: 32, storage_gb_max: 512 }, limit: 10 },
+  { filters: { ram_gb_min: 16, storage_gb_max: 512 }, limit: 10 },
   { conversationId },
 );
 // Verified against the database rather than the trimmed key_specs, so the
@@ -158,13 +160,27 @@ const { data: filteredSpecs } = await admin
   .in('id', filteredIds.length > 0 ? filteredIds : ['00000000-0000-4000-8000-000000000000']);
 
 check(
-  'spec filters work (ram >= 32, storage <= 512)',
+  'spec filters work (ram >= 16, storage <= 512)',
   specFiltered.ok &&
     filteredIds.length > 0 &&
     (filteredSpecs ?? []).every(
-      (product) => Number(product.specs.ram_gb) >= 32 && Number(product.specs.storage_gb) <= 512,
+      (product) => Number(product.specs.ram_gb) >= 16 && Number(product.specs.storage_gb) <= 512,
     ),
   JSON.stringify((filteredSpecs ?? []).map((p) => p.name + ':' + p.specs.ram_gb + 'GB/' + p.specs.storage_gb + 'GB')),
+);
+
+// The other half of the same guarantee. Every 32GB machine in the catalogue
+// ships with 1TB, so this combination genuinely does not exist — and the
+// filter must return nothing rather than relax a condition to fill the page.
+const specImpossible = await runTool(
+  'search_products',
+  { filters: { ram_gb_min: 32, storage_gb_max: 512 }, limit: 10 },
+  { conversationId },
+);
+check(
+  'a spec combination we do not stock returns nothing',
+  specImpossible.ok && specImpossible.output.products.length === 0,
+  specImpossible.ok ? specImpossible.output.products.map((p) => p.name).join(', ') : '',
 );
 
 // key_specs is a shortlist, so what matters is WHICH specs survive it: the
@@ -335,10 +351,14 @@ section('get_categories');
 
 const categories = await runTool('get_categories', {}, { conversationId });
 check('returns categories', categories.ok && categories.output.categories.length > 0);
+// The default excludes departments, so every category returned must name a
+// parent. A count here only measured how recently the taxonomy grew.
 check(
   'leaf categories only by default',
-  categories.ok && categories.output.categories.length === 15,
-  categories.ok ? String(categories.output.categories.length) : '',
+  categories.ok && categories.output.categories.every((category) => category.parent),
+  categories.ok
+    ? categories.output.categories.filter((c) => !c.parent).map((c) => c.slug).join(',')
+    : '',
 );
 check(
   'each has id, name, slug and a count',
@@ -349,10 +369,15 @@ check(
 );
 
 const withParents = await runTool('get_categories', { include_parents: true }, { conversationId });
+const withoutParents = await runTool('get_categories', { include_parents: false }, { conversationId });
 check(
   'include_parents adds the departments',
-  withParents.ok && withParents.output.categories.length === 19,
-  withParents.ok ? String(withParents.output.categories.length) : '',
+  // A count would have to be edited every time the catalogue grows. What the
+  // flag actually promises is that parent departments are ADDED to the leaves.
+  withParents.ok &&
+    withoutParents.ok &&
+    withParents.output.categories.length > withoutParents.output.categories.length,
+  withParents.ok ? `${withParents.output.categories.length} vs ${withoutParents.output?.categories?.length}` : '',
 );
 
 // ====================================================== get_related_products

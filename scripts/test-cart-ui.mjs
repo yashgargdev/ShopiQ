@@ -92,7 +92,10 @@ try {
   // ============================================================== setup
   section('Opening the assistant');
 
-  await page.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+  // The storefront shell — header button, mobile nav, FAB — lives on the
+  // catalogue routes. `/` is the agent experience and carries none of it, so
+  // every shell interaction below is driven from /products.
+  await page.goto(`${BASE}/products`, { waitUntil: 'networkidle' });
   await page.locator('button[aria-label="Ask the ShopiQ AI assistant"]').first().click();
   await page.waitForTimeout(500);
   check('panel opens', await panel.isVisible());
@@ -169,21 +172,33 @@ try {
   // ============================================================== checkout
   section('Checkout preview');
 
+  // This session is a GUEST. Asking to buy no longer produces a checkout
+  // summary: the assistant signs the customer in first, because an order
+  // taken against no account is an order nobody can look up afterwards.
   await say("I'm ready to buy");
-  check('a checkout payload came back', Boolean(lastPayload?.checkout));
-  check('checkout is valid', lastPayload?.checkout?.valid === true);
-  check('it creates no order', lastPayload?.checkout?.createsOrder === false);
-  check('it creates no payment', lastPayload?.checkout?.createsPayment === false);
-
   const checkoutText = await panel.innerText();
-  check('checkout card renders', /Checkout summary/i.test(checkoutText));
+
   check(
-    'the card says no order or payment was made',
-    /has not placed an order or taken any payment/i.test(checkoutText),
+    'a guest is asked to sign in before checkout',
+    /email/i.test(checkoutText),
+    lastPayload?.outcome,
   );
   check(
-    'a Continue to checkout link is offered',
-    (await panel.locator('a', { hasText: 'Continue to checkout' }).count()) > 0,
+    'no purchase is quoted to a signed-out visitor',
+    !lastPayload?.purchase,
+    JSON.stringify(lastPayload?.purchase ?? null),
+  );
+  // The sign-in reply carries no cart payload — that is the shape of the
+  // reply, not the state of the cart. The header badge reads the real thing.
+  const badgeAfterSignInPrompt = await page
+    .locator('a[href="/cart"] span')
+    .first()
+    .innerText()
+    .catch(() => '');
+  check(
+    'the cart survives being asked to sign in',
+    badgeAfterSignInPrompt.trim() === '1',
+    `badge "${badgeAfterSignInPrompt.trim()}"`,
   );
 
   if (SHOTS) await page.screenshot({ path: `${SHOTS}/cart-03-checkout.png` });
@@ -233,7 +248,7 @@ try {
 
   const mobile = await browser.newContext({ viewport: { width: 390, height: 844 } });
   const mobilePage = await mobile.newPage();
-  await mobilePage.goto(`${BASE}/`, { waitUntil: 'networkidle' });
+  await mobilePage.goto(`${BASE}/products`, { waitUntil: 'networkidle' });
   await mobilePage.locator('nav[aria-label="Primary"] button[aria-label="Ask ShopiQ"]').click();
   await mobilePage.waitForTimeout(600);
 

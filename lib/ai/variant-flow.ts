@@ -185,7 +185,9 @@ export async function nextQuestionFor(
   quantity: number,
 ): Promise<{ question: VariantQuestion | null; colour: string | null }> {
   const colours = await coloursFor(product.id);
-  if (colours.length === 0) return { question: null, colour: null };
+  // Fewer than two is not a choice. Asking "which of the 1 colours?" wastes
+  // the customer's turn and reads as a bug, because it is one.
+  if (colours.length < 2) return { question: null, colour: colours[0] ?? null };
 
   const stated = statedColour(message, colours);
   if (stated) return { question: null, colour: stated };

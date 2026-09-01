@@ -70,6 +70,13 @@ export interface ProductSummary {
   isFeatured: boolean;
   tags: string[];
   specs: SpecMap;
+  /**
+   * Catalogue knowledge for the recommendation engine — segments, use cases,
+   * editorial performance scores and compatibility claims. Empty for products
+   * imported before this existed, which the engine reads as "declares
+   * nothing" rather than as a claim.
+   */
+  catalogMetadata?: Record<string, unknown>;
   category: CategoryRef;
   image: string | null;
   imageAlt: string | null;

@@ -10,15 +10,17 @@
       "business",
       "ultraportable",
       "creator",
-      "budget"
+      "budget",
+      "premium"
     ],
     "gaming-laptops": [
       "gaming",
       "performance",
       "creator",
-      "budget"
+      "budget",
+      "premium"
     ],
-    "phones": [
+    "smartphones": [
       "budget",
       "mid_range",
       "upper_mid_range",
@@ -101,6 +103,40 @@
       "fast_charging",
       "travel",
       "budget"
+    ],
+    "keyboards": [
+      "gaming",
+      "office",
+      "budget",
+      "premium"
+    ],
+    "mice": [
+      "gaming",
+      "office",
+      "budget",
+      "ergonomic"
+    ],
+    "laptop-accessories": [
+      "budget",
+      "premium",
+      "travel"
+    ],
+    "phone-accessories": [
+      "budget",
+      "premium"
+    ],
+    "gaming-headsets": [
+      "gaming",
+      "budget",
+      "premium"
+    ],
+    "gaming-accessories": [
+      "gaming",
+      "budget",
+      "premium"
+    ],
+    "controllers": [
+      "gaming"
     ]
   },
   "use_cases": {
@@ -119,7 +155,8 @@
       "productivity",
       "daily_use",
       "professional",
-      "home_entertainment"
+      "home_entertainment",
+      "commute"
     ]
   },
   "performance": {
@@ -215,6 +252,9 @@
       },
       "audio_output_w": {
         "unit": "W"
+      },
+      "microphones": {
+        "unit": "count"
       }
     },
     "text": {
@@ -279,7 +319,10 @@
           "TN",
           "OLED",
           "QD-OLED",
-          "Mini-LED"
+          "Mini-LED",
+          "AMOLED",
+          "Dynamic AMOLED 2X",
+          "LED"
         ]
       },
       "resolution": {
@@ -315,6 +358,16 @@
       "operating_system": {},
       "latency": {
         "note": "CAS latency as written, e.g. CL36."
+      },
+      "display_type": {
+        "note": "Marketing name for the display, e.g. Super Retina XDR OLED."
+      },
+      "anc": {
+        "note": "Active, Passive or None."
+      },
+      "wireless_charging": {},
+      "driver_type": {
+        "note": "Transducer description, e.g. 40mm dynamic, Hybrid 3-driver."
       }
     }
   },
@@ -356,7 +409,7 @@
         "operating_system"
       ]
     },
-    "phones": {
+    "smartphones": {
       "processor": [
         "processor",
         "cores"
@@ -475,6 +528,36 @@
       ],
       "physical": [
         "weight_kg"
+      ]
+    },
+    "headphones": {
+      "audio": [
+        "driver_type",
+        "anc",
+        "audio_output_w"
+      ],
+      "battery": [
+        "battery_hours"
+      ],
+      "connectivity": [
+        "connectivity",
+        "connector"
+      ]
+    },
+    "earbuds": {
+      "audio": [
+        "driver_type",
+        "anc"
+      ],
+      "battery": [
+        "battery_hours",
+        "wireless_charging"
+      ],
+      "connectivity": [
+        "connectivity"
+      ],
+      "durability": [
+        "water_resistance"
       ]
     }
   },

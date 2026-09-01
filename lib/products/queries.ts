@@ -205,7 +205,7 @@ export async function getProductDetail(ref: string): Promise<ProductDetail> {
     .from('products')
     .select(
       `id, name, slug, brand, sku, description, short_description, price, compare_at_price,
-       currency, rating, review_count, is_featured, is_active, tags, specs, created_at, updated_at,
+       currency, rating, review_count, is_featured, is_active, tags, specs, catalog_metadata, created_at, updated_at,
        category:categories!inner ( id, name, slug ),
        images:product_images ( id, public_url, alt_text, width, height, is_primary, sort_order,
                                attribution, license, source_url ),
@@ -280,6 +280,7 @@ export async function getProductDetail(ref: string): Promise<ProductDetail> {
     isActive: Boolean(row.is_active),
     tags: row.tags ?? [],
     specs: row.specs ?? {},
+    catalogMetadata: row.catalog_metadata ?? {},
     category: row.category,
     image: images[0]?.url ?? null,
     imageAlt: images[0]?.alt ?? null,

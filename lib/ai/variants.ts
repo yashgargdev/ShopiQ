@@ -119,12 +119,36 @@ export function coloursFromImageKeys(keys: string[]): string[] {
   const seen = new Set<string>();
 
   for (const key of keys) {
-    const file = key.split('/').pop() ?? '';
+    // These arrive as URLs, so "Titanium%20Gray.webp" must be decoded before it
+    // can be read as two words rather than one unreadable token.
+    const raw = key.split('/').pop() ?? '';
+    let file = raw;
+    try {
+      file = decodeURIComponent(raw);
+    } catch {
+      // A malformed escape is not worth throwing over; use it as it came.
+    }
     const stem = file.replace(/\.[^.]+$/, '');
     if (!stem || stem.toLowerCase().startsWith('base')) continue;
 
-    const cleaned = stem.replace(/^colou?r-/i, '').replace(/-/g, ' ').trim();
+    // A key is only a colour if it READS like one. The seeded folders name
+    // colours explicitly, but reused CDN assets carry opaque filenames like
+    // "262565_0_cMTz4dVUv" — and treating those as colours made the
+    // assistant ask "comes in 1 colours: 262565_0_cMTz4dVUv. Which would you
+    // like?". An unreadable name is not a choice we can offer.
+    const declared = /^colou?r[-_ ]/i.test(stem);
+    const cleaned = stem
+      .replace(/^colou?r[-_ ]/i, '')
+      .replace(/[-_]+/g, ' ')
+      .trim();
     if (!cleaned) continue;
+
+    // Words only, and no more than three of them: "Sage", "Cosmic Orange",
+    // "Titanium Gray" pass; anything carrying digits or gibberish does not.
+    const words = cleaned.split(/\s+/);
+    const readable =
+      words.length <= 3 && words.every((word) => /^[A-Za-z]{3,}$/.test(word));
+    if (!declared && !readable) continue;
 
     const label = cleaned.replace(/\b\w/g, (c) => c.toUpperCase());
     const identity = label.toLowerCase();

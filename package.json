@@ -27,7 +27,7 @@
     "test:cart-tools": "node -r dotenv/config scripts/test-cart-tools.mjs dotenv_config_path=.env.local",
     "test:cart-ui": "node scripts/test-cart-ui.mjs",
     "test:cart": "npm run test:cart-unit && npm run test:cart-tools && npm run test:cart-ui",
-    "test:all": "npm run test:api && npm run test:auth && npm run test:visual && npm run test:ai && npm run test:cart && npm run test:payment && npm run test:voice-all && npm run test:analytics && npm run test:security && npm run test:agent",
+    "test:all": "npm run test:api && npm run test:auth && npm run test:visual && npm run test:ai && npm run test:cart && npm run test:payment && npm run test:voice-all && npm run test:analytics && npm run test:security && npm run test:agent && npm run test:catalog",
     "test:payment-unit": "node scripts/test-payment-unit.mjs",
     "test:payments": "node -r dotenv/config scripts/test-payments.mjs dotenv_config_path=.env.local",
     "test:payment-flows": "node -r dotenv/config scripts/test-payment-flows.mjs dotenv_config_path=.env.local",
@@ -44,7 +44,11 @@
     "dev:https": "next dev --experimental-https",
     "dev:mock": "cross-env PAYMENTS_PROVIDER=mock next dev",
     "dev:mock-https": "cross-env PAYMENTS_PROVIDER=mock next dev --experimental-https",
-    "test:catalog": "node scripts/test-catalog.mjs"
+    "test:catalog": "node scripts/test-catalog.mjs",
+    "catalog:build": "node scripts/build-demo-catalog.mjs",
+    "catalog:validate": "node -r dotenv/config scripts/import-catalog.mjs --dry-run dotenv_config_path=.env.local",
+    "catalog:import": "node -r dotenv/config scripts/import-catalog.mjs dotenv_config_path=.env.local",
+    "test:catalog-data": "node -r dotenv/config scripts/test-catalog-data.mjs dotenv_config_path=.env.local"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.120.0",
