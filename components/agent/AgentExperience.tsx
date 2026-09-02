@@ -1,5 +1,6 @@
 'use client';
 
+import { formatOrderNumber } from '@/lib/orders/number';
 import Image from 'next/image';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
@@ -173,7 +174,7 @@ export function AgentExperience() {
         </div>
 
         <h1 className="mt-6 text-[26px] font-semibold tracking-tight text-white">Order successful</h1>
-        <p className="mt-2 font-mono text-[15px] text-[#F7931E]">{order.orderNumber}</p>
+        <p className="mt-2 font-mono text-[15px] text-[#F7931E]">{formatOrderNumber(order.orderNumber)}</p>
 
         <dl className="mt-8 w-full max-w-xs space-y-4 text-[13.5px]">
           <div>
@@ -207,7 +208,7 @@ export function AgentExperience() {
             type="button"
             onClick={() => {
               agent.reset();
-              void agent.send(`What is the status of order ${order.orderNumber}?`, 'text');
+              void agent.send(`What is the status of order ${formatOrderNumber(order.orderNumber)}?`, 'text');
             }}
             className="text-[13px] text-[#8A8A93] underline-offset-4 hover:underline"
           >

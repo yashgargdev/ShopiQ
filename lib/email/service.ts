@@ -1,3 +1,4 @@
+import { formatOrderNumber } from '@/lib/orders/number';
 import 'server-only';
 import { adminClient } from '@/lib/supabase/admin';
 import { formatPrice } from '@/lib/format';
@@ -265,10 +266,10 @@ export function renderInvoice(input: {
     : 'Not provided';
 
   return {
-    subject: `Your ShopiQ order ${input.orderNumber}`,
+    subject: `Your ShopiQ order ${formatOrderNumber(input.orderNumber)}`,
     body: `Thanks for shopping with ShopiQ.
 
-ORDER ${input.orderNumber}
+ORDER ${formatOrderNumber(input.orderNumber)}
 Payment: ${input.paymentStatus}
 
 ITEMS

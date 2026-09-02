@@ -229,6 +229,30 @@ try {
 
   const createResponse = await createWaiter;
   check('the payment create call succeeds', createResponse.status() === 200, String(createResponse.status()));
+
+  // Everything past this point needs the payment to SETTLE, and only the mock
+  // provider settles without a human. Against real Razorpay keys the click
+  // opens Razorpay's own checkout, nothing calls back, and the suite hung for
+  // 45 seconds and then died with a TimeoutError that reads like a product
+  // bug. test:payment-flows already skips for the same reason; this one did
+  // not, so a configuration difference looked like a regression.
+  const createdPayment = await createResponse.json().catch(() => null);
+  const provider = createdPayment?.payment?.provider;
+  if (provider && provider !== 'mock') {
+    console.log(
+      `\n  \x1b[33mSKIP\x1b[0m  the server is running the "${provider}" provider.` +
+        '\n        Completing a payment in the browser needs the mock provider:' +
+        '\n          npm run dev:mock-https' +
+        '\n        Everything up to the payment hand-off has been checked above.\n',
+    );
+    // settleWaiter is already armed and will never resolve. Closing the browser
+    // rejects it, and an unhandled rejection would kill the process with a
+    // stack trace — turning a clean skip back into something that looks broken.
+    settleWaiter.catch(() => {});
+    await browser.close();
+    process.exit(0);
+  }
+
   const settleResponse = await settleWaiter;
   check('the payment is settled server-side', settleResponse.status() === 200, String(settleResponse.status()));
   await page.waitForTimeout(2500);

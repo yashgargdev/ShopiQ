@@ -1,5 +1,6 @@
 'use client';
 
+import { formatOrderNumber } from '@/lib/orders/number';
 import { useCallback, useEffect, useState } from 'react';
 import { Card, LoadingCard, PageTitle, SignedOutNotice, inputClass } from './AccountNav';
 import { cx } from '@/lib/format';
@@ -133,7 +134,7 @@ export function OrderManager() {
           <Card key={order.order_number} className="max-w-4xl">
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div>
-                <p className="m-0 font-mono text-[14px] text-[#F7931E]">{order.order_number}</p>
+                <p className="m-0 font-mono text-[14px] text-[#F7931E]">{formatOrderNumber(order.order_number)}</p>
                 <p className="m-0 mt-1 text-[12.5px] text-[#7E7E88]">
                   {new Date(order.placed_at).toLocaleDateString('en-IN', {
                     day: 'numeric',

@@ -106,6 +106,17 @@ export function storageOptionsOf(products: ProductSummary[]): StorageOption[] {
 /* ------------------------------------------------------------------ colour */
 
 /**
+ * The colour words the catalogue actually uses, in one place.
+ *
+ * Two jobs: deciding whether an image filename names a colour at all, and
+ * recognising a colour in a shopper's reply. Those were separate lists, which
+ * is how "Shopping" came to be offered as a colour — one list knew what a
+ * colour looks like and the other did not.
+ */
+export const COLOUR_WORDS =
+  /\b(black|white|blue|green|red|pink|purple|violet|orange|yellow|grey|gray|silver|gold|teal|sage|lavender|mist|cream|beige|bronze|copper|titanium|graphite|midnight|starlight|ultramarine|cobalt|natural|desert|space|charcoal|ivory|navy|olive|mint|peach|rose|amber|sand|slate|platinum|pearl|onyx|aqua|cyan|magenta|maroon|burgundy|khaki|plum|indigo|jade|emerald|sapphire|coral|lime|azure|carbon|chrome|sky|forest|ocean|cloud|storm|shadow|arctic|glacier|frost|lilac|mauve)\b/i;
+
+/**
  * The colours a product is offered in, read from its uploaded images.
  *
  * The source folders name these three ways — "Color - Pink.webp",
@@ -148,7 +159,13 @@ export function coloursFromImageKeys(keys: string[]): string[] {
     const words = cleaned.split(/\s+/);
     const readable =
       words.length <= 3 && words.every((word) => /^[A-Za-z]{3,}$/.test(word));
-    if (!declared && !readable) continue;
+
+    // Reading like a word is not the same as naming a colour. The reused CDN
+    // assets include "images.webp" and "shopping.webp", which are perfectly
+    // pronounceable and produced "Added the Apple 20W Power Adapter in
+    // Shopping to your cart". An undeclared name has to contain an actual
+    // colour to count as one.
+    if (!declared && !(readable && COLOUR_WORDS.test(cleaned))) continue;
 
     const label = cleaned.replace(/\b\w/g, (c) => c.toUpperCase());
     const identity = label.toLowerCase();

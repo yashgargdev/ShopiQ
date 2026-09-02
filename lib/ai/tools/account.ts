@@ -1,3 +1,4 @@
+import { formatOrderNumber } from '@/lib/orders/number';
 import 'server-only';
 import { adminClient } from '@/lib/supabase/admin';
 import { getSessionUser } from '@/lib/auth';
@@ -300,7 +301,7 @@ export async function cancelOrder(orderNumber: string): Promise<OrderActionResul
     ok: true,
     order_number: order.order_number,
     status: 'cancelled',
-    message: `Order ${order.order_number} has been cancelled. Any payment will be refunded to the original method.`,
+    message: `Order ${formatOrderNumber(order.order_number)} has been cancelled. Any payment will be refunded to the original method.`,
   };
 }
 
@@ -400,6 +401,6 @@ export async function requestSupport(
   return {
     ok: true,
     order_number: order.order_number,
-    message: `I've opened a ${kind} request for order ${order.order_number}. You'll get an email with the next steps.`,
+    message: `I've opened a ${kind} request for order ${formatOrderNumber(order.order_number)}. You'll get an email with the next steps.`,
   };
 }

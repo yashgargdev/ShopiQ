@@ -1,5 +1,7 @@
 import 'server-only';
 
+import { formatOrderNumber, parseOrderNumber } from '@/lib/orders/number';
+
 import { getSessionUser } from '@/lib/auth';
 import { resolveCart, loadCart } from '@/lib/cart/queries';
 import { prepareCheckout } from '@/lib/checkout/prepare';
@@ -364,7 +366,7 @@ export async function handlePaymentStatusQuestion(): Promise<CartTurnResult> {
     return { ...EMPTY, message: "You don't have any payments on your account yet.", outcome: 'answer' };
   }
 
-  const orderNote = view.order_number ? ` Your order is ${view.order_number}.` : '';
+  const orderNote = view.order_number ? ` Your order is ${formatOrderNumber(view.order_number)}.` : '';
   return {
     ...EMPTY,
     message: `${view.statement} The amount was ${view.amount_display}.${view.settled ? orderNote : ''}`,
@@ -385,20 +387,20 @@ export async function handleOrderStatusQuestion(message = ''): Promise<CartTurnR
   // A stated order number is answered about THAT order. Falling back to the
   // most recent one would answer a precise question with the wrong order and
   // sound completely confident doing it.
-  const stated = ORDER_NUMBER.exec(message);
+  const stated = parseOrderNumber(message);
   if (stated) {
-    const named = await getOrderByNumber(stated[1].toUpperCase());
+    const named = await getOrderByNumber(stated);
     if (!named) {
       return {
         ...EMPTY,
-        message: `I couldn't find an order numbered ${stated[1].toUpperCase()} on your account.`,
+        message: `I couldn't find an order numbered ${stated} on your account.`,
         outcome: 'answer',
       };
     }
     const items = named.items.map((item) => `${item.name} × ${item.quantity}`).join(', ');
     return {
       ...EMPTY,
-      message: `${named.order_number} is ${named.status} and the payment is ${named.payment_status}. It covers ${items}, ${named.total_display}.`,
+      message: `${formatOrderNumber(named.order_number)} is ${named.status} and the payment is ${named.payment_status}. It covers ${items}, ${named.total_display}.`,
       outcome: 'answer',
       actions: [{ type: 'view_orders' }],
     };
@@ -422,8 +424,8 @@ export async function handleOrderStatusQuestion(message = ''): Promise<CartTurnR
       totalDisplay: order.total_display,
     },
     message: order.confirmed
-      ? `Your order ${order.order_number} is confirmed — ${itemList}, ${order.total_display} paid.`
-      : `Your order ${order.order_number} is ${order.status} and the payment is ${order.payment_status}. It covers ${itemList}, ${order.total_display}.`,
+      ? `Your order ${formatOrderNumber(order.order_number)} is confirmed — ${itemList}, ${order.total_display} paid.`
+      : `Your order ${formatOrderNumber(order.order_number)} is ${order.status} and the payment is ${order.payment_status}. It covers ${itemList}, ${order.total_display}.`,
     outcome: order.confirmed ? 'order_confirmed' : 'answer',
     actions: [{ type: 'view_order', orderId: order.order_id }],
   } as CartTurnResult;

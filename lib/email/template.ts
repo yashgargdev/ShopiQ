@@ -1,3 +1,4 @@
+import { formatOrderNumber } from '@/lib/orders/number';
 import { formatPrice } from '@/lib/format';
 
 /**
@@ -258,7 +259,7 @@ export function renderInvoiceEmail(input: InvoiceInput): {
         <td style="padding-bottom:6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:${MUTED};">Order</td>
       </tr>
       <tr>
-        <td style="padding-bottom:18px;font-family:'Courier New',Courier,monospace;font-size:16px;color:${BRAND};">${esc(input.orderNumber)}</td>
+        <td style="padding-bottom:18px;font-family:'Courier New',Courier,monospace;font-size:16px;color:${BRAND};">${esc(formatOrderNumber(input.orderNumber))}</td>
       </tr>
     </table>
 
@@ -286,7 +287,7 @@ export function renderInvoiceEmail(input: InvoiceInput): {
       </tr>
     </table>`;
 
-  const text = `ShopiQ — order ${input.orderNumber}
+  const text = `ShopiQ — order ${formatOrderNumber(input.orderNumber)}
 
 ${input.lines.map((l) => `  ${l.name}\n    ${l.quantity} x ${formatPrice(l.unitPrice)} = ${formatPrice(l.total)}`).join('\n')}
 
@@ -303,11 +304,11 @@ Questions? ${SUPPORT_EMAIL}
 `;
 
   return {
-    subject: `Your ShopiQ order ${input.orderNumber}`,
+    subject: `Your ShopiQ order ${formatOrderNumber(input.orderNumber)}`,
     html: renderShell({
       heading: paid ? 'Order confirmed' : 'Order received',
       subheading: `Thanks — we'll have it with you in about ${input.deliveryEstimate}.`,
-      preheader: `${input.orderNumber} · ${formatPrice(input.total)} · arriving in ${input.deliveryEstimate}`,
+      preheader: `${formatOrderNumber(input.orderNumber)} · ${formatPrice(input.total)} · arriving in ${input.deliveryEstimate}`,
       body,
       action: { label: 'View your order', url: `${SITE_URL}/orders` },
       note: 'This is your invoice — keep it for your records.',
@@ -368,7 +369,7 @@ export function renderSupportEmail(input: {
 
   const body = `
     <p style="margin:0 0 14px;">We've logged your ${esc(input.kind)} request for order
-      <strong style="color:${BRAND};font-family:'Courier New',Courier,monospace;">${esc(input.orderNumber)}</strong>.</p>
+      <strong style="color:${BRAND};font-family:'Courier New',Courier,monospace;">${esc(formatOrderNumber(input.orderNumber))}</strong>.</p>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
       <tr>
         <td style="padding:14px 16px;background-color:#08080A;border:1px solid ${LINE};border-radius:10px;font-family:Arial,Helvetica,sans-serif;font-size:13px;line-height:1.6;color:${INK};">
@@ -379,16 +380,16 @@ export function renderSupportEmail(input: {
     <p style="margin:16px 0 0;color:${MUTED};">Our team will review it and email you the next steps.</p>`;
 
   return {
-    subject: `${noun} request received — ${input.orderNumber}`,
+    subject: `${noun} request received — ${formatOrderNumber(input.orderNumber)}`,
     html: renderShell({
       heading: `${noun} request received`,
       subheading: "We'll be in touch shortly.",
-      preheader: `${noun} request logged for ${input.orderNumber}.`,
+      preheader: `${noun} request logged for ${formatOrderNumber(input.orderNumber)}.`,
       body,
       action: { label: 'View your orders', url: `${SITE_URL}/orders` },
       note: 'Reviewing a request does not automatically approve it — we will confirm by email.',
     }),
-    text: `${noun} request received for order ${input.orderNumber}.
+    text: `${noun} request received for order ${formatOrderNumber(input.orderNumber)}.
 
 Your reason: ${input.reason}
 
@@ -408,7 +409,7 @@ export function renderCancellationEmail(input: {
 }): { subject: string; html: string; text: string } {
   const body = `
     <p style="margin:0 0 14px;">Order
-      <strong style="color:${BRAND};font-family:'Courier New',Courier,monospace;">${esc(input.orderNumber)}</strong>
+      <strong style="color:${BRAND};font-family:'Courier New',Courier,monospace;">${esc(formatOrderNumber(input.orderNumber))}</strong>
       has been cancelled and nothing will be shipped.</p>
     <p style="margin:0;color:${MUTED};">${
       input.wasPaid
@@ -417,16 +418,16 @@ export function renderCancellationEmail(input: {
     }</p>`;
 
   return {
-    subject: `Order ${input.orderNumber} cancelled`,
+    subject: `Order ${formatOrderNumber(input.orderNumber)} cancelled`,
     html: renderShell({
       heading: 'Order cancelled',
       subheading: input.wasPaid ? 'Your refund is on its way.' : 'Nothing was charged.',
-      preheader: `${input.orderNumber} cancelled.${input.wasPaid ? ' Refund on its way.' : ''}`,
+      preheader: `${formatOrderNumber(input.orderNumber)} cancelled.${input.wasPaid ? ' Refund on its way.' : ''}`,
       body,
       action: { label: 'Talk to ShopiQ', url: `${SITE_URL}/Agent-purchase` },
       note: null,
     }),
-    text: `Order ${input.orderNumber} has been cancelled and nothing will be shipped.
+    text: `Order ${formatOrderNumber(input.orderNumber)} has been cancelled and nothing will be shipped.
 
 ${
   input.wasPaid

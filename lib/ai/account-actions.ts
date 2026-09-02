@@ -1,5 +1,7 @@
 import 'server-only';
 
+import { formatOrderNumber, parseOrderNumber } from '@/lib/orders/number';
+
 import { getSessionUser } from '@/lib/auth';
 import { listAddresses } from '@/lib/account/addresses';
 
@@ -211,7 +213,7 @@ function describeOrder(order: OrderSummary): string {
     month: 'short',
     year: 'numeric',
   });
-  return `${order.order_number} — ${order.status}, ${order.total_display}, placed ${placed}: ${items}${more}`;
+  return `${formatOrderNumber(order.order_number)} — ${order.status}, ${order.total_display}, placed ${placed}: ${items}${more}`;
 }
 
 export async function handleOrderList(): Promise<CartTurnResult> {
@@ -324,9 +326,9 @@ export async function handleOrderSelectionAnswer(
 
   let chosen: string | null = null;
 
-  const stated = ORDER_NUMBER.exec(message);
-  if (stated && selection.offered.includes(stated[1].toUpperCase())) {
-    chosen = stated[1].toUpperCase();
+  const stated = parseOrderNumber(message);
+  if (stated && selection.offered.includes(stated)) {
+    chosen = stated;
   }
 
   // "the first one", "2", "second"
@@ -382,14 +384,14 @@ async function resolveOrder(
   message: string,
   eligible: (order: OrderSummary) => boolean,
 ): Promise<{ order: OrderSummary | null; candidates: OrderSummary[]; ask: string | null }> {
-  const stated = ORDER_NUMBER.exec(message);
+  const stated = parseOrderNumber(message);
   if (stated) {
-    const order = await getOrderByNumber(stated[1].toUpperCase());
+    const order = await getOrderByNumber(stated);
     if (!order) {
       return {
         order: null,
         candidates: [],
-        ask: `I couldn't find an order numbered ${stated[1].toUpperCase()} on your account.`,
+        ask: `I couldn't find an order numbered ${stated} on your account.`,
       };
     }
     return { order, candidates: [], ask: null };
@@ -428,7 +430,7 @@ export async function handleOrderCancel(message: string): Promise<CartTurnResult
 
   if (!order.can_cancel) {
     return reply(
-      `${order.order_number} is ${order.status}, so it can no longer be cancelled. If it has arrived I can start a return instead.`,
+      `${formatOrderNumber(order.order_number)} is ${order.status}, so it can no longer be cancelled. If it has arrived I can start a return instead.`,
       'clarify',
     );
   }

@@ -146,7 +146,11 @@ export async function findByPhrase(message: string): Promise<ProductSummary[]> {
   const phrase = message
     .toLowerCase()
     .replace(
-      /\b(add|put|cart|mein|me|my|to|the|a|an|one|please|karo|daal|daalo|dedo|chahiye|buy|order|i|want|would|like)\b/g,
+      // Conversational scaffolding carries no product identity. Leaving it in
+      // made "Okay then add that Apple charger only" search for the whole
+      // sentence, and full-text search obligingly ranked something unrelated
+      // first — which was then added as though it had been asked for.
+      /\b(add|put|cart|mein|me|my|to|the|a|an|one|please|karo|daal|daalo|dedo|chahiye|buy|order|i|want|would|like|okay|okey|ok|then|that|this|it|only|just|also|too|and|fine|sure|yes|yeah|lets|let|thanks|thank)\b/g,
       ' ',
     )
     .replace(/[^a-z0-9\s.+-]/g, ' ')
@@ -185,14 +189,38 @@ export async function nextQuestionFor(
   quantity: number,
 ): Promise<{ question: VariantQuestion | null; colour: string | null }> {
   const colours = await coloursFor(product.id);
-  // Fewer than two is not a choice. Asking "which of the 1 colours?" wastes
-  // the customer's turn and reads as a bug, because it is one.
-  if (colours.length < 2) return { question: null, colour: colours[0] ?? null };
-
-  const stated = statedColour(message, colours);
-  if (stated) return { question: null, colour: stated };
+  const choice = colourChoice(colours, message);
+  if (!choice.ask) return { question: null, colour: choice.colour };
 
   return { question: askColour(product, colours, quantity), colour: null };
+}
+
+/**
+ * Is there a colour question worth asking, and if not, which colour settles it?
+ *
+ * This exists as one function because the rule was previously written out at
+ * each of the three places that ask — and when the "one colour is not a
+ * choice" guard was added, it was added to only one of them. The other two
+ * went on asking "The boAt Rockerz 550 comes in 1 colours: Pink. Which would
+ * you like?", which is not a question anybody can usefully answer.
+ *
+ * `ask: false` with a colour means it is settled; with null it means the
+ * shopper does not care, or there is nothing to pick.
+ */
+export function colourChoice(
+  colours: string[],
+  message: string,
+): { ask: boolean; colour: string | null } {
+  if (colours.length === 0) return { ask: false, colour: null };
+  // One option is not a choice — take it and move on.
+  if (colours.length === 1) return { ask: false, colour: colours[0] };
+
+  const stated = statedColour(message, colours);
+  if (stated) return { ask: false, colour: stated };
+
+  if (saysNoPreference(message)) return { ask: false, colour: null };
+
+  return { ask: true, colour: null };
 }
 
 /**

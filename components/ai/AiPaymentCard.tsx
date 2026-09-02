@@ -1,5 +1,6 @@
 'use client';
 
+import { formatOrderNumber } from '@/lib/orders/number';
 import Link from 'next/link';
 import { AlertIcon, CheckIcon, SparkIcon } from '@/components/ui/icons';
 import type { AgentPurchasePayload } from '@/lib/ai/types';
@@ -211,7 +212,7 @@ export function AiOrderConfirmedCard({
       </div>
 
       <div className="px-3.5 py-3">
-        <p className="m-0 font-mono text-[13px] text-white">{orderNumber}</p>
+        <p className="m-0 font-mono text-[13px] text-white">{formatOrderNumber(orderNumber)}</p>
         <div className="mt-2.5 flex flex-col gap-1.5">
           <div className="flex items-center justify-between">
             <span className="text-[11.5px] text-[#8A8A93]">Payment</span>

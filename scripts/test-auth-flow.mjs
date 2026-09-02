@@ -274,7 +274,20 @@ async function main() {
 
   check('POST /api/orders → 201', placed.status === 201, `got ${placed.status} ${placed.text.slice(0, 200)}`);
   const orderId = placed.json?.order?.orderId;
-  check('order number looks right', /^SQ-\d{4}-\d+$/.test(placed.json?.order?.orderNumber ?? ''), placed.json?.order?.orderNumber);
+  // Numbers are YYMM plus a sequence that restarts each month, stored bare and
+  // shown as #2609001. Orders placed before the change keep SQ-2026-####, so
+  // both forms are valid — what must hold is that a NEW number carries the
+  // month it was actually placed in.
+  const placedNumber = placed.json?.order?.orderNumber ?? '';
+  const period = new Date()
+    .toLocaleDateString('en-CA', { timeZone: 'Asia/Kolkata', year: '2-digit', month: '2-digit' })
+    .replace(/-/g, '')
+    .slice(0, 4);
+  check(
+    'order number looks right',
+    new RegExp(`^${period}\\d{3,}$`).test(placedNumber) || /^SQ-\d{4}-\d+$/.test(placedNumber),
+    placedNumber,
+  );
   check(
     'server total matches the cart total',
     Math.abs(placed.json.order.total - priced.json.cart.totals.total) < 0.01,

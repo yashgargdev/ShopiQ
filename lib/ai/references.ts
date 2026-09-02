@@ -187,6 +187,39 @@ const GENERIC_TERMS = new Set([
   'waala',
 ]);
 
+/**
+ * Words in a message that could identify a product, ignoring the instruction
+ * wrapped around them.
+ *
+ * "add that Apple charger only" leaves ["apple", "charger"]; "add it" and "add
+ * the first one" leave nothing. Two or more of these means the shopper named
+ * something specific, and any guess that contradicts them is wrong.
+ *
+ * Colours and ordinals are excluded deliberately: "the black one" picks from
+ * what is already on screen rather than naming a different product.
+ */
+const INSTRUCTION_WORDS = new Set([
+  'add', 'adding', 'put', 'remove', 'delete', 'buy', 'order', 'want', 'need',
+  'please', 'kindly', 'just', 'only', 'too', 'also', 'and', 'but', 'the', 'for',
+  'cart', 'basket', 'okay', 'okey', 'fine', 'then', 'yes', 'yeah', 'yep', 'sure',
+  'karo', 'kar', 'daal', 'dedo', 'chahiye', 'bhi', 'mein', 'mera', 'meri',
+  'first', 'second', 'third', 'fourth', 'fifth', 'last', 'next', 'other',
+  'cheaper', 'cheapest', 'costlier', 'lighter', 'best', 'worst',
+  'black', 'white', 'blue', 'green', 'red', 'pink', 'purple', 'orange', 'yellow',
+  'grey', 'gray', 'silver', 'gold', 'teal', 'sage', 'lavender', 'cream', 'beige',
+]);
+
+function contentTokens(message: string): string[] {
+  return message
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter(
+      (word) =>
+        word.length > 2 && !GENERIC_TERMS.has(word) && !INSTRUCTION_WORDS.has(word),
+    );
+}
+
 function nameTokens(text: string): string[] {
   return text
     .toLowerCase()
@@ -216,6 +249,23 @@ function nameMatchScore(message: string, product: { name: string; brand: string;
   }
 
   return score;
+}
+
+/**
+ * Does this message actually name this product?
+ *
+ * The guard between "search returned something" and "the shopper asked for
+ * it". Full-text search always ranks *something* first, so a request for an
+ * Apple charger came back with a pair of headphones and they were added
+ * without a word. A brand (3) or a distinctive model word (2) clears the bar;
+ * a category word alone (1) does not, because every product in the aisle
+ * shares it.
+ */
+export function namesProduct(
+  message: string,
+  product: { name: string; brand: string; category?: string },
+): boolean {
+  return nameMatchScore(message, product) >= 2;
 }
 
 function bestNameMatch<T extends { name: string; brand: string; category?: string }>(
@@ -263,7 +313,21 @@ export function resolveReference(
       .map((position) => list[position - 1])
       .filter((entry): entry is (typeof list)[number] => Boolean(entry));
 
-    if (picked.length > 0) {
+    // An ordinal the shopper typed is a fact. A position the MODEL inferred is
+    // a guess, and it must not outrank the shopper's own words: asked to "add
+    // that Apple charger", the extractor pointed at whatever sat first on
+    // screen — a pair of headphones — and it went into the cart silently.
+    //
+    // So when the message names something specific and the guess matches none
+    // of it, drop the guess and let the later, evidence-based steps answer.
+    const modelGuess = ordinals.length === 0;
+    const namedSomething = contentTokens(message).length >= 2;
+    const guessMatchesName =
+      picked.length > 0 && picked.some((entry) => nameMatchScore(message, entry) >= 2);
+
+    if (modelGuess && namedSomething && !guessMatchesName) {
+      // fall through to name matching below
+    } else if (picked.length > 0) {
       return {
         productIds: picked.map((entry) => entry.productId),
         cartItemIds: picked

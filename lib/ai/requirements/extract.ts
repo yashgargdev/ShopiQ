@@ -117,6 +117,8 @@ export interface ExtractionResult {
   isRefinement: boolean;
   /** True when the rules alone produced this (no model was involved). */
   deterministic: boolean;
+  /** Brands the shopper named that ShopiQ does not carry at all. */
+  unstockedBrands: string[];
 }
 
 function buildSystemPrompt(context: ExtractionContext): string {
@@ -276,6 +278,16 @@ function finish(
       .filter((brand): brand is string => Boolean(brand)),
   ]).slice(0, 6);
 
+  // Filtering by a brand we do not carry would return nothing useful, so the
+  // line above is right to drop them — but dropping the FACT loses the only
+  // honest answer to "is the Xiaomi charger in stock?". Kept for this turn
+  // only, never merged into the persisted requirements.
+  const unstockedBrands = unique(
+    (model?.brands ?? [])
+      .map((brand) => brand.trim())
+      .filter((brand) => brand.length > 1 && !brandLookup.has(brand.toLowerCase())),
+  ).slice(0, 3);
+
   // -- spec constraints -----------------------------------------------------
   const constraints: SpecConstraint[] = [...rules.specConstraints];
   const seen = new Set(constraints.map((constraint) => `${constraint.key}:${constraint.op}`));
@@ -335,6 +347,7 @@ function finish(
     referencedProductIds,
     isRefinement: Boolean(model?.is_refinement) || looksLikeRefinement(message),
     deterministic,
+    unstockedBrands,
   };
 }
 

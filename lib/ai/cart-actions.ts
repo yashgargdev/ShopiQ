@@ -1,18 +1,18 @@
 import 'server-only';
 
 import { formatPrice, pluralise } from '@/lib/format';
-import { listProducts } from '@/lib/products/queries';
+import { findAccessories } from '@/lib/catalog/recommend';
 import type { ProductSummary } from '@/types';
 
 import { buildPendingAction, type PendingAction } from './confirm';
-import { accessoryCategoriesFor, rankCrossSell, type CrossSellCandidate } from './crosssell';
-import { describeOptions } from './variants';
+import { COLOUR_WORDS, describeOptions } from './variants';
 import { getSessionUser } from '@/lib/auth';
 import { loadLiveConfirmation } from '@/lib/checkout/confirmation';
 import { cancelActiveConfirmation } from '@/lib/payments/service';
-import { resolveReference, extractQuantity, type ReferenceScope } from './references';
+import { resolveReference, extractQuantity, namesProduct, type ReferenceScope } from './references';
 import {
   askColour,
+  colourChoice,
   askStorage,
   coloursFor,
   findByPhrase,
@@ -148,6 +148,74 @@ const BARE_ADD = new RegExp(
   'i',
 );
 
+/**
+ * Words that carry no product identity: verbs, pronouns, politeness, and the
+ * Hindi/Hinglish particles that wrap an instruction without naming anything.
+ */
+const ADD_FILLER = new Set([
+  'add', 'adding', 'put', 'please', 'kindly', 'just', 'only', 'too', 'also', 'well',
+  'cart', 'basket', 'the', 'and', 'but', 'okay', 'okey', 'ok', 'fine', 'then', 'yes',
+  'yeah', 'yep', 'sure', 'karo', 'kar', 'do', 'de', 'dijiye', 'lo', 'daal', 'bhi',
+  'mera', 'meri', 'mein', 'main', 'into', 'for', 'me', 'my', 'want', 'lets', 'let',
+  // Ordinals and stand-ins point AT a product without naming one. Leaving them
+  // in made "add the first one" report "I don't have a first in the catalogue",
+  // when the right answer is to ask what to show first.
+  'first', 'second', 'third', 'fourth', 'fifth', 'last', 'next', 'other', 'another',
+  'one', 'ones', 'thing', 'item', 'product', 'wala', 'waala', 'cheaper', 'cheapest',
+  'costlier', 'expensive', 'lighter', 'best', 'top', 'same',
+]);
+
+/**
+ * The product the shopper actually named, in their own words.
+ *
+ * Used to answer "add that Xiaomi charger" with "I don't have a Xiaomi charger"
+ * rather than a numbered list of whatever happened to be on screen. Returns
+ * null when nothing identifiable was named, because then a list IS the right
+ * answer.
+ */
+function namedSubject(message: string): string | null {
+  const words = message
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter(
+      (word) =>
+        word.length > 2 &&
+        !ADD_FILLER.has(word) &&
+        !['it', 'that', 'this', 'them', 'those', 'woh', 'ye', 'yeh', 'one', 'ones'].includes(word),
+    );
+
+  if (words.length === 0 || words.length > 4) return null;
+
+  return `a ${words.join(' ')}`;
+}
+
+/**
+ * Is this an add with no product named in it?
+ *
+ * BARE_ADD answers "does this look like an add", which is not the same
+ * question. "add that" and "add that Apple charger only" both match it, and
+ * treating the second as bare took the lead product off the screen — so asking
+ * for a charger added a pair of headphones, silently. Adding the wrong thing is
+ * worse than asking, so anything still naming a product is not bare.
+ */
+function isBareAdd(message: string): boolean {
+  if (!BARE_ADD.test(message)) return false;
+
+  const remaining = message
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    .filter(
+      (word) =>
+        word.length > 2 &&
+        !ADD_FILLER.has(word) &&
+        !['it', 'that', 'this', 'them', 'those', 'woh', 'ye', 'yeh'].includes(word),
+    );
+
+  return remaining.length === 0;
+}
+
 const VIEW_CART: AgentAction = { type: 'view_cart' };
 const CHECKOUT: AgentAction = { type: 'checkout' };
 
@@ -212,7 +280,7 @@ export async function handleCartAdd(
   const bareAdd =
     reference.productIds.length === 0 &&
     context.scope.shown.length > 0 &&
-    BARE_ADD.test(message);
+    isBareAdd(message);
 
   const leadProduct = bareAdd ? context.scope.shown[0] : null;
 
@@ -238,6 +306,24 @@ export async function handleCartAdd(
       };
     }
 
+    // Search ranks something first whatever it is given. Only accept it when
+    // the shopper's own words actually name it — otherwise this silently adds
+    // a product nobody asked for.
+    if (narrowed.product && !namesProduct(message, {
+      name: narrowed.product.name,
+      brand: narrowed.product.brand,
+      category: narrowed.product.category.name,
+    })) {
+      const missing = namedSubject(message);
+      return {
+        ...EMPTY,
+        message: missing
+          ? `I don't have ${missing} in the ShopiQ catalogue, so I haven't added anything. Want me to show what I do have that would work instead?`
+          : "I couldn't tell which product you meant, so I haven't added anything. Tell me the name and I'll find it.",
+        outcome: 'empty',
+      };
+    }
+
     if (narrowed.product) {
       const next = await nextQuestionFor(narrowed.product, message, quantity);
       if (next.question) {
@@ -257,6 +343,18 @@ export async function handleCartAdd(
       .map((product, index) => `${index + 1}. ${product.name}`)
       .join('\n');
 
+    // They named something and the catalogue does not have it. Listing five
+    // unrelated products under "which one would you like me to add?" reads as
+    // though one of them is what they asked for. Say what is missing instead.
+    const named = namedSubject(message);
+    if (named) {
+      return {
+        ...EMPTY,
+        message: `I don't have ${named} in the ShopiQ catalogue, so I haven't added anything. Tell me what else you'd like, or ask me to show what I do have in that category.`,
+        outcome: 'empty',
+      };
+    }
+
     return {
       ...EMPTY,
       message:
@@ -273,9 +371,9 @@ export async function handleCartAdd(
 
   // A product picked off the screen can still be short a colour.
   const colours = await coloursFor(productId);
-  const namedColour = colours.length > 0 ? statedColour(message, colours) : null;
+  const choice = colourChoice(colours, message);
 
-  if (colours.length > 0 && !namedColour && !saysNoPreference(message)) {
+  if (choice.ask) {
     const shownName =
       context.scope.shown.find((shown) => shown.productId === productId)?.name ?? 'that one';
     const question = askColour({ id: productId, name: shownName }, colours, quantity);
@@ -287,20 +385,20 @@ export async function handleCartAdd(
     };
   }
 
-  return addChosenVariant(productId, quantity, namedColour, context, Boolean(leadProduct));
+  return addChosenVariant(productId, quantity, choice.colour, context, Boolean(leadProduct));
 }
 
 /**
- * Common colour words, for telling "Teal" — a colour we simply do not stock in
- * this model — apart from "show me laptops", which is a change of subject.
+ * Is a short reply during a colour question an attempt at answering it?
  *
- * A short message during a colour question is treated as an attempt at one
- * either way: at that point in the conversation there is very little else a
- * one or two word reply could be.
+ * Tells "Teal" — a colour we simply do not stock in this model — apart from
+ * "show me laptops", which is a change of subject. At that point in the
+ * conversation there is very little else a one or two word reply could be.
+ *
+ * The colour vocabulary itself lives in variants.ts, beside the code that
+ * reads colours off image filenames: when the two lists were separate, one
+ * knew "Shopping" was not a colour and the other did not.
  */
-const COLOUR_WORDS =
-  /\b(black|white|blue|green|red|pink|purple|violet|orange|yellow|grey|gray|silver|gold|teal|sage|lavender|mist|cream|beige|bronze|copper|titanium|graphite|midnight|starlight|ultramarine|cobalt|natural|desert|space)\b/i;
-
 function looksLikeColourAttempt(message: string, offered: string[]): boolean {
   if (COLOUR_WORDS.test(message)) return true;
   const words = message.trim().split(/\s+/);
@@ -325,9 +423,9 @@ export async function handleVariantAnswer(
 
     // Storage settled. Colour may still be open.
     const colours = await coloursFor(chosenId);
-    const namedColour = colours.length > 0 ? statedColour(message, colours) : null;
+    const choice = colourChoice(colours, message);
 
-    if (colours.length > 0 && !namedColour && !saysNoPreference(message)) {
+    if (choice.ask) {
       const label = selection.options.find((option) => option.id === chosenId)?.label ?? '';
       const question = askColour(
         { id: chosenId, name: label ? `${label} model` : 'that one' },
@@ -342,7 +440,7 @@ export async function handleVariantAnswer(
       };
     }
 
-    return addChosenVariant(chosenId, selection.quantity, namedColour, context);
+    return addChosenVariant(chosenId, selection.quantity, choice.colour, context);
   }
 
   // stage === 'colour'
@@ -772,9 +870,6 @@ export async function handleCheckout(context: CartTurnContext): Promise<CartTurn
 
 // --------------------------------------------------------------- cross-sell
 
-export interface CrossSellTurn extends CartTurnResult {
-  candidates: CrossSellCandidate[];
-}
 
 /**
  * Suggest accessories for an anchor product — the most recent cart line, or
@@ -784,8 +879,6 @@ export async function handleCrossSell(
   context: CartTurnContext,
   anchor: ProductSummary | null,
 ): Promise<CartTurnResult> {
-  // Never recommend something the shopper already has in their basket.
-  const alreadyInCart = new Set(context.scope.cart.map((line) => line.productId));
   if (!anchor) {
     return {
       ...EMPTY,
@@ -795,94 +888,64 @@ export async function handleCrossSell(
     };
   }
 
-  const categories = accessoryCategoriesFor(anchor.category.slug);
-  if (categories.length === 0) {
+  // Never recommend something the shopper already has in their basket.
+  const alreadyInCart = context.scope.cart.map((line) => line.productId);
+
+  /**
+   * Suggestions come from the catalogue engine, not from a table of category
+   * pairings kept in this file.
+   *
+   * The pairings were a second, older copy of "what goes with what" — one that
+   * could not see compatibility claims, so it offered a Samsung-only case
+   * beside an iPhone, and named categories (`bags`, `home-accessories`) the
+   * catalogue no longer has. The engine reads data/catalog/recommendations.json,
+   * filters on real compatibility, and hands back the reason each candidate
+   * survived, which is what lets the assistant answer "why that one?".
+   */
+  const result = await findAccessories(anchor, {
+    limit: 3,
+    exclusions: { productIds: alreadyInCart },
+  });
+
+  if (result.recommendations.length === 0) {
     return {
       ...EMPTY,
-      message: `I don't have accessories in the catalogue that specifically pair with the ${anchor.name}.`,
+      message: `I don't have anything in stock that pairs well with the ${anchor.name} right now.`,
       outcome: 'empty',
     };
   }
 
-  // Search each paired category through the tool layer, then rank in code.
-  const batches = await Promise.all(
-    categories.slice(0, 4).map(async (slug) => {
-      const result = await runTool(
-        'search_products',
-        { category: slug, in_stock_only: true, sort: 'rating', limit: 6 },
-        { conversationId: context.conversationId, budget: context.budget },
-      );
-      return result.ok ? (result.output as { products: Array<{ id: string }> }).products : [];
-    }),
-  );
-  context.toolsUsed.push('search_products');
-
-  const ids = new Set(batches.flat().map((product) => product.id));
-  if (ids.size === 0) {
-    return {
-      ...EMPTY,
-      message: `Nothing that pairs with the ${anchor.name} is in stock right now.`,
-      outcome: 'empty',
-    };
-  }
-
-  // Re-read as full summaries so scoring sees real specs and stock.
-  const summaries = (await loadSummaries(categories.slice(0, 4))).filter(
-    (product) => !alreadyInCart.has(product.id),
-  );
-  const ranked = rankCrossSell(anchor, summaries, context.requirements.useCases, 3);
-
-  if (ranked.length === 0) {
-    return {
-      ...EMPTY,
-      message: `I couldn't find a good accessory match for the ${anchor.name} in stock right now.`,
-      outcome: 'empty',
-    };
-  }
-
-  const top = ranked[0];
-  const message = `Since you're getting the ${anchor.name}, ${top.reason.replace(
-    / \(₹[\d,]+\)$/,
-    '',
-  )}. I found the ${top.product.name} at ${formatPrice(top.product.price)}.`;
+  const top = result.recommendations[0];
+  const message = `Since you're getting the ${anchor.name}, ${top.reasons[0]}. I found the ${top.product.name} at ${formatPrice(top.product.price)}.`;
 
   return {
     ...EMPTY,
     message,
     outcome: 'matches',
-    products: ranked.map((candidate) => crossSellToPayload(candidate)),
-    actions: ranked.map((candidate) => ({
+    products: result.recommendations.map(recommendationToPayload),
+    // Every suggestion is one tap to add, so accepting one never depends on
+    // the shopper describing it back to us.
+    actions: result.recommendations.map((entry) => ({
       type: 'add_to_cart' as const,
-      productId: candidate.product.id,
-      label: `Add ${candidate.product.name}`,
+      productId: entry.product.id,
+      label: `Add ${entry.product.name}`,
     })),
   };
 }
 
-async function loadSummaries(categorySlugs: string[]): Promise<ProductSummary[]> {
-  const batches = await Promise.all(
-    categorySlugs.map(async (slug) => {
-      const { products } = await listProducts({
-        page: 1,
-        limit: 6,
-        category: slug,
-        sort: 'rating',
-        inStock: true,
-      } as Parameters<typeof listProducts>[0]);
-      return products;
-    }),
-  );
-
-  const seen = new Set<string>();
-  return batches.flat().filter((product) => {
-    if (seen.has(product.id)) return false;
-    seen.add(product.id);
-    return true;
-  });
-}
-
-function crossSellToPayload(candidate: CrossSellCandidate): RecommendedProductPayload {
-  const { product } = candidate;
+/**
+ * A recommendation, as the shape the chat surface renders.
+ *
+ * `reason` and `matchReasons` are persisted with the turn, which is what lets
+ * "why did you suggest that?" be answered later from what was actually decided
+ * rather than from the model's memory of it.
+ */
+function recommendationToPayload(entry: {
+  product: ProductSummary;
+  score: number;
+  reasons: string[];
+}): RecommendedProductPayload {
+  const { product } = entry;
   return {
     productId: product.id,
     name: product.name,
@@ -897,12 +960,15 @@ function crossSellToPayload(candidate: CrossSellCandidate): RecommendedProductPa
     available: product.availability.inStock,
     availableQuantity: product.availability.available,
     lowStock: product.availability.lowStock,
-    score: candidate.score,
-    reason: candidate.reason,
-    matchReasons: [candidate.reason],
+    score: entry.score,
+    reason: entry.reasons[0] ?? 'it pairs with what you are buying',
+    matchReasons: entry.reasons.slice(0, 3),
     limitations: product.availability.lowStock
       ? [`only ${product.availability.available} left in stock`]
       : [],
     keySpecs: {},
   };
 }
+
+
+

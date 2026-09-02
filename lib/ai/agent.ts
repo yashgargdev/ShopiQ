@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { formatPrice, pluralise } from '@/lib/format';
-import { getCatalogFacets, listCategories } from '@/lib/products/queries';
+import { getCatalogFacets, getProductDetail, listCategories } from '@/lib/products/queries';
 import type { ProductSummary } from '@/types';
 
 import { getSessionUser } from '@/lib/auth';
@@ -53,6 +53,7 @@ import {
 } from './account-actions';
 import { handleSignInAnswer, readSignInState, startSignIn } from './signin-flow';
 import { shouldCrossSell } from './crosssell';
+import { answerWhyRecommended } from './why';
 import { detectLanguage, localise } from './language';
 import { coloursFor, readVariantSelection } from './variant-flow';
 import { statedStorage, storageLabel, variantBase } from './variants';
@@ -422,6 +423,38 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
     order_support: () => handleOrderSupport(message),
   };
 
+  // ------------------------------------------------------- "why that one?"
+  // Checked before intent routing because there is no `why` intent: the
+  // extractor reads it as a fresh product question and searches the catalogue
+  // again, which answers a different question than the one asked. The reasons
+  // were recorded when the suggestion was made, so this is answered from them
+  // rather than re-derived — or, worse, improvised.
+  const whyAnswer = answerWhyRecommended(
+    message,
+    {
+      shown: context.lastShownProducts.map((product) => ({
+        productId: product.productId,
+        name: product.name,
+        brand: product.brand,
+        price: product.price,
+        score: product.score,
+        specs: product.keySpecs,
+      })),
+      cart: [],
+    },
+    context.lastShownProducts,
+  );
+
+  if (whyAnswer) {
+    return finishTurn(context, whyAnswer, {
+      intent: 'product_question',
+      requirements,
+      toolsUsed,
+      provider: provider.name,
+      degraded: !provider.available,
+    });
+  }
+
   const accountHandler = ACCOUNT_HANDLERS[extraction.intent];
   if (accountHandler) {
     const result = await accountHandler();
@@ -752,11 +785,25 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
   const outcome = rankCandidates(candidates, requirements, { limit: TOP_N });
 
   if (outcome.kind === 'empty') {
+    // When a brand was asked for, the useful answer is whether we carry that
+    // brand at all. "I couldn't find anything for gaming accessories" told a
+    // shopper asking after a Xiaomi charger about a category they never
+    // mentioned, inferred from one word, while leaving the actual reason —
+    // ShopiQ stocks no Xiaomi — unsaid.
+    const unstockedBrand = await firstUnstockedBrand([
+      // What the shopper named but the catalogue filter dropped, first: it is
+      // the specific thing they asked about.
+      ...extraction.unstockedBrands,
+      ...requirements.brands,
+    ]);
+
     return {
       ...base,
       intent: 'recommend',
       outcome: 'empty',
-      message: buildEmptyMessage(requirements),
+      message: unstockedBrand
+        ? `ShopiQ doesn't carry ${unstockedBrand} at all, so there's nothing I can show you there. Tell me what you need it for and I'll suggest what I do stock.`
+        : buildEmptyMessage(requirements, message),
       products: [],
       comparison: null,
       actions: [{ type: 'refine', suggestion: 'Widen the budget or drop a requirement' }],
@@ -965,60 +1012,17 @@ async function pickCrossSellAnchor(
 
   if (!candidateId) return null;
 
-  // Read the anchor from the catalogue rather than reusing a trimmed display
-  // payload — the cross-sell scorer needs its real category and price.
-  const detail = await runTool('get_product', { product_id: candidateId }, {
-    conversationId: cartContext.conversationId,
-    budget: cartContext.budget,
-  });
-  if (!detail.ok) return null;
-
-  const raw = detail.output as {
-    id: string;
-    name: string;
-    slug: string;
-    brand: string;
-    price: number;
-    compare_at_price: number | null;
-    currency: string;
-    rating: number;
-    review_count: number;
-    category: string;
-    available: boolean;
-    available_quantity: number;
-  };
-
-  const categorySlug = await slugForCategoryName(raw.category);
-
-  return {
-    id: raw.id,
-    name: raw.name,
-    slug: raw.slug,
-    brand: raw.brand,
-    sku: '',
-    shortDescription: null,
-    price: raw.price,
-    compareAtPrice: raw.compare_at_price,
-    currency: raw.currency as 'INR',
-    rating: raw.rating,
-    reviewCount: raw.review_count,
-    isFeatured: false,
-    tags: [],
-    specs: {},
-    category: { id: '', name: raw.category, slug: categorySlug },
-    image: null,
-    imageAlt: null,
-    availability: {
-      available: raw.available_quantity,
-      inStock: raw.available,
-      lowStock: false,
-    },
-  };
-}
-
-async function slugForCategoryName(name: string): Promise<string> {
-  const categories = await listCategories();
-  return categories.find((category) => category.name === name)?.slug ?? '';
+  // The FULL catalogue row, not a summary rebuilt from the tool output.
+  //
+  // That rebuild set `specs: {}`, and compatibility is decided from specs: with
+  // no display size on the anchor, a 13-inch sleeve was judged "unknown fit"
+  // rather than too small, and offered for a 15.6-inch laptop. Reading the row
+  // gives the engine the specs and catalog_metadata it needs to say no.
+  try {
+    return await getProductDetail(candidateId);
+  } catch {
+    return null;
+  }
 }
 
 async function executeConfirmedAction(
@@ -1396,6 +1400,17 @@ const NO_HALLUCINATION_RULES = [
   '- Mention the limitations you are given. Being honest about a drawback is more useful than overselling.',
   '- Prices are in Indian rupees. Write them as ₹79,999.',
   '- Reply to the customer in whatever language they used (English, Hindi, or Hinglish). Keep it to 2-4 sentences, warm and plain. No bullet lists, no markdown headings.',
+  '',
+  // Tone. Warmth here means taking the person seriously, not performing
+  // enthusiasm: a shopper spending ₹80,000 wants to feel understood, and
+  // "Great choice!!" on every product tells them nothing and reads as sales
+  // patter. None of this licenses a claim that is not in the data above.
+  'How to sound:',
+  '- Talk like a knowledgeable person in a shop, not a brochure. Short sentences. No exclamation marks, no "Great choice!", no emoji.',
+  '- Acknowledge what they actually said before answering it — especially a budget, a constraint, or a worry.',
+  '- If they seem unsure, say what you would look at to decide, and offer the next step rather than pressing for the sale.',
+  '- If the honest answer is that nothing fits, say so plainly. Never fill the gap with the closest thing and hope.',
+  '- Refer back to what has already been discussed instead of restating it. They were there for it.',
 ].join('\n');
 
 async function writeRecommendationProse(
@@ -1417,7 +1432,9 @@ async function writeRecommendationProse(
         .map(([key, value]) => `${key}=${value}`)
         .join(', ');
       return [
-        `${index + 1}. ${product.brand} ${product.name}`,
+        // Catalogue names already lead with the brand, so pairing them here
+        // taught the model to write "the Apple Apple iPhone 16".
+        `${index + 1}. ${displayName(product)}`,
         `   price: ${formatPrice(product.price)}${product.compareAtPrice ? ` (was ${formatPrice(product.compareAtPrice)})` : ''}`,
         `   rating: ${product.rating} from ${product.reviewCount} reviews`,
         `   stock: ${product.availability.inStock ? `${product.availability.available} available` : 'OUT OF STOCK'}`,
@@ -1620,12 +1637,26 @@ function buildTemplatedRecommendation(
         }. Here ${count === 1 ? 'is the closest option' : `are the ${count} closest options`}, after relaxing ${outcome.relaxed.join(' and ')}.`
       : `I found ${outcome.considered} ${pluralise(outcome.considered, 'product')} matching your requirements. Here ${count === 1 ? 'is my top pick' : `are my top ${count}`}.`;
 
-  const pick = `My top pick is the ${top.product.brand} ${top.product.name} at ${formatPrice(top.product.price)} — ${top.matchReasons.slice(0, 2).join(', ') || 'it fits what you described'}.`;
+  const pick = `My top pick is the ${displayName(top.product)} at ${formatPrice(top.product.price)} — ${top.matchReasons.slice(0, 2).join(', ') || 'it fits what you described'}.`;
 
   const caveat =
     top.limitations.length > 0 ? ` One thing to note: ${top.limitations[0]}.` : '';
 
   return `${opening} ${pick}${caveat}`;
+}
+
+/**
+ * How a product should be named in prose.
+ *
+ * Most catalogue names already start with the brand — "Samsung Galaxy S25",
+ * "Apple iPhone 16" — so prefixing the brand produced "the Apple Apple iPhone
+ * 16", both in the templated replies and, worse, in the model's, because the
+ * candidate list it was handed was written that way.
+ */
+function displayName(product: { brand: string; name: string }): string {
+  return product.name.toLowerCase().startsWith(product.brand.toLowerCase())
+    ? product.name
+    : `${product.brand} ${product.name}`;
 }
 
 function buildTemplatedComparison(comparison: ComparisonPayload): string {
@@ -1644,11 +1675,70 @@ function buildTemplatedComparison(comparison: ComparisonPayload): string {
   return `Here's how the ${names.join(' and ')} compare on the specifications ShopiQ tracks.${priceLine} ${comparison.summary} The full table is below.`;
 }
 
-function buildEmptyMessage(requirements: ShoppingRequirements): string {
+/**
+ * The first requested brand ShopiQ does not stock at all, if any.
+ *
+ * Distinguishes "we have none of that brand" — a fact worth stating plainly —
+ * from "that brand exists here but nothing met the other requirements", where
+ * relaxing a filter is the useful suggestion.
+ */
+async function firstUnstockedBrand(brands: string[]): Promise<string | null> {
+  for (const brand of brands.slice(0, 3)) {
+    try {
+      const { products } = await searchProductSummaries({
+        query: null,
+        category: null,
+        brand: [brand],
+        min_price: null,
+        max_price: null,
+        min_rating: null,
+        filters: null,
+        in_stock_only: false,
+        sort: 'relevance',
+        limit: 1,
+      });
+      if (products.length === 0) return brand;
+    } catch {
+      // A lookup failure is not evidence of absence — say nothing about it.
+      return null;
+    }
+  }
+  return null;
+}
+
+/**
+ * Words that describe the thing itself, not the way it was asked for.
+ *
+ * "check if Xiaomi Charger is in stock" is about a Xiaomi charger; "check",
+ * "stock" and "is" are the question wrapped around it.
+ */
+const ASKING_WORDS = new Set([
+  'check', 'stock', 'available', 'availability', 'have', 'has', 'any', 'some',
+  'show', 'find', 'want', 'need', 'looking', 'look', 'get', 'buy', 'give',
+  'please', 'there', 'your', 'you', 'the', 'and', 'for', 'with', 'that', 'this',
+  'about', 'tell', 'know', 'like', 'would', 'could', 'does', 'has', 'are',
+]);
+
+function buildEmptyMessage(requirements: ShoppingRequirements, asked?: string): string {
+  // What the shopper actually named beats an inferred category. Asked after a
+  // Xiaomi charger, this used to answer "nothing for gaming accessories" — a
+  // category they never mentioned, guessed from one word, which reads as the
+  // assistant having misheard them entirely.
+  const subject = (asked ?? '')
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, ' ')
+    .split(/\s+/)
+    // Digits are the budget, which is appended separately below — keeping them
+    // here produced "for laptop under 80000 under ₹80,000".
+    .filter((word) => word.length > 2 && !ASKING_WORDS.has(word) && !/\d/.test(word))
+    .slice(0, 4)
+    .join(' ');
+
   const bits: string[] = [];
-  if (requirements.category) bits.push(requirements.category.toLowerCase());
+  if (subject) bits.push(subject);
+  else if (requirements.category) bits.push(requirements.category.toLowerCase());
   if (requirements.budget.max !== null) bits.push(`under ${formatPrice(requirements.budget.max)}`);
 
   const description = bits.length > 0 ? ` for ${bits.join(' ')}` : '';
-  return `I couldn't find anything in the ShopiQ catalogue${description} that matches those requirements. Try widening the budget, or tell me which requirement is flexible and I'll look again.`;
+  return `I couldn't find anything in the ShopiQ catalogue${description}. Tell me what you'll use it for and I'll suggest the closest thing I do stock.`;
 }
