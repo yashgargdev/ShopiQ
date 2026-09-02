@@ -7,15 +7,18 @@
 ![React](https://img.shields.io/badge/React-19-black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.7-black)
 ![Postgres](https://img.shields.io/badge/Postgres-17-black)
-![licence](https://img.shields.io/badge/licence-proprietary-black)
+![licence](https://img.shields.io/badge/licence-MIT-F7931E)
+![PRs welcome](https://img.shields.io/badge/PRs-welcome-brightgreen)
 
 An AI commerce agent that understands a request in **English or Hindi**, spoken
 or typed, finds real products, asks which variant you want, compares them,
 builds the cart, and takes payment through Razorpay — with the customer
 authorising every rupee.
 
-**Version 1.0.0** · Live domain: `shopiq.yashgarg.co.in` · Contact: `shopiq@yashgarg.co.in`
-Built for the **Razorpay AI Buildathon** — track: *AI Growth & Agentic Commerce*.
+**Version 1.0.0** · Live: [shopiq.yashgarg.co.in](https://shopiq.yashgarg.co.in) · Guide: [/guide](https://shopiq.yashgarg.co.in/guide) · Contact: `shopiq@yashgarg.co.in`
+
+Open source under the [MIT Licence](LICENSE). Originally built for the
+**Razorpay AI Buildathon** — track: *AI Growth & Agentic Commerce*.
 
 ```
 "Mujhe programming aur gaming ke liye laptop chahiye, budget around 80k hai."
@@ -26,6 +29,27 @@ Built for the **Razorpay AI Buildathon** — track: *AI Growth & Agentic Commerc
                               ↓
               order → inventory → audit → measured revenue
 ```
+
+**[Try it](https://shopiq.yashgarg.co.in)** ·
+**[How it works, with screenshots](https://shopiq.yashgarg.co.in/guide)** ·
+**[Run it locally](#local-development)** ·
+**[Contributing](CONTRIBUTING.md)** ·
+**[Architecture](docs/architecture.md)** ·
+**[Security](SECURITY.md)**
+
+### Quick start
+
+```bash
+git clone https://github.com/yashgargdev/ShopiQ.git
+cd ShopiQ && npm install
+cp .env.example .env.local     # fill in a Supabase URL and keys
+npm run dev
+```
+
+No AI account and no Razorpay account are needed to develop: without an AI key
+the assistant falls back to a deterministic provider, and `npm run dev:mock`
+simulates payments end to end. Full setup in
+[Local development](#local-development).
 
 ---
 
@@ -1838,8 +1862,9 @@ Both are covered by `npm run test:payment-flows`.
       and expire after five minutes. Ambiguity is never consent.
     - **Write tools are idempotent**, keyed on conversation + tool + arguments, so a retry replays
       the recorded result instead of buying two laptops.
-    - **The AI cannot place an order or take a payment** — no such tool is registered, and no payment
-      credential exists in this phase. See [The payment boundary](#the-payment-boundary).
+    - **The AI cannot place an order or take a payment** on its own — it may request one, but only
+      the backend authorises it against a confirmation the customer approved. See
+      [Payment flow](#payment-flow).
 12. The AI reaches the catalogue with the anonymous role's privileges — the same reach as a
     logged-out browser, minus every write path. It never holds the service-role key.
 13. `/api/ai/chat` caps request size (8 KB), message length (1,000 chars), tool calls per turn (8),
@@ -1936,7 +1961,9 @@ Extensions live in an `extensions` schema rather than `public`, for the same rea
 
 ## Testing
 
-Nineteen suites, all run against a live server. Start it first, then:
+Twenty suites. Six need nothing but Node — those are the ones CI runs, and
+the ones to start with. The rest drive a real browser or a real database, so
+start a server first:
 
 ```bash
 npm run dev              # in one terminal
@@ -1945,24 +1972,24 @@ npm run dev              # in one terminal
 #   export SHOPIQ_BASE_URL=https://localhost:3000
 #   export NODE_TLS_REJECT_UNAUTHORIZED=0    # the dev certificate is self-signed
 
-# Phase 1
+# --- storefront and auth (needs a database) ---
 npm run test:api         #  83 checks — public API, guest cart, auth boundaries
 npm run test:auth        #  75 checks — signed-in flows, checkout, merchant, R2
 npm run test:visual      #        browser rendering at 3 viewports
 
-# Phase 2 (no API key required)
+# --- the assistant (no AI key required — falls back to a deterministic provider) ---
 npm run test:ai-unit     # 107 checks — extraction, constraints, scoring, state, language
 npm run test:ai-provider #  29 checks — provider contract via a mock model
 npm run test:ai-tools    #  78 checks — every tool against the real catalogue
 npm run test:ai-chat     #  68 checks — the full conversation through the API
 npm run test:ai-ui       #  31 checks — the panel in a real browser
 
-# Phase 3 (no API key required)
+# --- cart and references (no AI key required) ---
 npm run test:cart-unit   # 114 checks — references, confirmation, cross-sell, variants
 npm run test:cart-tools  #  73 checks — the cart tools, security and concurrency
 npm run test:cart-ui     #  30 checks — the agentic cart in a real browser
 
-# Phase 4 (no Razorpay account required)
+# --- payments (no Razorpay account required) ---
 npm run test:payment-unit  #  40 checks — minor units, cart hash, state machine
 npm run test:payments      #  36 checks — the authorization gate and its refusals
 npm run test:payment-flows #  68 checks — success and every named failure path
@@ -1970,7 +1997,7 @@ npm run test:payment-flows #  68 checks — success and every named failure path
                            #  provider: npm run dev:mock-https
 npm run test:payment-ui    #  31 checks — the §48 conversation in a real browser
 
-# Phase 5 (Sarvam key optional — falls back to a deterministic provider)
+# --- voice (Sarvam key optional) ---
 npm run test:voice-unit    #  40 checks — audio validation, response type, spoken summary
 npm run test:voice         #  50 checks — endpoints, shared conversation, payment safety
 npm run test:voice-ui      #  24 checks — the microphone in a real browser
@@ -1980,15 +2007,26 @@ npm run test:cart        # all three cart suites
 npm run test:payment     # all four payment suites
 npm run test:voice-all   # all three voice suites
 
-# Phase 6
+# --- analytics, security and evaluation ---
 npm run test:analytics     #  26 checks — attribution, funnel, honest-empty rates
 npm run test:security      #  55 checks — the security checklist, executed
 npm run eval               #  61 cases — measured AI evaluation (not pass/fail)
 
-# Phase 7-8
+# --- the full-screen agent, guest checkout and invoices ---
 npm run test:agent         #  84 checks — guest checkout, geolocation, invoices
 
+npm run test:catalog     #  97 checks — the recommendation engine, no database needed
+npm run test:catalog-data #  47 checks — the imported catalogue, against the database
+
 npm run test:all         # everything
+```
+
+**Runnable with no credentials at all** — these are what CI enforces:
+
+```bash
+npm run typecheck
+npm run test:catalog test:ai-unit test:ai-provider
+npm run test:cart-unit test:payment-unit test:voice-unit
 ```
 
 The suites share an IP, so the AI rate limiter can still be warm when the next one starts. The
@@ -2428,4 +2466,70 @@ Highlights of the final phase:
 
 ---
 
-© 2026 ShopiQ
+## Contributing
+
+Contributions are welcome — bug reports, fixes, documentation and features
+alike.
+
+Start with **[CONTRIBUTING.md](CONTRIBUTING.md)**. It covers how to get a local
+instance running, how the test suites are organised, and — most importantly —
+[the rules that are not negotiable](CONTRIBUTING.md#the-rules-that-are-not-negotiable):
+the invariants that keep a language model from being able to set a price, spend
+money unasked, or read someone else's account.
+
+```bash
+git clone https://github.com/yashgargdev/ShopiQ.git
+cd ShopiQ && npm install
+cp .env.example .env.local     # then fill it in
+npm run dev
+```
+
+You can develop most of the app with **no AI account and no Razorpay account**:
+without an AI key the assistant falls back to a deterministic provider, and
+`npm run dev:mock` simulates payments end to end.
+
+| | |
+| --- | --- |
+| [Code of Conduct](CODE_OF_CONDUCT.md) | Contributor Covenant 2.1 |
+| [Security policy](SECURITY.md) | How to report a vulnerability privately |
+| [Pull request template](.github/PULL_REQUEST_TEMPLATE.md) | What a PR should tell a reviewer |
+| [Issue templates](.github/ISSUE_TEMPLATE) | Bug reports and feature requests |
+
+**Good first issues.** The catalogue's category aliases are incomplete — asking
+for "a charger" classifies into the wrong category, which the assistant answers
+honestly but unhelpfully. There is also a backlog of
+`@typescript-eslint/no-explicit-any` in older modules. Both are self-contained.
+
+### Continuous integration
+
+Every push and pull request runs [CI](.github/workflows/ci.yml): typecheck,
+production build, and the six test suites that need no database and no API key
+(474 assertions). A second job refuses any commit containing a
+credential-shaped string, across the full history rather than just the tip.
+
+CI deliberately uses placeholder environment values, so a pull request from a
+fork gets the same green tick as one from a branch.
+
+---
+
+## Licence
+
+Released under the [MIT Licence](LICENSE) — © 2026 Yash Garg.
+
+**The code is MIT. The contents of the demo are not.** Product photographs under
+`Products/`, the imagery served from the ShopiQ CDN, and the brand names in the
+catalogue belong to their respective owners and are present for demonstration
+only. The catalogue itself — prices, ratings, stock and reviews — is invented
+data, labelled as such throughout the app. If you fork this for anything beyond
+local experimentation, replace that material with content you have the right to
+use. See the [notice in the licence file](LICENSE) for the detail.
+
+---
+
+## Acknowledgements
+
+Built with [Next.js](https://nextjs.org), [Supabase](https://supabase.com),
+[Razorpay](https://razorpay.com), [Sarvam AI](https://www.sarvam.ai) and
+[Cloudflare R2](https://developers.cloudflare.com/r2/).
+
+© 2026 Yash Garg

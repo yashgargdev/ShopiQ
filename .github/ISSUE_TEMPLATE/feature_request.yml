@@ -1,0 +1,84 @@
+name: Feature request
+description: Suggest something ShopiQ should be able to do
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea.
+
+        The most useful requests describe **a shopper who cannot do something
+        today**, rather than a solution. The problem tends to outlive whichever
+        implementation gets chosen.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What can't someone do today?
+      placeholder: >
+        There is no way to ask "what did I buy last month" — the assistant can
+        list recent orders but not filter them by date.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like it to do?
+      description: If you have a specific idea, describe it. If not, that's fine.
+    validations:
+      required: false
+
+  - type: textarea
+    id: conversation
+    attributes:
+      label: How would it sound?
+      description: >
+        For assistant features, write the exchange as you'd want it to go. This
+        is usually the clearest possible specification.
+      render: text
+      placeholder: |
+        me:  what did I buy last month?
+        AI:  Two orders in August: ...
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Which part of ShopiQ?
+      multiple: true
+      options:
+        - The assistant (chat or voice)
+        - Recommendations and the catalogue
+        - The storefront
+        - Checkout and payments
+        - Account and orders
+        - The merchant panel
+        - Documentation
+        - Developer experience or tests
+    validations:
+      required: true
+
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Anything this must not break
+      description: >
+        ShopiQ has some hard rules — the model never decides an amount, identity
+        comes from the session, a payment needs explicit authorisation. If your
+        idea brushes against any of them, say how you'd keep them intact. See
+        CONTRIBUTING.md.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have searched existing issues
+          required: true
+        - label: I would be willing to work on this
+          required: false

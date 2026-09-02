@@ -1,0 +1,120 @@
+name: Bug report
+description: Something behaves incorrectly
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting this.
+
+        If the bug involves the assistant, **the exact wording you used is
+        usually the most important detail** — this is a conversational app, and
+        the phrasing is often the bug.
+
+        ⚠️ **Do not report security vulnerabilities here.** See
+        [SECURITY.md](../blob/main/SECURITY.md) for private disclosure.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you expect, and what happened instead?
+      placeholder: |
+        I asked for a charger and it added a pair of headphones without saying so.
+    validations:
+      required: true
+
+  - type: textarea
+    id: conversation
+    attributes:
+      label: The conversation
+      description: >
+        If this involves the assistant, paste what you said and what it replied,
+        in order. Include the turns before it — context from earlier turns is
+        often what went wrong.
+      render: text
+      placeholder: |
+        me:  I want an iPhone 16
+        AI:  The top pick is ...
+        me:  add that Apple charger only
+        AI:  Added boAt Rockerz 550 to your cart.     <-- wrong
+    validations:
+      required: false
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      value: |
+        1.
+        2.
+        3.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where does it happen?
+      multiple: true
+      options:
+        - The assistant (chat or voice)
+        - The storefront (product pages, cart)
+        - Checkout or payment
+        - Account, orders or addresses
+        - The merchant panel
+        - Catalogue data or recommendations
+        - Somewhere else
+    validations:
+      required: true
+
+  - type: dropdown
+    id: device
+    attributes:
+      label: Device
+      options:
+        - Desktop
+        - Mobile
+        - Both
+    validations:
+      required: true
+
+  - type: input
+    id: viewport
+    attributes:
+      label: Screen width, if it is a layout bug
+      description: Most of this project's layout bugs only appear below 400px.
+      placeholder: "390px, iPhone 14"
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      value: |
+        - Running: local dev / deployed
+        - Node version:
+        - Browser:
+        - Payments provider: razorpay / mock
+        - AI provider: anthropic / sarvam / none
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Console or server output
+      description: Any errors from the browser console or the terminal.
+      render: shell
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before submitting
+      options:
+        - label: I have searched existing issues
+          required: true
+        - label: This is not a security vulnerability (those go to shopiq@yashgarg.co.in)
+          required: true
+        - label: I have removed any API keys, tokens or personal data from what I pasted
+          required: true

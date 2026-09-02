@@ -1,0 +1,13 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 🔒 Report a security vulnerability
+    url: https://github.com/yashgargdev/ShopiQ/blob/main/SECURITY.md
+    about: >
+      Please do not open a public issue. Email shopiq@yashgarg.co.in — this
+      project handles payments and account data.
+  - name: 💬 Ask a question
+    url: https://github.com/yashgargdev/ShopiQ/discussions
+    about: For questions about using or setting up ShopiQ.
+  - name: 📖 How ShopiQ works
+    url: https://shopiq.yashgarg.co.in/guide
+    about: The user guide, with screenshots of the real interface.
