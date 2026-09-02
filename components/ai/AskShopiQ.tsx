@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { ReactNode } from 'react';
 
@@ -71,6 +72,33 @@ export function useAiPanel(): AiPanelState {
 }
 
 /* ------------------------------------------------------------------ entry points */
+
+/**
+ * The header's entry point, which NAVIGATES rather than opening the panel.
+ *
+ * On a catalogue page the panel is the right answer — you are looking at
+ * something and want to ask about it, and losing the page to do that would be
+ * a step backwards. From the header the intent is different: "take me to the
+ * assistant", and the assistant's own page is the whole screen, with voice.
+ *
+ * Rendered as a link, not a button, so it behaves like one: middle-click and
+ * "open in new tab" work, and it is announced as a link.
+ */
+export function AskShopiQHomeLink({ className }: { className?: string }) {
+  return (
+    <Link
+      href="/"
+      aria-label="Open the ShopiQ assistant"
+      className={cx(
+        'inline-flex h-[38px] items-center gap-2 rounded-[10px] border border-[rgba(247,147,30,.42)] bg-[rgba(247,147,30,.1)] px-3.5 text-[13.5px] font-medium whitespace-nowrap text-[#FFC07A] transition-colors hover:border-[rgba(247,147,30,.7)] hover:bg-[rgba(247,147,30,.18)]',
+        className,
+      )}
+    >
+      <SparkIcon size={14} />
+      Ask ShopiQ
+    </Link>
+  );
+}
 
 export function AskShopiQButton({
   label = 'Ask ShopiQ',

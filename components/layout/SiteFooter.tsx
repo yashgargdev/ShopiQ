@@ -23,6 +23,7 @@ const COLUMNS = [
   {
     title: 'Support',
     links: [
+      { href: '/guide', label: 'How ShopiQ works' },
       { href: '/orders', label: 'Track order' },
       { href: '/account', label: 'Your account' },
       { href: '/cart', label: 'Your cart' },

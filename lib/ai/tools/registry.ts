@@ -10,6 +10,7 @@ import {
   compareProducts,
   getCategories,
   getProduct,
+  getProductReviews,
   getRelatedProducts,
   searchProducts,
 } from './implementations';
@@ -57,6 +58,7 @@ import {
   getCartInput,
   getCategoriesInput,
   getProductInput,
+  getProductReviewsInput,
   getRelatedProductsInput,
   prepareCheckoutInput,
   removeFromCartInput,
@@ -185,6 +187,14 @@ const TOOLS = {
     mutates: false,
   }),
 
+  get_product_reviews: describe({
+    name: 'get_product_reviews',
+    description:
+      'What buyers said about one product: how many reviews, the average, the star distribution, which aspects are most praised and most criticised (with counts), and two representative quotes. Use this for "what do reviews say", "is it any good", or any question about other buyers. The counts are computed by ShopiQ — report them, do not estimate. Returns summary: null when a product has no reviews, which means say so.',
+    schema: getProductReviewsInput,
+    run: getProductReviews,
+    mutates: false,
+  }),
   compare_products: describe({
     name: 'compare_products',
     description:

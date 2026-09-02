@@ -101,6 +101,21 @@ export function AgentHeader({
         </div>
 
         <div className="flex items-center gap-2">
+          {/* The front door is the assistant, but browsing a grid is still the
+              faster way to answer "what do you even sell?". Both links are
+              relative so they work on localhost and on the deployed domain. */}
+          <Link
+            href="/products"
+            className="inline-flex h-9 items-center rounded-full border border-white/12 px-3.5 text-[13px] font-medium text-[#8A8A93] transition-colors hover:border-white/28 hover:text-white"
+          >
+            Store
+          </Link>
+          <Link
+            href="/guide"
+            className="hidden h-9 items-center rounded-full border border-white/12 px-3.5 text-[13px] font-medium text-[#8A8A93] transition-colors hover:border-white/28 hover:text-white sm:inline-flex"
+          >
+            Guide
+          </Link>
           <button
             type="button"
             onClick={onToggleTranscript}
@@ -155,6 +170,19 @@ export function AgentHeader({
                 <MenuLink href="/account/addresses" onNavigate={() => setMenuOpen(false)}>
                   Addresses
                 </MenuLink>
+                {/* On a phone the header links are hidden for width, so the
+                    menu is the only way to reach them. */}
+                <div className="my-1.5 h-px bg-white/8 sm:hidden" />
+                <span className="sm:hidden">
+                  <MenuLink href="/products" onNavigate={() => setMenuOpen(false)}>
+                    Store
+                  </MenuLink>
+                </span>
+                <span className="sm:hidden">
+                  <MenuLink href="/guide" onNavigate={() => setMenuOpen(false)}>
+                    Guide
+                  </MenuLink>
+                </span>
                 <div className="my-1.5 h-px bg-white/8" />
                 <MenuItem onClick={signOut} tone="danger">
                   Sign out

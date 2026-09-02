@@ -54,6 +54,7 @@ import {
 import { handleSignInAnswer, readSignInState, startSignIn } from './signin-flow';
 import { shouldCrossSell } from './crosssell';
 import { answerWhyRecommended } from './why';
+import { answerReviewQuestion } from './review-answers';
 import { detectLanguage, localise } from './language';
 import { coloursFor, readVariantSelection } from './variant-flow';
 import { statedStorage, storageLabel, variantBase } from './variants';
@@ -423,6 +424,32 @@ async function runAgentCore(message: string, context: AgentContext): Promise<Age
     order_support: () => handleOrderSupport(message),
   };
 
+  // ------------------------------------------------------ "what do reviews say?"
+  // Before intent routing, for the same reason as the "why" answer below: the
+  // extractor reads it as a fresh product search and goes hunting the catalogue
+  // for something called "what reviews say".
+  const reviewScope = {
+    shown: context.lastShownProducts.map((product) => ({
+      productId: product.productId,
+      name: product.name,
+      brand: product.brand,
+      price: product.price,
+      score: product.score,
+      specs: product.keySpecs,
+    })),
+    cart: [],
+  };
+
+  const reviewAnswer = await answerReviewQuestion(message, reviewScope, context.lastShownProducts);
+  if (reviewAnswer) {
+    return finishTurn(context, reviewAnswer, {
+      intent: 'product_question',
+      requirements,
+      toolsUsed,
+      provider: provider.name,
+      degraded: !provider.available,
+    });
+  }
   // ------------------------------------------------------- "why that one?"
   // Checked before intent routing because there is no `why` intent: the
   // extractor reads it as a fresh product question and searches the catalogue

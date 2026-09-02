@@ -82,6 +82,10 @@ export const getProductInput = z
   .object({ product_id: productRefSchema })
   .strict();
 
+export const getProductReviewsInput = z
+  .object({ product_id: productRefSchema })
+  .strict();
+
 export const compareProductsInput = z
   .object({
     product_ids: z
@@ -253,6 +257,7 @@ export type GetCheckoutConfirmationInput = z.infer<typeof getCheckoutConfirmatio
 
 export type SearchProductsInput = z.infer<typeof searchProductsInput>;
 export type GetProductInput = z.infer<typeof getProductInput>;
+export type GetProductReviewsInput = z.infer<typeof getProductReviewsInput>;
 export type CompareProductsInput = z.infer<typeof compareProductsInput>;
 export type CheckInventoryInput = z.infer<typeof checkInventoryInput>;
 export type GetCategoriesInput = z.infer<typeof getCategoriesInput>;

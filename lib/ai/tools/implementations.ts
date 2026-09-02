@@ -8,6 +8,7 @@ import {
   listProducts,
   type SpecFilter,
 } from '@/lib/products/queries';
+import { aspectLabel, summariseProductReviews } from '@/lib/reviews/queries';
 import type { ProductDetail, ProductSummary } from '@/types';
 import {
   toDbSpecFilters,
@@ -15,6 +16,7 @@ import {
   type CompareProductsInput,
   type GetCategoriesInput,
   type GetProductInput,
+  type GetProductReviewsInput,
   type GetRelatedProductsInput,
   type SearchProductsInput,
 } from './schemas';
@@ -629,3 +631,66 @@ async function accessoriesFor(categorySlug: string, limit: number): Promise<Prod
 
 /** Re-exported so the registry can map thrown API errors onto tool errors. */
 export { ApiError };
+
+// ------------------------------------------------------ get_product_reviews
+
+export interface GetProductReviewsResult {
+  product_id: string;
+  product_name: string;
+  /** Null when nothing has been reviewed — say so rather than filling it in. */
+  summary: {
+    count: number;
+    average: number;
+    distribution: Record<string, number>;
+    praised: Array<{ aspect: string; positive: number; negative: number }>;
+    criticised: Array<{ aspect: string; positive: number; negative: number }>;
+    quotes: Array<{ rating: number; body: string }>;
+    verified_share: number;
+    demo_data: true;
+  } | null;
+}
+
+/**
+ * What buyers said about a product, already counted.
+ *
+ * The tallies are computed in code so the assistant reports numbers it was
+ * given rather than an impression formed by reading twenty reviews — and so a
+ * complaint mentioned twice is never reported as "buyers complain about it".
+ */
+export async function getProductReviews(
+  input: GetProductReviewsInput,
+): Promise<GetProductReviewsResult> {
+  const product = await getProductDetail(input.product_id);
+  const summary = await summariseProductReviews(product.id);
+
+  return {
+    product_id: product.id,
+    product_name: product.name,
+    summary: summary
+      ? {
+          count: summary.count,
+          average: summary.average,
+          distribution: {
+            '5': summary.distribution[5],
+            '4': summary.distribution[4],
+            '3': summary.distribution[3],
+            '2': summary.distribution[2],
+            '1': summary.distribution[1],
+          },
+          praised: summary.praised.map((entry) => ({
+            aspect: aspectLabel(entry.aspect),
+            positive: entry.positive,
+            negative: entry.negative,
+          })),
+          criticised: summary.criticised.map((entry) => ({
+            aspect: aspectLabel(entry.aspect),
+            positive: entry.positive,
+            negative: entry.negative,
+          })),
+          quotes: summary.quotes.map((quote) => ({ rating: quote.rating, body: quote.body })),
+          verified_share: summary.verifiedShare,
+          demo_data: true,
+        }
+      : null,
+  };
+}

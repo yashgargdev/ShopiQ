@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 
@@ -8,6 +9,7 @@ import { ProductGallery } from '@/components/products/ProductGallery';
 import { ProductGrid } from '@/components/products/ProductCard';
 import { SparkIcon } from '@/components/ui/icons';
 import { Price, Rating, SectionHeading, StockPill } from '@/components/ui/primitives';
+import { ProductReviews } from '@/components/products/ProductReviews';
 import { ApiError } from '@/lib/api/response';
 import { deliveryEstimate, formatNumber, formatSpecValue } from '@/lib/format';
 import { getProductDetail } from '@/lib/products/queries';
@@ -226,6 +228,10 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           </p>
         </section>
       ) : null}
+
+      <Suspense fallback={null}>
+        <ProductReviews productId={product.id} />
+      </Suspense>
 
       {product.related.length > 0 ? (
         <section className="mt-16">

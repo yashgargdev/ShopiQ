@@ -630,11 +630,19 @@ await admin
 // ------ stock change detection
 const { data: inv } = await admin
   .from('inventory')
-  .select('quantity')
+  .select('quantity, reserved_quantity')
   .eq('product_id', stocked.id)
   .single();
 
-await admin.from('inventory').update({ quantity: 1 }).eq('product_id', stocked.id);
+// `available` is generated as quantity - reserved_quantity, so setting quantity
+// to 1 leaves ONE available only when nothing is reserved. An open order
+// against this product reserves stock, which made available 0 — and the
+// assertion then failed on "out_of_stock", which is the correct answer to a
+// different question. Aim at the available figure the test actually needs.
+await admin
+  .from('inventory')
+  .update({ quantity: (inv.reserved_quantity ?? 0) + 1 })
+  .eq('product_id', stocked.id);
 
 const shortStock = await buyer.http('/api/cart/prepare-checkout', { method: 'POST' });
 check(

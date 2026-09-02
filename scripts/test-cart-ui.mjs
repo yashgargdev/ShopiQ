@@ -70,12 +70,29 @@ try {
     for (let waited = 0; waited < 60_000 && !(await input.isEnabled()); waited += 250) {
       await page.waitForTimeout(250);
     }
+
+    // If it is STILL disabled, pressing Enter sends nothing and the wait below
+    // dies 90 seconds later with an empty log — a timeout that reads as a
+    // broken assistant when the real story is that the composer never became
+    // editable. Say which of the two actually happened.
+    if (!(await input.isEnabled())) {
+      throw new Error(
+        `The composer never became editable, so "${text}" was never sent. The previous turn did not finish.`,
+      );
+    }
+
+    // Arm the waiter BEFORE submitting: the response can arrive faster than the
+    // next await, and a waiter attached afterwards misses it and then blames
+    // the server for being slow.
+    const waiter = page.waitForResponse(
+      (r) => r.url().includes('/api/ai/chat') && r.request().method() === 'POST',
+      { timeout: 90_000 },
+    );
+
     await input.fill(text);
     await input.press('Enter');
-    const response = await page.waitForResponse(
-      (r) => r.url().includes('/api/ai/chat') && r.request().method() === 'POST',
-      { timeout: 45_000 },
-    );
+
+    const response = await waiter;
 
     // Shared-IP rate limiting: wait the window out and send again rather than
     // reporting a false failure.

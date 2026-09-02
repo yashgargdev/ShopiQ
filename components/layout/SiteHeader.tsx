@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-import { AskShopiQButton } from '@/components/ai/AskShopiQ';
+import { AskShopiQHomeLink } from '@/components/ai/AskShopiQ';
 import { CartIcon, CloseIcon, SearchIcon, UserIcon } from '@/components/ui/icons';
 import { cx } from '@/lib/format';
 import { useCart } from '@/components/cart/CartProvider';
@@ -19,6 +19,7 @@ const NAV = [
   { href: '/products', label: 'Products' },
   { href: '/categories', label: 'Categories' },
   { href: '/products?sort=discount', label: 'Deals' },
+  { href: '/guide', label: 'Guide' },
 ];
 
 export function SiteHeader({ user }: { user: SessionUser | null }) {
@@ -110,7 +111,7 @@ export function SiteHeader({ user }: { user: SessionUser | null }) {
             component's own `inline-flex` would win. The bottom nav carries the
             AI entry point on small screens. */}
         <span className="hidden sm:block">
-          <AskShopiQButton />
+          <AskShopiQHomeLink />
         </span>
 
         <Link
