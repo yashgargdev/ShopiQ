@@ -124,12 +124,26 @@ try {
     for (let waited = 0; waited < 60_000 && !(await input.isEnabled()); waited += 250) {
       await page.waitForTimeout(250);
     }
+
+    // Still disabled means Enter sends nothing, and the wait below dies much
+    // later with an empty log. Name the actual failure.
+    if (!(await input.isEnabled())) {
+      throw new Error(
+        `The composer never became editable, so "${text}" was never sent. The previous turn did not finish.`,
+      );
+    }
+
+    // Armed before the send: the reply can arrive before the next await, and a
+    // waiter attached afterwards waits for something that already happened.
+    const waiter = page.waitForResponse(
+      (r) => r.url().includes('/api/ai/chat') && r.request().method() === 'POST',
+      { timeout: 90_000 },
+    );
+
     await input.fill(text);
     await input.press('Enter');
-    const response = await page.waitForResponse(
-      (r) => r.url().includes('/api/ai/chat') && r.request().method() === 'POST',
-      { timeout: 45_000 },
-    );
+
+    const response = await waiter;
     if (response.status() === 429 && attempt < 2) {
       const retryAfter = Number(response.headers()['retry-after'] ?? 30);
       await page.waitForTimeout((retryAfter + 2) * 1000);

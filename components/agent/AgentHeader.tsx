@@ -87,20 +87,29 @@ export function AgentHeader({
     <>
       <header className="flex shrink-0 items-center justify-between px-5 pt-[max(0.9rem,env(safe-area-inset-top))]">
         {/* Branding — the lockup, not a back button. This is the front door. */}
-        <div className="flex items-center gap-2.5">
+        <div className="flex min-w-0 items-center gap-2.5">
           <img
             src={LOGO_URL}
             width={28}
             height={28}
-            alt=""
-            className="h-7 w-7 rounded-[8px]"
+            alt="ShopiQ"
+            className="h-7 w-7 shrink-0 rounded-[8px]"
           />
-          <span className="text-[17px] font-semibold tracking-[-0.02em] text-white">
+          {/*
+            The wordmark steps aside on a phone.
+
+            Neither group could shrink, so on a 390px screen the controls simply
+            overflowed and drew on top of the wordmark — "ShopiQ" and "Store"
+            occupying the same pixels. Something had to give up its width, and
+            the logo alone still says whose app this is, while a control the
+            reader cannot reach says nothing at all.
+          */}
+          <span className="hidden truncate text-[17px] font-semibold tracking-[-0.02em] text-white sm:inline">
             Shopi<span className="text-[#F7931E]">Q</span>
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           {/* The front door is the assistant, but browsing a grid is still the
               faster way to answer "what do you even sell?". Both links are
               relative so they work on localhost and on the deployed domain. */}
@@ -144,10 +153,20 @@ export function AgentHeader({
                   : 'border-white/12 text-[#EDEDF0] hover:border-white/28',
               )}
             >
-              <span className="grid h-6 w-6 place-items-center rounded-full brand-gradient text-[11px] font-bold text-[#1A0D02]">
+              <span className="grid h-6 w-6 shrink-0 place-items-center rounded-full brand-gradient text-[11px] font-bold text-[#1A0D02]">
                 {shortName(customer).charAt(0).toUpperCase()}
               </span>
-              {shortName(customer)}
+              {/*
+                A long name cannot push the row off the screen.
+                "Yashwardhan" overflowed a 320px viewport by 26px, and the part
+                that left the screen was the part you tap. Capped everywhere,
+                and below 360px dropped entirely — at that width the four
+                controls plus a name do not fit however hard they are squeezed,
+                and the initial in the circle already says whose account it is.
+              */}
+              <span className="hidden max-w-[84px] truncate min-[360px]:inline">
+                {shortName(customer)}
+              </span>
               <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                 <path d="m6 9 6 6 6-6" />
               </svg>

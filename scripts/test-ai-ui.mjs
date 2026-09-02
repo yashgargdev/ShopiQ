@@ -79,16 +79,18 @@ try {
   });
 
   const input = panel.locator('input[aria-label="Message ShopiQ"]');
+  // Armed BEFORE the send: the reply can arrive before the next await,
+  // and a waiter attached afterwards waits 45 seconds for something that
+  // already happened, then blames the server.
+  const chatTurn = page.waitForResponse(
+    (response) => response.url().includes('/api/ai/chat') && response.request().method() === 'POST',
+    { timeout: 90_000 },
+  );
   await input.fill(
     'Mujhe college ke liye laptop chahiye. Programming aur thodi gaming karni hai. Budget 80 hazaar hai.',
   );
   await input.press('Enter');
-
-  // Wait for the assistant turn to land.
-  await page.waitForResponse(
-    (response) => response.url().includes('/api/ai/chat') && response.request().method() === 'POST',
-    { timeout: 45_000 },
-  );
+  await chatTurn;
   await page.waitForTimeout(1500);
 
   const panelText = await panel.innerText();
@@ -136,12 +138,16 @@ try {
   // ============================================================== follow-up
   section('Follow-up keeps context');
 
+  // Armed BEFORE the send: the reply can arrive before the next await,
+  // and a waiter attached afterwards waits 45 seconds for something that
+  // already happened, then blames the server.
+  const followUpTurn = page.waitForResponse(
+    (response) => response.url().includes('/api/ai/chat') && response.request().method() === 'POST',
+    { timeout: 90_000 },
+  );
   await input.fill('Thoda lightweight chahiye');
   await input.press('Enter');
-  await page.waitForResponse(
-    (response) => response.url().includes('/api/ai/chat') && response.request().method() === 'POST',
-    { timeout: 45_000 },
-  );
+  await followUpTurn;
   await page.waitForTimeout(1500);
 
   const afterFollowUp = await panel.locator('article').count();
@@ -157,11 +163,15 @@ try {
 
   const compareButton = panel.locator('button', { hasText: 'Compare the top two' }).last();
   if (await compareButton.count()) {
-    await compareButton.click();
-    await page.waitForResponse(
+    // Armed BEFORE the send: the reply can arrive before the next await,
+    // and a waiter attached afterwards waits 45 seconds for something that
+    // already happened, then blames the server.
+    const compareTurn = page.waitForResponse(
       (response) => response.url().includes('/api/ai/chat') && response.request().method() === 'POST',
-      { timeout: 45_000 },
+      { timeout: 90_000 },
     );
+    await compareButton.click();
+    await compareTurn;
     await page.waitForTimeout(1500);
 
     check('a comparison payload came back', apiPayload?.comparison != null);
@@ -200,12 +210,16 @@ try {
   check('no horizontal overflow at 390px', overflow <= 1, `${overflow}px`);
 
   const mobileInput = mobilePanel.locator('input[aria-label="Message ShopiQ"]');
+  // Armed BEFORE the send: the reply can arrive before the next await,
+  // and a waiter attached afterwards waits 45 seconds for something that
+  // already happened, then blames the server.
+  const mobileTurn = mobilePage.waitForResponse(
+    (response) => response.url().includes('/api/ai/chat') && response.request().method() === 'POST',
+    { timeout: 90_000 },
+  );
   await mobileInput.fill('headphones under 3000');
   await mobileInput.press('Enter');
-  await mobilePage.waitForResponse(
-    (response) => response.url().includes('/api/ai/chat') && response.request().method() === 'POST',
-    { timeout: 45_000 },
-  );
+  await mobileTurn;
   await mobilePage.waitForTimeout(1500);
 
   check('products render on mobile', (await mobilePanel.locator('article').count()) > 0);
